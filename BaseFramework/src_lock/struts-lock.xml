@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<!-- 开锁相关 start -->
+	<package name="unlock" extends="struts-default" namespace="/web/unlock">
+		<interceptors>
+			<interceptor name="loginInterceptor"
+				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			</interceptor>
+		</interceptors>
+		<global-results>
+			<result name="logout">/logout.jsp</result>
+		</global-results>
+		<action name="goTo" class="unlockInfoAction" method="goTo">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="goto">/FunctionLock/unlock/unlock_list.jsp</result>
+		</action>
+		<action name="queryForGrid" class="unlockInfoAction" method="queryForGrid">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/FunctionLock/unlock/unlock_grid.jsp</result>
+		</action>
+	</package>
+	<!-- 开锁相关 end -->
+
+	<!-- 业务单相关 start -->
+	<package name="workorder" extends="struts-default" namespace="/web/workorder">
+		<interceptors>
+			<interceptor name="loginInterceptor"
+				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			</interceptor>
+		</interceptors>
+		<global-results>
+			<result name="logout">/logout.jsp</result>
+		</global-results>
+		<action name="goTo" class="workorderAction" method="goTo">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="goto">/FunctionLock/workorder/order_list.jsp</result>
+		</action>
+		<action name="queryForGrid" class="workorderAction" method="queryForGrid">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/FunctionLock/workorder/order_grid.jsp</result>
+		</action>
+	</package>
+	<!-- 业务单相关 end -->
+
+	<!-- 通话单相关 start -->
+	<package name="callbill" extends="struts-default" namespace="/web/callbill">
+		<interceptors>
+			<interceptor name="loginInterceptor"
+				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			</interceptor>
+		</interceptors>
+		<global-results>
+			<result name="logout">/logout.jsp</result>
+		</global-results>
+		<action name="goTo" class="callbillAction" method="goTo">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="goto">/FunctionLock/callbill/callbill_list.jsp</result>
+		</action>
+		<action name="queryForGrid" class="callbillAction" method="queryForGrid">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/FunctionLock/callbill/callbill_grid.jsp</result>
+		</action>
+	</package>
+	<!-- 通话单相关 end -->
+</struts>

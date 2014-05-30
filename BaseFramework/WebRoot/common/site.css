@@ -1,0 +1,31 @@
+.noWrapTd
+{
+	word-WRAP: break-word;
+}
+.tableNoWrap{
+	TABLE-LAYOUT: fixed;
+}	
+
+.popDiv{
+	font-size:12px;
+	padding-top:20px;
+}
+
+.editInput{
+	width:200px;
+	font-size:12px;
+}
+
+.editSelect{
+	width:205px; font-size:12px;height: 20px;
+}	
+
+.editLeftTd{
+	height:30px;
+	text-align:right;
+}
+
+body{
+	font-size:12px;	
+}
+

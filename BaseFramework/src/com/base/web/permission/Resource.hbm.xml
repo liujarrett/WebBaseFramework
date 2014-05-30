@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.base.web.permission.Resource" table="T_BASE_RESOURCE">
+		<id name="id" column="ID">
+			<generator class="identity"></generator>
+		</id>
+		<!-- 资源与功能之间 一对多 双向关联 -->
+		<many-to-one name="function" column="FUNCTION_ID"
+			not-null="true" />
+
+		<property name="resourceCode" column="RESOURCE_CODE" />
+		<property name="resourceType" column="RESOURCE_TYPE" />
+		<property name="name" column="NAME" />
+		<property name="url" column="URL" />
+		<property name="remarks" column="REMARKS" />
+		<property name="orderNumber" column="ORDER_NUMBER" />
+		<property name="currentState" column="CURRENT_STATE" />
+		<property name="isDelete" column="IS_DELETE" />
+		<property name="createTime" column="CREATE_TIME" />
+		<property name="updateTime" column="UPDATE_TIME" />
+	</class>
+</hibernate-mapping>

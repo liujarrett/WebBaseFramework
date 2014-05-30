@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+	<!-- 公司dao -->
+	<bean id="companyDao" class="com.base.web.company.CompanyDaoImp">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 组织dao -->
+	<bean id="organizationDao" class="com.base.web.organization.OrganizationDaoImp">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 功能dao -->
+	<bean id="functionDao" class="com.base.web.permission.FunctionDaoImp">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 资源dao -->
+	<bean id="resourceDao" class="com.base.web.permission.ResourceDaoImp">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 权限dao -->
+	<bean id="permissionDao" class="com.base.web.permission.PermissionDaoImp">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 角色dao -->
+	<bean id="roleDao" class="com.base.web.permission.RoleDaoImp">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 用户dao -->
+	<bean id="userDao" class="com.base.web.user.UserDaoImp">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 手机版本dao -->
+	<bean id="mobileVersionDao" class="com.base.mobile.version.MobileVersionDaoImp">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<import resource="applicationContext-lock-dao.xml" />
+</beans>
+

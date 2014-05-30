@@ -1,0 +1,243 @@
+.nfpTree
+{
+	font: normal 12px arial, tahoma, helvetica, sans-serif;
+	margin:0;
+	padding:0;
+	padding-left:20px;
+	list-style-type: none;
+	/*
+	overflow:auto;
+	width: 250px;
+	height:350px;
+	overflow:auto;
+	border: 1px solid #444444;
+	*/
+}
+.nfpTree li
+{
+	list-style: none;
+	margin:0;
+	padding:0 0 0 30px;
+	line-height: 14px;
+	white-space: nowrap;
+}
+.nfpTree li span
+{
+	display:inline;
+	clear: left;
+	white-space: nowrap;
+}
+.nfpTree ul
+{
+	margin:0; 
+	padding:0;
+}
+.nfpTree .root
+{
+	margin-left:-16px;
+}
+.nfpTree .line
+{
+	margin:0 0 0 -16px;
+	padding:0;
+	line-height: 3px;
+	height:3px;
+	font-size:3px;
+	background: url(images/line_bg.gif) 0 0 no-repeat transparent;
+}
+.nfpTree .line-first{
+	margin:0 0 0 -16px;
+	padding:0;
+	line-height: 3px;
+	height:3px;
+	font-size:3px;
+}
+.nfpTree .line-last
+{
+	margin:0 0 0 -16px;
+	padding:0;
+	line-height: 3px;
+	height:3px;
+	font-size:3px;
+	background: url(images/spacer.gif) 0 0 no-repeat transparent;
+}
+.nfpTree .line-over
+{
+	margin:0 0 0 -16px;
+	padding:0;
+	line-height: 3px;
+	height:3px;
+	font-size:3px;
+	background: url(images/line_bg_over.gif) 0 0 no-repeat transparent;
+}
+.nfpTree .line-over-first
+{
+	margin:0 0 0 -16px;
+	padding:0;
+	line-height: 3px;
+	height:3px;
+	font-size:3px;
+	background: url(images/line_bg_over.gif) 0 0 no-repeat transparent;
+}
+.nfpTree .line-over-last
+{
+	margin:0 0 0 -16px;
+	padding:0;
+	line-height: 3px;
+	height:3px;
+	font-size:3px;
+	background: url(images/line_bg_over_last.gif) 0 0 no-repeat transparent;
+}
+.nfpTree .folder-open
+{
+	margin-left:-16px;
+	background: url(images/collapsable.gif) 0 -2px no-repeat #fff;
+}
+.nfpTree .folder-open-first
+{
+	margin-left:-16px;
+	background: url(images/collapsable-first.gif) 0 -2px no-repeat #fff;
+}
+.nfpTree .folder-open-first-last
+{
+	margin-left:-16px;
+	background: url(images/collapsable-last-first.gif) 0 -2px no-repeat #fff;
+}
+.nfpTree .folder-open-last-first
+{
+	margin-left:-16px;
+	background: url(images/collapsable-last-first.gif) 0 -2px no-repeat #fff;
+}
+.nfpTree .folder-open-last
+{
+	margin-left:-16px;
+	background: url(images/collapsable-last.gif) 0 -2px no-repeat #fff;
+}
+.nfpTree .folder-close
+{
+	margin-left:-16px;
+	background: url(images/expandable.gif) 0 -2px no-repeat #fff;
+}
+.nfpTree .folder-close-first
+{
+	margin-left:-16px;
+	background: url(images/expandable-first.gif) 0 -2px no-repeat #fff;
+}
+.nfpTree .folder-close-first-last
+{
+	margin-left:-16px;
+	background: url(images/expandable-last-first.gif) 0 -2px no-repeat #fff;
+}
+.nfpTree .folder-close-last-first
+{
+	margin-left:-16px;
+	background: url(images/expandable-last-first.gif) 0 -2px no-repeat #fff;
+}
+.nfpTree .folder-close-last
+{
+	margin-left:-16px;
+	background: url(images/expandable-last.gif) 0 -2px no-repeat #fff;
+}
+.nfpTree .doc
+{
+	margin-left:-16px;
+	background: url(images/leaf.gif) 0 -1px no-repeat #fff;
+}
+.nfpTree .doc-first
+{
+	margin-left:-16px;
+	background: url(images/leaf-first.gif) 0 -1px no-repeat #fff;
+}
+.nfpTree .doc-last-first
+{
+	margin-left:-16px;
+	background: url(images/leaf-last-first.gif) 0 -1px no-repeat #fff;
+}
+.nfpTree .doc-last
+{
+	margin-left:-16px;
+	background: url(images/leaf-last.gif) 0 -1px no-repeat #fff;
+}
+.nfpTree .ajax
+{
+	background: url(images/spinner.gif) no-repeat 0 0 #ffffff;
+	height: 16px;
+	display:none;
+}
+.ajaxLoading{
+	background: url(images/spinner.gif) no-repeat 0 0 #ffffff;
+	height: 16px;
+}
+.nfpTree .ajax li
+{
+	display:none;
+	margin:0; 
+	padding:0;
+}
+.nfpTree .trigger
+{
+	display:inline;
+	margin-left:-32px;
+	width: 18px;
+	height: 11px;
+	cursor:pointer;
+}
+.nfpTree .text
+{
+	cursor: pointer;
+}
+.nfpTree .active
+{
+	cursor: pointer;
+	font-weight:bold;
+	color:#3399FE;
+}
+#drag_container
+{
+	background:#ffffff;
+	color:#000;
+	z-index:99999;
+	font: normal 11px arial, tahoma, helvetica, sans-serif;
+	border: 1px dashed #767676;
+}
+#drag_container ul
+{
+	list-style: none;
+	padding:0;
+	margin:0;
+}
+
+#drag_container li
+{
+	list-style: none;
+	background-color:#ffffff;
+	line-height:18px;
+	white-space: nowrap;
+	padding:1px 1px 0px 16px;
+	margin:0;
+}
+#drag_container li span
+{
+	padding:0;
+}
+
+#drag_container li.doc, #drag_container li.doc-last
+{
+	background: url(images/leaf.gif) no-repeat -17px 0 #ffffff;
+}
+#drag_container .folder-close, #drag_container .folder-close-last
+{
+	background: url(images/expandable.gif) no-repeat -17px 0 #ffffff;
+}
+
+#drag_container .folder-open, #drag_container .folder-open-last
+{
+	background: url(images/collapsable.gif) no-repeat -17px 0 #ffffff;
+}
+.contextMenu
+{
+	background-color:White;
+    position: absolute;
+    z-index:500;
+	display:none;
+}

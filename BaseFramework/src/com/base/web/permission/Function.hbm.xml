@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.base.web.permission.Function" table="T_BASE_FUNCTION"
+		lazy="true">
+		<id name="id" column="ID" type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+		<!-- 上下级 一对多 双向关联 -->
+		<many-to-one name="parent" column="PARENT_ID"
+			class="com.base.web.permission.Function" />
+		<set name="childList" inverse="true" lazy="true">
+			<key column="PARENT_ID" />
+			<one-to-many class="com.base.web.permission.Function" />
+		</set>
+
+		<!-- 功能与资源 双向关联 -->
+		<set name="resources" inverse="true" lazy="true">
+			<key column="FUNCTION_ID" />
+			<one-to-many class="com.base.web.permission.Resource" />
+		</set>
+
+		<property name="level" column="LEVEL" />
+		<property name="functionCode" column="FUNCTION_CODE" />
+		<property name="functionType" column="FUNCTION_TYPE" />
+		<property name="name" column="NAME" />
+		<property name="icon" column="ICON" />
+		<property name="url" column="URL" />
+		<property name="remarks" column="REMARKS" />
+		<property name="orderNumber" column="ORDER_NUMBER" />
+		<property name="currentState" column="CURRENT_STATE" />
+		<property name="isDelete" column="IS_DELETE" />
+		<property name="createTime" column="CREATE_TIME" />
+		<property name="updateTime" column="UPDATE_TIME" />
+	</class>
+</hibernate-mapping>

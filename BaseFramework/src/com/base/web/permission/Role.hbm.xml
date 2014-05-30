@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.base.web.permission.Role" table="T_BASE_ROLE">
+		<id name="id" column="ID">
+			<generator class="identity"></generator>
+		</id>
+		
+		<!-- 角色 公司之间 一对多 双向关联 -->
+		<many-to-one name="company" column="COMPANY_ID"></many-to-one>
+		
+		<property name="roleCode" column="ROLE_CODE" />
+		<property name="roleType" column="ROLE_TYPE" />
+		<property name="name" column="NAME" />
+		<property name="gradeId" column="GRADE_ID" />
+		<property name="gradeName" column="GRADE_NAME" />
+		<property name="remarks" column="REMARKS" />
+		<property name="orderNumber" column="ORDER_NUMBER" />
+		<property name="currentState" column="CURRENT_STATE" />
+	    <property name="isDelete" column="IS_DELETE" />
+	    <property name="createTime" column="CREATE_TIME" />
+		<property name="updateTime" column="UPDATE_TIME" />
+	</class>
+</hibernate-mapping>
+

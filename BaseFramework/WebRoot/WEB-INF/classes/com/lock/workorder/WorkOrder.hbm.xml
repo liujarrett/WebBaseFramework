@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.lock.workorder.WorkOrder" table="tbl_workorder">
+		<id name="id" column="id"></id>
+		<property name="answerstate" column="answerstate" />
+		<property name="overflag" column="overflag" />
+		<property name="accepttime" column="accepttime" />
+		<property name="userid" column="userid" />
+		<property name="keyid" column="keyid" />
+		<property name="customerid" column="customerid" />
+		<property name="accuseid" column="accuseid" />
+		<property name="openlockid" column="openlockid" />
+		<property name="accusecallbillid" column="accusecallbillid" />
+		<property name="accuseopenlockid" column="accuseopenlockid" />
+		<property name="remark" column="remark" />
+		<property name="businesstype" column="businesstype" />
+		<property name="switchtype" column="switchtype" />
+		<property name="dtmf" column="dtmf" />
+		<property name="callerid" column="callerid" />
+		<property name="openlockname" column="openlockname" />
+		<property name="autodialfailurereason" column="autodialfailurereason" />
+		<property name="billid" column="billid" />
+		<property name="callback" column="callback" />
+		<property name="calleeid" column="calleeid" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.lock.callbill.Callbill" table="callbill">
+		<id name="id" column="id"></id>
+		<property name="callerid" column="callerid" />
+		<property name="calleeid" column="calleeid" />
+		<property name="cvtid" column="cvtid" />
+		<property name="talktyp" column="talktyp" />
+		<property name="switchtype" column="switchtype" />
+		<property name="stopon" column="stopon" />
+		<property name="recordpath" column="recordpath" />
+		<property name="hangofftm" column="hangofftm" />
+		<property name="waittalktm" column="waittalktm" />
+		<property name="starttalktm" column="starttalktm" />
+		<property name="endtalktm" column="endtalktm" />
+		<property name="hangontm" column="hangontm" />
+		<property name="staffid" column="staffid" />
+		<property name="dtmf" column="dtmf" />
+		<property name="workoderid" column="workoderid" />
+		<property name="feecount" column="feecount" />
+		<property name="openlockid" column="openlockid" />
+		<property name="openlockname" column="openlockname" />
+		<property name="talkingsecond" column="talkingsecond" />
+		<property name="calllong" column="calllong" />
+		<property name="businesstype" column="businesstype" />
+		<property name="pendingreason" column="pendingreason" />
+		<property name="releasereason" column="releasereason" />
+		<property name="autodialfailurereason" column="autodialfailurereason" />
+		<property name="talkinggroup" column="talkinggroup" />
+		<property name="dialstatus" column="dialstatus" />
+		<property name="billid" column="billid" />
+	</class>
+</hibernate-mapping>

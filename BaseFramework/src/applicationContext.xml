@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+	<import resource="applicationContext-dao.xml" />
+	<import resource="applicationContext-service.xml" />
+	<import resource="applicationContext-action.xml" />
+
+	<!-- 数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/96110" />
+		<property name="user" value="root" />
+		<property name="password" value="root" />
+		<property name="minPoolSize" value="5" />
+		<property name="maxPoolSize" value="50" />
+		<property name="maxIdleTime" value="1800" />
+		<property name="acquireIncrement" value="2" />
+		<property name="maxStatements" value="0" />
+		<property name="initialPoolSize" value="10" />
+		<property name="idleConnectionTestPeriod" value="30" />
+		<property name="acquireRetryAttempts" value="30" />
+	</bean>
+
+	<!-- Session工厂 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>com/base/web/permission/Function.hbm.xml</value>
+				<value>com/base/web/permission/Resource.hbm.xml</value>
+				<value>com/base/web/permission/Role.hbm.xml</value>
+				<value>com/base/web/permission/Permission.hbm.xml</value>
+				<value>com/base/web/company/Company.hbm.xml</value>
+				<value>com/base/web/organization/Organization.hbm.xml</value>
+				<value>com/base/web/user/User.hbm.xml</value>
+				<value>com/base/mobile/version/MobileVersion.hbm.xml</value>
+				<value>com/lock/unlockInfo/UnlockInfo.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- 配置事务增强 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 配置事务 -->
+	<aop:config>
+		<aop:pointcut id="txPointcut"
+			expression="execution(* com.base.core.ssh.l2service.BaseServiceImp.*(..)) 
+			         or execution(* com.base.web.company.service.CompanyServiceImp.*(..)) 
+			         or execution(* com.base.web.organization.service.OrganizationServiceImp.*(..)) 
+			         or execution(* com.base.web.permission.service.*ServiceImp.*(..)) 
+			         or execution(* com.base.web.user.service.UserServiceImp.*(..))  
+			         or execution(* com.base.mobile.version.service.MobileVersionServiceImp.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
+	</aop:config>
+
+</beans>
+
