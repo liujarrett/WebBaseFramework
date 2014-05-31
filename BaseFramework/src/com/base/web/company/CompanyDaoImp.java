@@ -19,11 +19,11 @@ public class CompanyDaoImp extends BaseDaoImp<Company,Integer> implements Compan
 		String hql="";
 		if(cid<=0)
 		{
-			hql="select new Company(id,fullName) from Company where isDelete=0";
+			hql="select new Company(id,fullName) from Company where isDelete='0' order by orderNumber";
 		}
 		else
 		{
-			hql="select new Company(id,fullName) from Company where isDelete=0 and id="+cid;
+			hql="select new Company(id,fullName) from Company where isDelete='0' and id="+cid;
 		}
 		return (List<Company>)getHibernateTemplate().find(hql);
 	}

@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
     String contextPath = request.getContextPath();
 %>
@@ -87,13 +88,13 @@
 <body>
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="nei_box" align="center">
 	<%-- 导入页面标题栏 --%>
-	<tr>
+	 <tr>
 		<td>
 			<%@ include file="../../common/pagehead.jsp"%>
 		 </td>
 	 </tr>
 	 
-	  <tr>
+	 <tr>
 	    <td height="54" >
 		    <table id="searchTable" width="99%" border="0" align="center" cellpadding="0" cellspacing="0" class="nei_tit tit_background">
 		      <tr>
@@ -141,21 +142,29 @@
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td style="padding-left:10px;" >
-						<div class="tool_td tool_add">
-							<a href="#" id="btnAddUser" >添加用户</a>
-						</div>
-						<div class="tool_td tool_sh">
-							<a href="#" onClick="javascript:checkStatusAll();" >批量审核</a>
-						</div>
-						<div class="tool_td tool_del">
-							<a href="#" onClick="javascript:delAll();" >批量删除</a>
-						</div>
+					    <c:if test="${fn:contains(sessionScope.resourceIds,32)}">
+						    <div class="tool_td tool_add">
+								<a href="#" id="btnAddUser" >添加用户</a>
+							</div>
+                        </c:if>
+						<c:if test="${fn:contains(sessionScope.resourceIds,37)}">
+							<div class="tool_td tool_sh">
+								<a href="#" onClick="javascript:checkStatusAll();" >批量审核</a>
+							</div>
+						</c:if>
+						<c:if test="${fn:contains(sessionScope.resourceIds,38)}">
+							<div class="tool_td tool_del">
+								<a href="#" onClick="javascript:delAll();" >批量删除</a>
+							</div>
+						</c:if>
+						<!-- 
 						<div class="tool_td tool_word">
 							<a href="#" id="btnOutWord">Word导出</a>
 						</div>
 		 				<div class="tool_td tool_excel">
 		 					<a href="#" id="btnOutExcel">Excel导出</a>
 		 				</div>
+		 				 -->
 					</td>
 				</tr>
 			</table>

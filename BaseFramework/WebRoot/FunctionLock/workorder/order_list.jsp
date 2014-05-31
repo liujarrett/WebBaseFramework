@@ -16,7 +16,7 @@
 
 	<script language="javascript" type="text/javascript">
 	$(function(){
-		initGridLoading("<%=systemColor%>/Images/gridloading.gif");//初始化ajax层，loading图片
+		initGridLoading("<%=contextPath%>/common/Images/gridloading.gif");//初始化ajax层，loading图片
 		loadData(1);
 		enterEvent();//添加按钮回车事件
 		//查询事件
@@ -58,7 +58,7 @@
 		var starttime = $("#search_starttime").val().trim();
 		var endtime = $("#search_endtime").val().trim();
 		
-		var gridAction="<%=contextPath%>/web/workorder/queryForGrid.action?"
+		var gridAction="<%=contextPath%>/web/workorder/queryForGrid?"
 				       + "workOrder.callerid=" + callerphone + "&"
 				       + "workOrder.calleeid=" + calleephone + "&"
 				       + "workOrder.openlockname=" + opencompanyname + "&"
@@ -100,7 +100,7 @@
 	            <td width="15%">
 	                <input id="search_callee_phone" maxlength="50" style='width:150px;' />
 	            </td>
-	            <td width="8%" class="nei_searchTd">开锁公司名称:</td>
+	            <td width="8%" class="nei_searchTd">开锁公司:</td>
 	            <td width="12%">
 	                <input id="search_opencompany_name" maxlength="50" style='width:100px;' />
 	            </td>

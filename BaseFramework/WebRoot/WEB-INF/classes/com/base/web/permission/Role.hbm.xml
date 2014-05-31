@@ -4,7 +4,12 @@
 <hibernate-mapping>
 	<class name="com.base.web.permission.Role" table="T_BASE_ROLE">
 		<id name="id" column="ID">
+			<!-- 
 			<generator class="identity"></generator>
+			 -->
+			<generator class="sequence">
+                <param name="sequence">S_BASE_ROLE</param>      
+            </generator>
 		</id>
 		
 		<!-- 角色 公司之间 一对多 双向关联 -->

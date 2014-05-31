@@ -4,7 +4,12 @@
 <hibernate-mapping>
 	<class name="com.lock.unlockInfo.UnlockInfo" table="T_LOCK_UNLOCK_INFO">
 		<id name="id" column="ID">
+			<!-- 
 			<generator class="identity"></generator>
+			 -->
+			<generator class="sequence">
+                <param name="sequence">S_LOCK_UNLOCK_INFO</param>      
+            </generator>
 		</id>
 		<property name="remarks" column="REMARKS" />
 		<property name="orderNumber" column="ORDER_NUMBER" />
@@ -30,10 +35,10 @@
 		<property name="customerName" column="CUSTOMER_NAME" />
 		<property name="customerIdNo" column="CUSTOMER_ID_NO" />
 		<property name="customerIdImg" column="CUSTOMER_ID_IMG" />
-		<property name="customerDrivingLicenseImg" column="CUSTOMER_DRIVING_LICENSE_IMG" />
-		<property name="customerVehicleLicenseImg" column="CUSTOMER_VEHICLE_LICENSE_IMG" />
-		<property name="customerBusinessLicenseImg" column="CUSTOMER_BUSINESS_LICENSE_IMG" />
-		<property name="customerIntroductionLetterImg" column="CUSTOMER_INTRODUCTION_LETTER_IMG" />
+		<property name="customerDrivingLicenseImg" column="DRIVING_LICENSE_IMG" />
+		<property name="customerVehicleLicenseImg" column="VEHICLE_LICENSE_IMG" />
+		<property name="customerBusinessLicenseImg" column="BUSINESS_LICENSE_IMG" />
+		<property name="customerIntroductionLetterImg" column="INTRODUCTION_LETTER_IMG" />
 
 	</class>
 </hibernate-mapping>

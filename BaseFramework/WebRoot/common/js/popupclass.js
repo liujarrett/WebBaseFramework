@@ -279,7 +279,7 @@ setContent: function(arrt, val) {
         var showZIndex = baseZIndex + 2;
         this.iframeIdName = 'ifr_popup' + this.info.overlay;
         var path = "";
-        var close = '<input type="button" title="关闭" id="dialogBoxClose" onclick="ClosePop();" style="background-image:url(../common/Images/closewin.gif);padding:0px;margin:0px;width:28px; height:15px;border:none;cursor:pointer" align="absmiddle" /></a>';
+        var close = '<input type="button" title="关闭" id="dialogBoxClose" onclick="ClosePop();" style="background-image:url(../../common/Images/closewin.gif);padding:0px;margin:0px;width:28px; height:15px;border:none;cursor:pointer" align="absmiddle" /></a>';
         var cB = 'filter: alpha(opacity=' + this.info.coverOpacity + ');opacity:' + this.info.coverOpacity / 100 + ';';
         var cover = '<div id="dialogBoxBG" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:' + baseZIndex + ';' + cB + 'background-color:' + this.color.cColor + ';display:none;"></div>';
         var mainBox = '<div id="dialogBox" style="border:1px solid ' + this.color.tColor + ';display:none;z-index:' + showZIndex + ';position:relative;width:' + this.config.width + 'px;"><table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="' + this.color.bColor + '">';

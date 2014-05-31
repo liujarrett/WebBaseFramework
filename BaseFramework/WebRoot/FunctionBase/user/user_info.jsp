@@ -14,13 +14,17 @@
 			document.getElementById('btnClose').focus();
 		}
 	</script>
-		
+
 	</head>
 	<body>
 		<table width="90%" id="senfe" class="divtb" cellpadding="0" cellspacing="1"  align="center">
 			<tr>
 				<td width="21%" height="22" align="center">用户名称：</td>
 				<td width="79%" height="22"  style="padding-left:10px;">${user.userName }</td>
+			</tr>
+			<tr>
+			    <td width="21%" height="22" align="center" >手机号码：</td>
+				<td width="79%" height="22"  style="padding-left:10px;">${user.mobilePhone }</td>
 			</tr>
 			<tr>
 				<td width="21%" height="22" align="center" >公&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司：</td>
@@ -39,12 +43,12 @@
 				<td width="79%" height="22"  style="padding-left:10px;">${user.idCard }</td>
 			</tr>
 			<tr>
-				<td width="21%" height="22" align="center" >办公电话：</td>
-				<td width="79%" height="22"  style="padding-left:10px;">${user.officePhone }</td>
+				<td width="21%" height="22" align="center" >出生日期：</td>
+				<td width="79%" height="22"  style="padding-left:10px;">${user.birthday }</td>
 			</tr>
 			<tr>
-			    <td width="21%" height="22" align="center" >手机号码：</td>
-				<td width="79%" height="22"  style="padding-left:10px;">${user.mobilePhone }</td>
+				<td width="21%" height="22" align="center" >办公电话：</td>
+				<td width="79%" height="22"  style="padding-left:10px;">${user.officePhone }</td>
 			</tr>
 			<tr>
 				<td width="21%" height="22" align="center" >email：</td>

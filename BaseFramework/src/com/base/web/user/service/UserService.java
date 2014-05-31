@@ -15,7 +15,9 @@ public interface UserService extends BaseService<User,Long>
 
 	public PageBean<User> query(User user,PageBean<User> pageBean);
 
-	public boolean isExist(User user);
+	public boolean isUserNameExist(User user);
+	
+	public boolean isPhoneExist(User user);
 
 	boolean batchUpdate(List<User> users);
 

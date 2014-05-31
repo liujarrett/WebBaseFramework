@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 	String contextPath = request.getContextPath();
 %>
@@ -114,9 +115,9 @@ table {
 							    <input id="search_company_phone" name="search_company_phone" maxlength="50" style='width:150px;' />
 							</td>
 							<td style='padding-left: 20px;'>
-							    <input type="button" id="btnSearch" class="searchButton"/>
-							    &nbsp;&nbsp;&nbsp;&nbsp; 
-							    <input type="button" id="btnReset" class="resetButton" />
+			                     <input type="button" id="btnSearch" class="searchButton"/>
+								 &nbsp;&nbsp;&nbsp;&nbsp; 
+								 <input type="button" id="btnReset" class="resetButton" />
 							</td>
 						</tr>
 					</table>
@@ -130,16 +131,21 @@ table {
 				<table width="100%" height="34" border="0" cellspacing="0" cellpadding="0" class="tit2_background" align="center">
 					<tr>
 						<td style="padding-left:10px;">
-							<div class="tool_td tool_add">
-								<a href="#" onclick="parent.ShowIframe('添加-单位信息','<%=contextPath%>/web/company/gotoAddCompany',480,430);">添加单位</a>
-							</div>
-
-							<div class="tool_td tool_sh">
-								<a href="#" onClick="javascript:passAll();">审核</a>
-							</div>
-							<div class="tool_td tool_del">
-								<a href="#" onClick="javascript:rejectAll();">驳回</a>
-							</div>
+						    <c:if test="${fn:contains(sessionScope.resourceIds,12)}">
+			                   <div class="tool_td tool_add">
+								   <a href="#" onclick="parent.ShowIframe('添加-单位信息','<%=contextPath%>/web/company/gotoAddCompany',480,430);">添加单位</a>
+							   </div>
+	                        </c:if>
+                            <c:if test="${fn:contains(sessionScope.resourceIds,17)}">
+								<div class="tool_td tool_sh">
+									<a href="#" onClick="javascript:passAll();">审核</a>
+								</div>
+						    </c:if>
+						    <c:if test="${fn:contains(sessionScope.resourceIds,18)}">
+								<div class="tool_td tool_del">
+									<a href="#" onClick="javascript:rejectAll();">驳回</a>
+								</div>
+							</c:if>
 						</td>
 					</tr>
 				</table> 

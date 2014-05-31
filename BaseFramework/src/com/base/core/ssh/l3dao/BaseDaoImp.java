@@ -161,7 +161,7 @@ public class BaseDaoImp<T extends BaseEntity,PK extends Serializable> extends Hi
 	@Override
 	public int deleteForLogic(String where) throws DataAccessException
 	{
-		String hql="UPDATE "+clazz.getName()+" SET isDelete=1";
+		String hql="UPDATE "+clazz.getName()+" SET isDelete='1'";
 		if(where!=null&&!where.equals(""))
 		{
 			hql+=" "+where;

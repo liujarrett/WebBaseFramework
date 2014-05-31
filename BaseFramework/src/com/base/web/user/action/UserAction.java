@@ -274,25 +274,27 @@ public class UserAction extends BaseAction<User>
 		return SUCCESS;
 	}
 
-	public String addUser()
-	{
-		boolean isExist=userService.isExist(user);
-		if(isExist)
-		{
-			flag=2;
-			return SUCCESS;
+	public String addUser() {
+		boolean isNameExist = userService.isUserNameExist(user);
+		if(isNameExist) {
+            flag = 2;//用户名存在
+            return SUCCESS;
 		}
-		if(user.getOrganization()!=null&&user.getOrganization().getId()<=0)
-		{
+		
+		boolean isPhoneExist = userService.isPhoneExist(user);
+		if(isPhoneExist) {
+            flag = 3;//手机号存在
+            return SUCCESS;
+		}
+		
+		if(user.getOrganization() != null && user.getOrganization().getId() <=0 ) {
 			user.setOrganization(null);
 		}
-		if(user.getRole()!=null&&user.getRole().getId()<=0)
-		{
+		if(user.getRole() != null && user.getRole().getId() <=0 ) {
 			user.setRole(null);
 		}
 		user.setPassword(orginalPassword);
 		//
-		user.setCurrentState("0");
 		user.setIsDelete("0");
 		String currentTime=sdf.format(new Date());
 		user.setCreateTime(currentTime);
@@ -319,19 +321,31 @@ public class UserAction extends BaseAction<User>
 		return SUCCESS;
 	}
 
-	public String modifyUser()
+	public String modifyUser() 
 	{
-		if(flag!=-1)
-		{ //等于-1时，是修改个人信息界面调用此接口,不必进行检查
-			boolean isExist=userService.isExist(user);
-			if(isExist)
-			{
-				flag=2;
-				return SUCCESS;
+		if(flag != -1) { //等于-1时，是修改个人信息界面调用此接口,不必进行检查
+			boolean isNameExist = userService.isUserNameExist(user);
+			if(isNameExist) {
+	            flag = 2;//用户名存在
+	            return SUCCESS;
 			}
 		}
-		boolean isSuccess=userService.update(user);
-		flag=isSuccess?1:0;
+		
+		boolean isPhoneExist = userService.isPhoneExist(user);
+		if(isPhoneExist) {
+            flag = 3;//手机号存在
+            return SUCCESS;
+		}
+		
+		if(user.getOrganization() != null && user.getOrganization().getId() <=0 ) {
+			user.setOrganization(null);
+		}
+		if(user.getRole() != null && user.getRole().getId() <= 0) {
+			user.setRole(null);
+		}
+		
+		boolean isSuccess = userService.update(user);
+		flag = isSuccess ? 1 : 0;
 		return SUCCESS;
 	}
 

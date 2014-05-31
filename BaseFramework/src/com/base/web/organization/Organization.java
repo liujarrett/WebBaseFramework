@@ -22,12 +22,12 @@ public class Organization extends BaseEntity
 	// 所有员工
 	private Set<User> users;
 
-	// 当前组织机构层级
-	private int level;
-
 	// 所属公司
 	private Company company;
 
+	// 当前组织机构层级
+	private int organizationLevel;
+	
 	// 组织机构编号
 	private String organizationCode;
 
@@ -119,16 +119,6 @@ public class Organization extends BaseEntity
 		this.id=id;
 	}
 
-	public int getLevel()
-	{
-		return level;
-	}
-
-	public void setLevel(int level)
-	{
-		this.level=level;
-	}
-
 	public Company getCompany()
 	{
 		return company;
@@ -137,6 +127,16 @@ public class Organization extends BaseEntity
 	public void setCompany(Company company)
 	{
 		this.company=company;
+	}
+
+	public int getOrganizationLevel()
+	{
+		return organizationLevel;
+	}
+
+	public void setOrganizationLevel(int organizationLevel)
+	{
+		this.organizationLevel=organizationLevel;
 	}
 
 	public String getOrganizationCode()

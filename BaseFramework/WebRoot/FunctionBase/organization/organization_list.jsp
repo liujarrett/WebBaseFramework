@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
     String contextPath = request.getContextPath();
 %>
@@ -168,9 +169,11 @@
 			     <table width="100%" border="0" cellspacing="0" cellpadding="0">
 			          <tr>
 			            <td style="padding-left:10px;" >
-			            	<div class="tool_td tool_add"><a href="#" id="btnAdd">添加机构</a></div>
-					 		<div class="tool_td tool_word"><a href="#" id="btnOutWord">Word导出</a></div>
-					 		<div class="tool_td tool_excel"><a href="#" id="btnOutExcel">Excel导出</a></div>
+			                <c:if test="${fn:contains(sessionScope.resourceIds,22)}">
+		                        <div class="tool_td tool_add"><a href="#" id="btnAdd">添加机构</a></div>
+                            </c:if>
+					 		<div class="tool_td tool_word" style="display: none;"><a href="#" id="btnOutWord">Word导出</a></div>
+					 		<div class="tool_td tool_excel" style="display: none;"><a href="#" id="btnOutExcel">Excel导出</a></div>
 			            </td>
 			          </tr>
 			      </table>

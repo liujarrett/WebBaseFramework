@@ -16,7 +16,7 @@
 	
 	<script language="javascript" type="text/javascript">
 		$(function(){
-			initGridLoading("<%=systemColor%>/Images/gridloading.gif");//初始化ajax层，loading图片
+			initGridLoading("<%=contextPath%>/common/Images/gridloading.gif");//初始化ajax层，loading图片
 			loadData(1);
 			//查询事件
 			$("#btnSearch").click(function(event){
@@ -57,7 +57,7 @@
 			var hangon_time = $("#search_hangon_time").val();
 			var hangoff_time = $("#search_hangoff_time").val();
 			//加载列表数据
-			var gridAction = "<%=contextPath%>/web/callbill/queryForGrid.action?"
+			var gridAction = "<%=contextPath%>/web/callbill/queryForGrid?"
 					       + "callbill.callerid=" + caller_phone + "&"
 					       + "callbill.calleeid=" + callee_phone + "&"
 					       + "callbill.openlocktel" + opencompany_phone + "&"
@@ -96,7 +96,7 @@
 			          <td width="15%">
 			              <input id="search_callee_phone" maxlength="50" style='width:150px;' />
 			          </td>
-			          <td width="8%" class="nei_searchTd">开锁公司电话:</td>
+			          <td width="10%" class="nei_searchTd">开锁公司电话:</td>
 			          <td width="12%">
 			              <input id="search_opencompany_phone" maxlength="50" style='width:100px;' />
 			          </td>

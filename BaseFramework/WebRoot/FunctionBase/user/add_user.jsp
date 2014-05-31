@@ -16,6 +16,7 @@
 <script type="text/javascript" src="<%=contextPath%>/common/js/inputCheck.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/common/js/validator.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/common/js/convertChinese.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/common/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript">
 	$(function(){
 		$("#userName").focus();
@@ -38,12 +39,19 @@
 					alert("用户名不能为空！");
 					return;
 				}
+				var mobilePhone = jQuery.trim($("#mobilePhone").val());
+				if (!mobilePhone) {
+					$("#mobilePhone").focus();
+					$(this).removeAttr("disabled");
+					alert("手机号不能为空！");
+					return;
+				}
 				var companyId = jQuery.trim($("#companyId").val());
 				var organizationId = $("#organizationId").attr("checkedValue");
 				var roleId = $("#roleId").val();
 				var IDCard = jQuery.trim($("#IDCard").val());
+				var birthday = jQuery.trim($("#birthday").val());
 				var officePhone = jQuery.trim($("#officePhone").val());
-				var mobilePhone = jQuery.trim($("#mobilePhone").val());
 				var address = jQuery.trim($("#address").val());
 				var email = jQuery.trim($("#email").val());
 				var status = $("input[name='Status']:checked").val();
@@ -57,6 +65,7 @@
 						"user.organization.id" : organizationId,
 						"user.role.id" : roleId,
 						"user.idCard" : IDCard,
+						"user.birthday" : birthday,
 						"user.officePhone" : officePhone,
 						"user.mobilePhone" : mobilePhone,
 						"user.email" : email,
@@ -66,13 +75,22 @@
 					},
 					success 	: function(data) {
 						$("#btnSave").removeAttr("disabled");
-						if (data == 2) {
+						if (data == 2) 
+						{
 							alert("用户名称:\""+userName+"\"已经存在,请重新输入！");
-						} else if(data == 1) {
+						}
+						else if (data == 3) 
+						{
+							alert("手机号:\""+mobilePhone+"\"已经存在,请重新输入！");
+						} 
+						else if(data == 1) 
+						{
 							alert("保存成功！");
 							parent.frames[0].loadData($(parent.frames[0].document.body).find("#txtCurrentPage").val())
 							parent.ClosePop();
-						} else {
+						} 
+						else 
+						{
 							alert("保存失败！");
 						}
 					},
@@ -96,7 +114,13 @@
 				</td>
 			</tr>
 			<tr>
-				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：</td>
+			    <td width="21%" height="28" align="center" bgcolor="#FFFFFF">手机号码：</td>
+				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
+				    <input id="mobilePhone" class="editInput" maxlength="11" dataType="Mobile" msg="手机号码格式不正确！" require="false"/><span style='color:red'>*</span>
+				</td>
+			</tr>
+			<tr>
+				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">组织机构：</td>
 				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
 					<input id="organizationId" class="editInput" maxlength="50" />
 				</td>
@@ -118,17 +142,18 @@
 				    <input id="IDCard" class="editInput" maxlength="15" dataType="IdCard" msg="身份证号格式不正确！" require="false"/>
 				</td>
 			</tr>
+			<tr>
+				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">出生日期：</td>
+				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
+			        <input id="birthday" class="Wdate editInput" type="text" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+				</td>
+			</tr>
 				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">办公电话：</td>
 				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
 				    <input id="officePhone" class="editInput" maxlength="8" dataType="Phone" msg="办公电话格式不正确！" require="false"/>
 				</td>
 			</tr>
-			<tr>
-			    <td width="21%" height="28" align="center" bgcolor="#FFFFFF">手机号码：</td>
-				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
-				    <input id="mobilePhone" class="editInput" maxlength="11" dataType="Mobile" msg="手机号码格式不正确！" require="false"/>
-				</td>
-			</tr>
+
 			<tr>
 				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">email：</td>
 			    <td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
@@ -145,10 +170,10 @@
 				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">是否审核：</td>
 				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;"><span style="padding-right: 20px;">
 						<label>是</label>
-						<input type="radio" checked="checked" name="Status" id="StatusYes" value="y"/>
+						<input type="radio" checked="checked" name="Status" id="StatusYes" value="1"/>
 					</span>
 					<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-				    	否<input type="radio" name="Status" id="StatusNo" value="n"/>
+				    	否<input type="radio" name="Status" id="StatusNo" value="0"/>
 			    </td>
 			</tr>
 			<tr>

@@ -98,7 +98,7 @@ public class UserServiceImp extends BaseServiceImp<User,Long> implements UserSer
 	}
 
 	@Override
-	public boolean isExist(User user)
+	public boolean isUserNameExist(User user)
 	{
 		User u=null;
 		try
@@ -135,7 +135,41 @@ public class UserServiceImp extends BaseServiceImp<User,Long> implements UserSer
 		}
 		return u!=null;
 	}
+	@Override
+	public boolean isPhoneExist(User user) {
+		if(user == null) {
+			return true;
+		}
+		User u=null;
+		try
+		{
+			String where="where isDelete='0'";
+			if(user.getMobilePhone() != null && !user.getMobilePhone().equals("")) {
+				where += " and mobilePhone='"+user.getMobilePhone()+"'";
+			}
 
+			if(user!=null && user.getId()>0)
+			{
+				where+=" and id!="+user.getId();
+			}
+			List<User> users=userDao.select(where);
+			if(users!=null&&users.size()>0)
+			{
+				u=users.get(0);
+			}
+		}
+		catch(DataAccessException e)
+		{
+			u=null;
+			e.printStackTrace();
+		}
+		catch(Exception e)
+		{
+			u=null;
+			e.printStackTrace();
+		}
+		return u!=null;
+	}
 	@Override
 	public boolean batchUpdate(List<User> users)
 	{

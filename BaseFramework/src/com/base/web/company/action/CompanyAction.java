@@ -81,6 +81,10 @@ public class CompanyAction extends BaseAction<Company>
 		this.companyService=companyService;
 	}
 
+	/* ################################################################################################## */
+	/* 这 是 一 条 和 谐 的 分 割 线 */
+	/* ################################################################################################## */
+
 	public String query()
 	{
 		pageBean=companyService.query(company,pageBean);

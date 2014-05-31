@@ -164,7 +164,7 @@
 				    <input type="text" id="email" value="${company.email }" maxlength="200" class="editInput">
 				</td>
 			</tr>
-			<tr>
+			<tr style="display: none">
 				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
 					平台类型:
 				</td>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.base.core.ssh.l2service.BaseServiceImp;
 import com.base.web.permission.Function;
+import com.base.web.permission.FunctionDao;
 import com.base.web.permission.Permission;
 import com.base.web.permission.PermissionDao;
 import com.base.web.permission.Resource;
@@ -14,6 +15,7 @@ public class PermissionServiceImp extends BaseServiceImp<Permission,Integer> imp
 	private static final long serialVersionUID=-3482050884146579720L;
 
 	private PermissionDao permissionDao;
+	private FunctionDao functionDao;
 
 	public PermissionServiceImp()
 	{
@@ -30,6 +32,16 @@ public class PermissionServiceImp extends BaseServiceImp<Permission,Integer> imp
 		this.permissionDao=permissionDao;
 	}
 
+	public FunctionDao getFunctionDao()
+	{
+		return functionDao;
+	}
+
+	public void setFunctionDao(FunctionDao functionDao)
+	{
+		this.functionDao=functionDao;
+	}
+
 	/* ################################################################################################## */
 	/* 这 是 一 条 和 谐 的 分 割 线 */
 	/* ################################################################################################## */
@@ -40,7 +52,7 @@ public class PermissionServiceImp extends BaseServiceImp<Permission,Integer> imp
 	@Override
 	public List<Permission> queryPermissionListByRoleId(int roleId)
 	{
-		String hql="where role.id = "+roleId+" and isDelete=0";
+		String hql="where role.id = "+roleId+" and isDelete='0'";
 		return permissionDao.select(hql);
 	}
 
@@ -50,8 +62,8 @@ public class PermissionServiceImp extends BaseServiceImp<Permission,Integer> imp
 	@Override
 	public List<Function> queryFunctionListByRoleId(int roleId)
 	{
-		String hql="select p.function from Permission as p where p.role.id = "+roleId+" and p.function.isDelete=0 group by p.function.id";
-		return permissionDao.queryFunction(hql);
+		String where  = " where isDelete='0' and id in(select distinct per.function.id from Permission as per where per.role.id="+ roleId +")";
+		return functionDao.select(where);
 	}
 
 	/***
@@ -60,7 +72,7 @@ public class PermissionServiceImp extends BaseServiceImp<Permission,Integer> imp
 	@Override
 	public List<Resource> queryResourceListByRoleId(int roleId)
 	{
-		String hql="select p.resource from Permission as p where p.role.id = "+roleId+" and p.resource.isDelete=0";
+		String hql="select p.resource from Permission as p where p.role.id = "+roleId+" and p.resource.isDelete='0'";
 		return permissionDao.queryResource(hql);
 	}
 
@@ -74,13 +86,14 @@ public class PermissionServiceImp extends BaseServiceImp<Permission,Integer> imp
 		if(funcParentId<=0)
 		{
 			hql="select p.function from Permission as p where p.role.id = "+roleId+" and p.function.parent is null and p.function.isDelete=0";
+			hql+=" order by p.function.orderNumber ";
+			return permissionDao.queryFunction(hql);
 		}
 		else
 		{
-			hql="select p.function from Permission as p where p.role.id = "+roleId+" and p.function.parent.id = "+funcParentId+" and p.function.isDelete=0 group by p.function.id";
+			String where  = " where parent.id=" + funcParentId + " and isDelete='0' and id in(select distinct per.function.id from Permission as per where per.role.id="+ roleId +")";
+			return functionDao.select(where);
 		}
-		hql+=" order by p.function.orderNumber ";
-		return permissionDao.queryFunction(hql);
 	}
 
 	/***
@@ -89,7 +102,7 @@ public class PermissionServiceImp extends BaseServiceImp<Permission,Integer> imp
 	@Override
 	public List<Resource> queryResourceListByFunctionId(int functionId,int roleId)
 	{
-		String hql="select p.resource from Permission as p where p.function.id = "+functionId+" and p.role.id = "+roleId+" and p.resource.isDelete=0";
+		String hql="select p.resource from Permission as p where p.function.id = "+functionId+" and p.role.id = "+roleId+" and p.resource.isDelete='0'";
 		return permissionDao.queryResource(hql);
 	}
 

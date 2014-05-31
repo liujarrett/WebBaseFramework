@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
     String contextPath = request.getContextPath();
 %>
@@ -158,7 +159,7 @@
 				<input type="text" id="linkman" maxlength="40" class="editInput">
 			</td>
 		</tr>
-		<tr>
+		<tr style="display: none">
 			<td  width="21%" height="28" align="center" bgcolor="#FFFFFF">
 				公司类型:
 			</td>

@@ -4,7 +4,12 @@
 <hibernate-mapping>
 	<class name="com.base.web.organization.Organization" table="T_BASE_ORGANIZATION">
 		<id name="id" column="ID">
+			<!-- 
 			<generator class="identity"></generator>
+			 -->
+			<generator class="sequence">
+                <param name="sequence">S_BASE_ORGANIZATION</param>      
+            </generator>
 		</id>
 		
 		<!-- 组织上下级 一对多 双向关联 -->
@@ -16,8 +21,6 @@
 			<one-to-many class="com.base.web.organization.Organization" />
 		</set>
 
-		<property name="level" column="LEVEL" />
-
 		<!-- 公司 组织之间的一对多 双向关联 -->
 		<many-to-one name="company" column="COMPANY_ID" not-null="true" />
 
@@ -26,7 +29,8 @@
 			<key column="ORGANIZATION_ID" />
 			<one-to-many class="com.base.web.user.User" />
 		</set>
-
+		
+		<property name="organizationLevel" column="ORGANIZATION_LEVEL" />
 		<property name="organizationCode" column="ORGANIZATION_CODE" />
 		<property name="organizationType" column="ORGANIZATION_TYPE" />
 		<property name="fullName" column="FULL_NAME" />

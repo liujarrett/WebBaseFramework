@@ -25,6 +25,7 @@
 	<!-- 权限service -->
 	<bean id="permissionService" class="com.base.web.permission.service.PermissionServiceImp">
 		<property name="permissionDao" ref="permissionDao" />
+		<property name="functionDao" ref="functionDao" />
 	</bean>
 	
 	<!-- 公司service -->

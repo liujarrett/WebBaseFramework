@@ -4,7 +4,12 @@
 <hibernate-mapping>
 	<class name="com.base.web.user.User" table="T_BASE_USER">
 		<id name="id" column="ID">
+			<!-- 
 			<generator class="identity"></generator>
+			 -->
+			<generator class="sequence">
+                <param name="sequence">S_BASE_USER</param>      
+            </generator>
 		</id>
 		<!-- 用户与公司之间 一对多 双向关联 -->
 		<many-to-one name="company" column="COMPANY_ID" not-null="true" />

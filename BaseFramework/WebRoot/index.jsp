@@ -15,7 +15,6 @@
 	<script type="text/javascript" src="<%=contextPath%>/common/js/nfpTreeSource.js"></script>
 	<script type="text/javascript" src="<%=contextPath%>/common/js/popup.js"></script>
 	<script type="text/javascript" src="<%=contextPath%>/common/js/popupclass.js"></script>
-	<script type="text/javascript" src="<%=contextPath%>/common/js/initMonitor.js"></script>
 <script language="javascript" type="text/javascript">
 	    $(function () {
 	    	loadTree(0);
@@ -62,7 +61,7 @@
 	
 	<div region="north" id="pnTop" border="false" style=" overflow:hidden;height:70px;background:#B3DFDA;background-image: url(<%=contextPath%>/common/Images/Images/topbg1.jpg); ">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-			<tr width="100%" background="<%=contextPath%>/common/Images/Images/topbg1.jpg">
+			<tr width="100%">
 				<td width="50%" height="70" >
 					<img src="<%=contextPath%>/common/Images/Images/top1.png" />
 				</td>
@@ -95,7 +94,7 @@
 	</div>
 	
 	<div region="south" border="false" style="height:20px;background:#A9FACD;background-image: url(<%=contextPath%>/common/blue/Images/banner_bg.gif);">
-		<div style="text-align:center">96110</div>
+		<div style="text-align:center">开锁服务信息系统@96110</div>
     </div>
     <!-- 主窗体 -->
 	<div region="center" id="pnMain">

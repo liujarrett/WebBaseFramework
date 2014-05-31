@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%  
     String contextPath = request.getContextPath();
 %>
@@ -130,16 +131,22 @@
 			    <td class="noWrapTd">${company.companyType==1?'平台':'企业' }&nbsp;</td>
 			    <td class="noWrapTd">${company.currentState==0?'未审核':company.currentState==1?'已审核':'驳回' }&nbsp;</td>
 			    <td align="center">
+			    <c:if test="${fn:contains(sessionScope.resourceIds,11)}">
 			       <a href="#" 
 			          onClick="parent.ShowIframe('查看-单位信息','<%=contextPath%>/web/company/queryCompany?company.id=${company.id}&pageBean.currentPage=${pageBean.currentPage}&manuType=query',480,400);">查看</a>
 			          &nbsp;&nbsp;|&nbsp;&nbsp;
+                </c:if>
+			    <c:if test="${fn:contains(sessionScope.resourceIds,13)}">
 				   <a href="#" 
 				      onClick="parent.ShowIframe('编辑-单位信息','<%=contextPath%>/web/company/queryCompany?company.id=${company.id}&pageBean.currentPage=${pageBean.currentPage}&manuType=edit',480,430);">编辑</a>
 				      &nbsp;&nbsp;
+				</c:if>
+				<c:if test="${fn:contains(sessionScope.resourceIds,14)}">
 				   <c:if test="${company.isDelete!=1 }">
 				      |&nbsp;&nbsp;
 				      <a href="javascript:void(0);" onClick="deleteCompany(${company.id},${pageBean.currentPage});">删除</a>
 				   </c:if>
+				</c:if>
 				</td>
 	  		</tr>		 		
    </c:forEach>

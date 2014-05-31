@@ -15,6 +15,7 @@
 <script type="text/javascript" src="<%=contextPath%>/common/js/validator.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/common/js/nfpTreeUser.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/common/js/convertChinese.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/common/My97DatePicker/WdatePicker.js"></script>
 <style>
     html{overflow:hidden;}
 </style>
@@ -39,10 +40,19 @@
 		$("#btnSave").click(function(){
 				$(this).attr("disabled","disabled");
 				var userName = jQuery.trim($("#userName").val());//用户名
-				if (!userName) {
+				if (!userName) 
+				{
 					$("#userName").focus();
 					$(this).removeAttr("disabled");
 					alert("用户名不能为空！");
+					return;
+				}
+				var mobilePhone = jQuery.trim($("#mobilePhone").val());
+				if (!mobilePhone) 
+				{
+					$("#mobilePhone").focus();
+					$(this).removeAttr("disabled");
+					alert("手机号不能为空！");
 					return;
 				}
 				var userId = $("#userId").val();//用户id
@@ -50,8 +60,8 @@
 				var organizationId = $("#organizationId").attr("checkedValue");//所属组织
 				var roleId = $("#userRoleId").val();//角色id
 				var cardId = jQuery.trim($("#IdCard").val());//身份证号码
+				var birthday = jQuery.trim($("#birthday").val());//出生日期
 				var officePhone = jQuery.trim($("#officePhone").val());//办公电话
-				var mobilePhone = jQuery.trim($("#mobilePhone").val());//家庭电话
 				var email = jQuery.trim($("#email").val());//邮箱
 				var address =jQuery.trim($("#address").val()); //地址
 				var status = $("input[name='Status']:checked").val(); //状态
@@ -66,6 +76,7 @@
 						"user.organization.id" : organizationId,
 						"user.role.id" : roleId,
 						"user.idCard" : cardId,
+						"user.birthday" : birthday,
 						"user.officePhone" : officePhone,
 						"user.mobilePhone" : mobilePhone,
 						"user.email" : email,
@@ -76,9 +87,16 @@
 					},
 					success 	: function(data) {
 						$("#btnSave").removeAttr("disabled");
-						if (data == 2) { //名称已经存在
-							alert("用户名称:"+userName+"  已经存在,请重新输入！");
-						} else if(data == 1) { //修改成功
+						if (data == 2) 
+						{
+							alert("用户名称:\""+userName+"\"已经存在,请重新输入！");
+						}
+						else if (data == 3) 
+						{
+							alert("手机号:\""+mobilePhone+"\"已经存在,请重新输入！");
+						} 
+						else if(data == 1) 
+						{ //修改成功
 							alert("保存成功！");
 							parent.frames[0].loadData($(parent.frames[0].document.body).find("#txtCurrentPage").val());
 							parent.ClosePop();
@@ -106,6 +124,12 @@
 				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">用户名称：</td>
 				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
 				    <input type="text" id="userName" value="${user.userName }" class="editInput" maxlength="50" /><span style='color:red'>*</span>
+				</td>
+			</tr>
+			<tr>
+			    <td width="21%" height="28" align="center" bgcolor="#FFFFFF">手机号码：</td>
+				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
+				    <input id="mobilePhone" class="editInput" value="${user.mobilePhone }" maxlength="11" dataType="Mobile" msg="手机号码格式不正确！" require="false"/><span style='color:red'>*</span>
 				</td>
 			</tr>
 			<tr>
@@ -138,15 +162,15 @@
 				</td>
 			</tr>
 			<tr>
-				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">办公电话：</td>
+				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">出生日期：</td>
 				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
-				    <input id="officePhone" class="editInput" value="${user.officePhone }" maxlength="8" dataType="Phone" msg="办公电话格式不正确！" require="false"/>
+			        <input id="birthday" class="Wdate editInput" value="${user.birthday }" type="text" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
 				</td>
 			</tr>
 			<tr>
-			    <td width="21%" height="28" align="center" bgcolor="#FFFFFF">手机号码：</td>
+				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">办公电话：</td>
 				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
-				    <input id="mobilePhone" class="editInput" value="${user.mobilePhone }" maxlength="11" dataType="Mobile" msg="手机号码格式不正确！" require="false"/>
+				    <input id="officePhone" class="editInput" value="${user.officePhone }" maxlength="8" dataType="Phone" msg="办公电话格式不正确！" require="false"/>
 				</td>
 			</tr>
 			<tr>

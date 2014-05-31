@@ -22,7 +22,7 @@ public class Function extends BaseEntity
 	private Set<Resource> resources;
 
 	// 功能层级
-	private Integer level;
+	private Integer functionLevel;
 
 	// 功能编码
 	private String functionCode;
@@ -38,6 +38,18 @@ public class Function extends BaseEntity
 
 	// 资源
 	private String url;
+
+	public Function()
+	{
+
+	}
+
+	public Function(Integer id,String name)
+	{
+		super();
+		this.id=id;
+		this.name=name;
+	}
 
 	public Integer getId()
 	{
@@ -69,14 +81,14 @@ public class Function extends BaseEntity
 		this.childList=childList;
 	}
 
-	public Integer getLevel()
+	public Integer getFunctionLevel()
 	{
-		return level;
+		return functionLevel;
 	}
 
-	public void setLevel(Integer level)
+	public void setFunctionLevel(Integer functionLevel)
 	{
-		this.level=level;
+		this.functionLevel=functionLevel;
 	}
 
 	public String getFunctionCode()

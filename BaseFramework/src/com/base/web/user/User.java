@@ -17,7 +17,7 @@ public class User extends BaseEntity
 	private static final long serialVersionUID=1L;
 
 	// 用户标识
-	private Long id;
+	private long id;
 
 	// 用户所属公司
 	private Company company;
@@ -109,12 +109,12 @@ public class User extends BaseEntity
 	// 家邮编
 	private String homePostCode;
 
-	public Long getId()
+	public long getId()
 	{
 		return id;
 	}
 
-	public void setId(Long id)
+	public void setId(long id)
 	{
 		this.id=id;
 	}

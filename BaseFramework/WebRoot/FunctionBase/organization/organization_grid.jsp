@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
     String contextPath = request.getContextPath();
 %>
@@ -72,11 +73,17 @@
  			<td class="noWrapTd"><c:out value="${organization.parent.fullName }"/></td>
 			<td class="noWrapTd"><c:out value="${organization.describes }"/></td>
  			<td align="center">
- 			<a href="javascript:void(0);" class="btnSearch" onclick="query(${organization.id});">查看</a>
- 			&nbsp;&nbsp;|&nbsp;&nbsp;
- 			<a href="javascript:void(0);" class="btnEdit" onclick="modify(${organization.id});">编辑</a>
- 			&nbsp;&nbsp;|&nbsp;&nbsp;
- 			<a href="javascript:void(0);" class="btnDelete" onclick="delOrganization(${organization.id});">删除</a>
+	 			<c:if test="${fn:contains(sessionScope.resourceIds,21)}">
+			       <a href="javascript:void(0);" class="btnSearch" onclick="query(${organization.id});">查看</a>
+			       &nbsp;&nbsp;|&nbsp;&nbsp;
+	            </c:if>
+	 			<c:if test="${fn:contains(sessionScope.resourceIds,23)}">
+	 			   <a href="javascript:void(0);" class="btnEdit" onclick="modify(${organization.id});">编辑</a>
+	 			   &nbsp;&nbsp;|&nbsp;&nbsp;
+	 			</c:if>
+	 			<c:if test="${fn:contains(sessionScope.resourceIds,24)}">
+	 			   <a href="javascript:void(0);" class="btnDelete" onclick="delOrganization(${organization.id});">删除</a>
+	 			</c:if>
  			</td>
 	</c:forEach>
 </table>

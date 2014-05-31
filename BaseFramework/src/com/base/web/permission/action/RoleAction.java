@@ -338,7 +338,7 @@ public class RoleAction extends BaseAction<Role>
 	public String roleList()
 	{
 		HttpSession session=ServletActionContext.getRequest().getSession();
-		int rid=(int)session.getAttribute("roleId");
+		int rid=(Integer)session.getAttribute("roleId");
 		roleList=new ArrayList<Role>();
 		List<Role> list=roleService.queryRoleList(company.getId());
 		for(Role role:list)

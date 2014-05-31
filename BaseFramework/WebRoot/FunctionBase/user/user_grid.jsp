@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" import="java.util.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
     String contextPath = request.getContextPath();
 %>
@@ -192,7 +193,8 @@
 							    <input type="checkbox" value="checkbox" id="checkAll" />
 							</th>
 						  	<th width="40" class="nei_txt_menu">序号</th>
-						    <th width="80" class="nei_txt_menu">用户名</th>
+						    <th width="80" class="nei_txt_menu">用户姓名</th>
+						    <th width="80" class="nei_txt_menu">手机号</th>
 						    <th width="80" class="nei_txt_menu">公司名称</th>
 						    <th width="80" class="nei_txt_menu">所属机构</th>
 						    <th width="80" class="nei_txt_menu">用户角色</th>
@@ -206,19 +208,28 @@
 						 	</td>
 						 	<td class="noWrapTd" align="center">${(pageBean.currentPage-1) * pageBean.pageSize + v.count}</td>
 						 	<td class="noWrapTd">${user.userName }</td>
+						 	<td class="noWrapTd">${user.mobilePhone }</td>
 						 	<td class="noWrapTd">${user.company.fullName}</td>
 						 	<td class="noWrapTd">${user.organization.fullName}</td>
 						 	<td class="noWrapTd">${user.role.name }</td>
 						 	<td class="noWrapTd">${user.currentState==1?'已审核':'未审核' }</td>
 						 	<td align="center">
-						 		<a href="#" isSelect="true" code='${user.id}'>查看</a>
+						 	    <c:if test="${fn:contains(sessionScope.resourceIds,31)}">
+						 		   <a href="#" isSelect="true" code='${user.id}'>查看</a>
+						 		    &nbsp;|&nbsp;
+						 		</c:if>
 						 		<c:if test="${user.id != 1 }">
-						 		    &nbsp;|&nbsp;
-						 		    <a href="#" isUpdate="true" code='${user.id}'>编辑</a>
-						 		    &nbsp;|&nbsp;
-						 		    <a href="#" isDelete="true" code='${user.id}'>删除</a>
-						 		    &nbsp;|&nbsp;
-						 		    <a href="#" isResetPass="true" code='${user.id}'>密码重置</a>
+						 		    <c:if test="${fn:contains(sessionScope.resourceIds,33)}">
+						 		       <a href="#" isUpdate="true" code='${user.id}'>编辑</a>
+						 		        &nbsp;|&nbsp;
+						 		    </c:if>
+						 		    <c:if test="${fn:contains(sessionScope.resourceIds,34)}">
+						 		       <a href="#" isDelete="true" code='${user.id}'>删除</a>
+						 		       &nbsp;|&nbsp;
+						 		    </c:if>
+						 		    <c:if test="${fn:contains(sessionScope.resourceIds,39)}">
+							 		   <a href="#" isResetPass="true" code='${user.id}'>密码重置</a>
+						 		    </c:if>
 						 		</c:if>
 						 	</td>
 						 </tr>

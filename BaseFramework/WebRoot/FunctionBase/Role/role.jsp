@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
     String contextPath = request.getContextPath();
 %>
@@ -26,7 +27,7 @@
 <script type="text/javascript" src="<%=contextPath%>/common/js/nfp.core.util.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/common/js/jquery.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/common/js/jquery.easyui.min.js"></script>
-
+<script type="text/javascript" src="<%=contextPath %>/common/js/ajaxPager.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/Vendor/JQuery_zTree_v3/js/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/Vendor/JQuery_zTree_v3/js/jquery.ztree.excheck-3.5.js"></script> 
 
@@ -123,7 +124,8 @@
 				data        :{"company.id":currentCompanyId},
 				success		:function(roleList)
 				{
-
+					hideGridLoading();//隐藏ajax层
+					
 					if(null != roleList)
 					{
 						var tempStr = '';
@@ -149,6 +151,7 @@
 				},
 				error		:function()
 				{
+					hideGridLoading();//隐藏ajax层
 					alert("获取角色列表错误");
 				}
 			});
@@ -158,15 +161,20 @@
 	 */
 	function initRoleListForRefresh()
 	{
-			var companyIdForRefresh=$("#companyId").val();
-			$.ajax({
+		//展示背景
+		 showGridLoading();
+		
+		var companyIdForRefresh=$("#companyId").val();
+		$.ajax({
 				url			:"<%=contextPath%>/web/role/json/roleList",
 				type		:"POST",
 				dataType	:"json",
 				data        :{"company.id":companyIdForRefresh},
 				success		:function(roleList)
 				{
-
+					//隐藏ajax层
+					hideGridLoading();
+					
 					if(null != roleList)
 					{
 						var tempStr = '';
@@ -189,8 +197,12 @@
 					{//边界值情况:数据为空
 						document.getElementById('ulRoleList').innerHTML = '';
 					}
+					
 				},
 				error		:function(){
+					//隐藏ajax层
+					hideGridLoading();
+					
 					//alert("获取角色列表错误");
 				}
 			});
@@ -216,6 +228,9 @@
 	{
 		if(null!=roleId)
 		{
+			//展示背景
+			showGridLoading();
+			
 			//初始化当前角色标识
 			currentRoleId = roleId;
 			
@@ -319,6 +334,9 @@
 					data		:{"currentUserRoleId":currentUserRoleId,"currentRoleId":currentRoleId},
 					success		:function(permissionTree)
 					{
+						//隐藏ajax层
+						hideGridLoading();
+						
 						//zNodes
 						$.fn.zTree.init($("#treeObjId"), setting, permissionTree);
 						setCheck();
@@ -456,6 +474,10 @@
    		if (changeCheckedNodes.length>0)
    		{//只有更改了才执行保存操作，否则什么也不做
    			
+   			
+   			//展示背景
+   			showGridLoading();
+   			
 			var nodes = treeObj.getCheckedNodes(true);
 			var updateSource = '';
 			for (var i = 0; i < nodes.length; i++) 
@@ -473,6 +495,9 @@
 				dataType	:"json",
 				data		:{"currentRoleId":currentRoleId,"updateSource":updateSource},
 				success		:function(flag){
+					//隐藏ajax层
+					hideGridLoading();
+					
 					if(flag=1)
 					{
 						alert("保存成功！");
@@ -483,24 +508,27 @@
 					}
 				},
 				error		:function(){
-						alert("保存失败！");
+					//隐藏ajax层
+					hideGridLoading();
+					
+					alert("保存失败！");
 				}
 			});
    		}
    		return false;
-	}
-    /**
-	 * @description:取消
-	 */
-	function fReset()
-    {
-
 	}
 
 	/**
 	 * @ description:当页面DOM载入就绪后，初始化角色列表
 	 */
 	$(document).ready(function(){
+		
+		//初始化ajax层，loading图片
+		initGridLoading("<%=contextPath%>/common/Images/gridloading.gif");
+		//展示背景
+		showGridLoading();
+		
+		//
 		initCompanyList();
 		initRoleList();
 		
@@ -530,15 +558,30 @@
        	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td style="padding-left:10px;height:34px;" class="tit2_background">
-						<div class="tool_td tool_add" style="height:24px;margin-top:5px;"><a href="javascript:void(0);" onClick="fRoleAdd();">添加角色</a></div>            
-					    <div class="tool_td tool_edit" style="height:24px;margin-top:5px;"><a href="javascript:void(0);" onClick="fRoleEdit();">编辑角色</a></div>
-						<div class="tool_td tool_del" style="height:24px;margin-top:5px;"><a href="javascript:void(0);" onClick="fRoleDelete();">删除角色</a></div>
-						<div class="tool_td" style="width:135px;height:24px;margin-top:5px;"></div>
-						<div class="tool_td tool_update" style="height:24px;margin-top:5px;"><a href="javascript:void(0);" onClick="fSelectAll();" >全选</a></div>
-						<div class="tool_td tool_edit" style="height:24px;margin-top:5px;"><a href="javascript:void(0);" onClick="fSaveAll();" >保存权限设置</a></div>
-						<!-- 
-						<div class="tool_td tool_cancel" style="height:24px;margin-top:5px;"><a href="javascript:void(0);" onClick="fReset();" >取消</a></div>
-		  		 		-->
+					<c:if test="${fn:contains(sessionScope.resourceIds,2)}">
+					   <div class="tool_td tool_add" style="height:24px;margin-top:5px;">
+					       <a href="javascript:void(0);" onClick="fRoleAdd();">添加角色</a>
+					   </div>            
+	                </c:if>
+	                <c:if test="${fn:contains(sessionScope.resourceIds,3)}">
+					   <div class="tool_td tool_edit" style="height:24px;margin-top:5px;">
+					       <a href="javascript:void(0);" onClick="fRoleEdit();">编辑角色</a>
+					   </div>           
+	                </c:if>
+					<c:if test="${fn:contains(sessionScope.resourceIds,4)}">
+					   <div class="tool_td tool_del" style="height:24px;margin-top:5px;">
+					       <a href="javascript:void(0);" onClick="fRoleDelete();">删除角色</a>
+					   </div>
+	                </c:if>	
+	                <c:if test="${fn:contains(sessionScope.resourceIds,9)}">
+	                   <div class="tool_td" style="width:135px;height:24px;margin-top:5px;"></div>
+					   <div class="tool_td tool_update" style="height:24px;margin-top:5px;">
+					        <a href="javascript:void(0);" onClick="fSelectAll();" >全选</a>
+					   </div>
+					   <div class="tool_td tool_edit" style="height:24px;margin-top:5px;">
+					      <a href="javascript:void(0);" onClick="fSaveAll();" >保存权限设置</a>
+					   </div>
+	                </c:if>	
 		  		</td>
 		  	</tr>
 		 </table>
@@ -557,12 +600,7 @@
 		<ul id="ulRoleList"></ul>
 	</div>
 	<div region="center" id="pnMain">
-	<form action="">
-	
-	</form>
 		<ul id="treeObjId" class="ztree" ></ul>
-
-
 	</div>
 </body>
 </html>
