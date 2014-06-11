@@ -8,7 +8,7 @@ public class MobileVersion extends BaseEntity
 	private static final long serialVersionUID=-9057120290302586175L;
 
 	// 标识
-	private int id;
+	private long id;
 
 	// 移动设备类型（iOS和Android）
 	private String mobile;
@@ -35,12 +35,12 @@ public class MobileVersion extends BaseEntity
 	{
 	}
 
-	public int getId()
+	public long getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(long id)
 	{
 		this.id=id;
 	}

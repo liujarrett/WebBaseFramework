@@ -34,6 +34,7 @@
 	    });
 		
 		$("#btnSave").click(function(){
+			var companyId=${companyId};
 			var organizationId = jQuery.trim($("#organizationId").val());
 			var organizationName = jQuery.trim($("#organizationName").val());
 			var parentorganizationId = $("#parentorganizationId").attr("checkedValue");
@@ -41,64 +42,57 @@
 			
 			$("#btnSave").attr("disabled","disabled");
 			
-			if(!organizationName){
+			if(organizationId == parentorganizationId) 
+			{
+				alert("自己不能是上级机构!");
+				return ;
+			}
+			if(!organizationName)
+			{
 				alert("机构名称不能为空！");
 				$("#organizationName").focus();
 				$("#btnSave").removeAttr("disabled");
 				return;
 			}
-			if(!checkForm(document.form)){
+			if(!checkForm(document.form))
+			{
 				$(this).removeAttr("disabled");
 				return;
 			}
-			if(organizationId == parentorganizationId) {
-				alert("上级部门不能是自己!");
-				return ;
-			}
-		
+
 			$.ajax({
-					url : "<%=contextPath%>/web/organization/json/isExists",
-					type : "POST",
-					dataType : "json",
-					data : {
-						    "organization.id":organizationId,
-						    "organization.fullName":organizationName,
-						    "organization.parent.id":parentorganizationId,
-						    "organization.company.id":${companyId}
-					        },
-					success	:function(data){
-							if(data == 1){
-								alert("该公司下的该上级部门下的该部门名称已被注册！");
-							    $("#btnSave").removeAttr("disabled");
-								$("#organizationName").focus();
-							}else{
-								$.ajax({
-									url	:"<%=contextPath%>/web/organization/json/modify",
-									type : "POST",
-									dataType 	: "json",
-									data : {
-									    "organization.id":organizationId,
-									    "organization.fullName":organizationName,
-									    "organization.parent.id":parentorganizationId,
-									    "organization.descripes":descripes,
-									    "organization.company.id":${companyId}
-								        },
-									success : function(data) {
-										        	 alert("修改成功！");
-										        	 parent.frames[0].loadTree();
-													 parent.frames[0].loadData($(parent.frames[0].document.body).find("#txtCurrentPage").val());
-													 parent.ClosePop();
-											  },
-									error : function() {
-												alert("修改失败！");
-											}
-								});
+				url	:"<%=contextPath%>/web/organization/json/modify",
+				type : "POST",
+				dataType 	: "json",
+				data : {
+					"organization.company.id":companyId,
+				    "organization.id":organizationId,
+				    "organization.organizationName":organizationName,
+				    "organization.parent.id":parentorganizationId,
+				    "organization.describes":descripes},
+				success : function(data) {
+							if (data==0)
+							{
+								alert("修改失败！");
+								$("#btnSave").removeAttr("disabled");
+							}
+							else if (data==1)
+							{
+								alert("不能选择子机构作为父机构！");
+								$("#btnSave").removeAttr("disabled");
+							}
+							else
+							{
+			        			alert("修改成功！");
+			        			parent.frames[0].loadTree();
+						 		parent.frames[0].loadData($(parent.frames[0].document.body).find("#txtCurrentPage").val());
+						 		parent.ClosePop();
 							}
 						},
-					error :function(){
-							alert("修改出错！");
+				error : function() {
+							alert("修改失败！");
 							$("#btnSave").removeAttr("disabled");
-					}
+						}
 			});
 		});
 	});
@@ -111,30 +105,32 @@
 			<table width="90%" cellpadding="0" cellspacing="1" bgcolor="#c1dbfc" style="margin-top:1px;margin-left:20px;">
 				<tr>
 					<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
-						机构名称：
-					</td>
-					<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
-						<input value="<c:out value='${organization.fullName }'/>" id="organizationName"  class="editInput" maxlength="50"/><span style='color:red'>*</span>
-					</td>
-				</tr>
-				<tr>
-					<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
 						上级机构：
 					</td>
 					<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
-						<input id="parentorganizationId"  value='<c:out value="${organization.parent.fullName}"/>' class="editInput" />
+						<input style="width:90%" id="parentorganizationId"  value='<c:out value="${organization.parent.organizationName}"/>' class="editInput" />
 					</td>
 				</tr>
+				
+				<tr>
+					<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
+						机构名称：
+					</td>
+					<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
+						<input style="width:90%" value="<c:out value='${organization.organizationName }'/>" id="organizationName"  class="editInput" maxlength="50"/><span style='color:red'>*</span>
+					</td>
+				</tr>
+
 				<tr>
 					<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
 						机构描述：
 					</td>
 					<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
-						<textarea id="descripes" rows="5" value="<c:out value='${organization.describes }'/>" class="editInput" maxlength="100"></textarea>
+						<textarea style="width:90%" id="descripes" rows="5"  class="editInput" maxlength="100"><c:out value="${organization.describes}"/></textarea>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center" style="padding-top: 15px;" bgcolor="#FFFFFF">
+					<td colspan="2" align="center" style="padding-top:15px;" bgcolor="#FFFFFF">
 					    <a href="#" id="btnSave" >
 					       <img src="<%=contextPath%>/common/blue/Images/save.gif"/>
 					    </a>

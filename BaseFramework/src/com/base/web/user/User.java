@@ -7,9 +7,6 @@ import com.base.web.permission.Role;
 
 /**
  * 对于User来说,currentState 0 未审核 1 已审核
- * 
- * @author Administrator
- * 
  */
 public class User extends BaseEntity
 {
@@ -418,4 +415,5 @@ public class User extends BaseEntity
 	{
 		this.homePostCode=homePostCode;
 	}
+
 }

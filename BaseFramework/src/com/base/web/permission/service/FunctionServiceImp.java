@@ -4,7 +4,7 @@ import com.base.core.ssh.l2service.BaseServiceImp;
 import com.base.web.permission.Function;
 import com.base.web.permission.FunctionDao;
 
-public class FunctionServiceImp extends BaseServiceImp<Function,Integer> implements FunctionService
+public class FunctionServiceImp extends BaseServiceImp<Function,Long> implements FunctionService
 {
 	private static final long serialVersionUID=-652269982562840710L;
 

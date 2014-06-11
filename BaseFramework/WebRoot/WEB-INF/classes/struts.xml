@@ -7,11 +7,263 @@
 	<constant name="struts.multipart.maxSize" value="102400" />
 	<constant name="struts.objectFactory" value="spring" />
 
-	<!-- 用户相关 start -->
-	<package name="userJson" extends="json-default" namespace="/web/user/json">
+	<!-- 功能相关 start -->
+	<package name="func" namespace="/web/func" extends="struts-default">
 		<interceptors>
-			<interceptor name="loginInterceptor"
-				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			<interceptor name="loginInterceptor" class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			</interceptor>
+		</interceptors>
+		<global-results>
+			<result name="logout">/logout.jsp</result>
+		</global-results>
+		<action name="goTo" class="functionAction" method="goTo">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="goto">/index.jsp</result>
+		</action>
+	</package>
+	<!-- 功能相关 end -->
+
+
+	<!-- 区域相关 start -->
+	<package name="area" namespace="/web/area" extends="struts-default">
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.base.core.ssh.l4interceptor.LoginInterceptor"></interceptor>
+		</interceptors>
+		<global-results>
+			<result name="logout">/logout.jsp</result>
+		</global-results>
+		<action name="goTo" class="areaAction" method="goTo">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="goto">/FunctionBase/Area/area.jsp</result>
+		</action>
+		<action name="queryForGrid" class="areaAction" method="queryForGrid">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/FunctionBase/Area/area_grid.jsp
+			</result>
+		</action>
+		<action name="gotoAdd" class="areaAction" method="goTo">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="goto">/FunctionBase/Area/area_add.jsp</result>
+		</action>
+		<action name="queryById" class="areaAction" method="queryById">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="query">/FunctionBase/Area/area_info.jsp</result>
+			<result name="edit">/FunctionBase/Area/area_edit.jsp</result>
+		</action>
+	</package>
+
+	<package name="areaJson" namespace="/web/area/json" extends="json-default">
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.base.core.ssh.l4interceptor.LoginInterceptor"></interceptor>
+		</interceptors>
+		<global-results>
+			<result name="logout">/logout.jsp</result>
+		</global-results>
+		<action name="queryTreeNodeData" class="areaAction" method="queryTreeNodeData">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="json">
+				<param name="root">treeList</param>
+			</result>
+		</action>
+		<action name="add" class="areaAction" method="addArea">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+		<action name="editArea" class="areaAction" method="editArea">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+		<action name="deleteArea" class="areaAction" method="deleteArea">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+	</package>
+	<!-- 区域相关 end -->
+
+	<!-- 公司相关 start -->
+	<package name="company" namespace="/web/company" extends="struts-default">
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			</interceptor>
+		</interceptors>
+		<global-results>
+			<result name="logout">/logout.jsp</result>
+		</global-results>
+		<action name="goTo" class="companyAction" method="goTo">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="goto">/FunctionBase/company/company_list.jsp</result>
+		</action>
+		<action name="query" class="companyAction" method="query">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/FunctionBase/company/company_grid.jsp</result>
+		</action>
+		<action name="gotoAddCompany" class="companyAction" method="goTo">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="goto">/FunctionBase/company/add_company.jsp</result>
+		</action>
+		<action name="queryCompany" class="companyAction" method="queryCompany">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="query">/FunctionBase/company/company_info.jsp</result>
+			<result name="edit">/FunctionBase/company/modify_company.jsp</result>
+		</action>
+		<action name="outExcel" class="companyAction" method="outExcel">
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="inputName">excelOrWordStream</param>
+				<param name="bufferSize">2048</param>
+			</result>
+		</action>
+	</package>
+	<package name="companyJson" namespace="/web/company/json" extends="json-default">
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			</interceptor>
+		</interceptors>
+		<global-results>
+			<result name="logout">/logout.jsp</result>
+		</global-results>
+		<action name="addCompany" class="companyAction" method="addCompany">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+		<action name="modifyCompany" class="companyAction" method="modifyCompany">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+		<action name="deleteCompany" class="companyAction" method="deleteCompany">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+		<action name="passCompany" class="companyAction" method="passCompany">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+		<action name="rejectCompany" class="companyAction" method="rejectCompany">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+		<action name="queryNameAndId" class="companyAction" method="queryNameAndId">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="json">
+				<param name="root">companyList</param>
+			</result>
+		</action>
+	</package>
+	<!-- 公司相关 end -->
+	<!-- 组织相关 start -->
+	<package name="organizationJson" namespace="/web/organization/json" extends="json-default">
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			</interceptor>
+		</interceptors>
+		<global-results>
+			<result name="logout">/logout.jsp</result>
+		</global-results>
+		<action name="queryTreeNodeData" class="organizationAction" method="queryTreeNodeData">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="json">
+				<param name="root">treeList</param>
+			</result>
+		</action>
+		<action name="add" class="organizationAction" method="add">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+		<action name="modify" class="organizationAction" method="modify">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+		<action name="deleteById" class="organizationAction" method="delete">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+	</package>
+	<package name="organization" namespace="/web/organization" extends="struts-default">
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			</interceptor>
+		</interceptors>
+		<global-results>
+			<result name="logout">/logout.jsp</result>
+		</global-results>
+		<action name="gotoWithCompanys" class="organizationAction" method="gotoWithCompanys">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/FunctionBase/organization/organization_list.jsp
+			</result>
+		</action>
+		<action name="gotoAdd" class="organizationAction" method="goTo">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="goto">/FunctionBase/organization/add_organization.jsp</result>
+		</action>
+		<action name="queryForGrid" class="organizationAction" method="queryForGrid">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/FunctionBase/organization/organization_grid.jsp
+			</result>
+		</action>
+		<action name="queryById" class="organizationAction" method="queryById">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="query">/FunctionBase/organization/organization_info.jsp
+			</result>
+			<result name="edit">/FunctionBase/organization/modify_organization.jsp
+			</result>
+		</action>
+	</package>
+	<!-- 组织相关 end -->
+
+	<!-- 用户相关 start -->
+	<package name="userJson" namespace="/web/user/json" extends="json-default">
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.base.core.ssh.l4interceptor.LoginInterceptor">
 			</interceptor>
 		</interceptors>
 		<global-results>
@@ -74,10 +326,9 @@
 			</result>
 		</action>
 	</package>
-	<package name="user" extends="struts-default" namespace="/web/user">
+	<package name="user" namespace="/web/user" extends="struts-default">
 		<interceptors>
-			<interceptor name="loginInterceptor"
-				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			<interceptor name="loginInterceptor" class="com.base.core.ssh.l4interceptor.LoginInterceptor">
 			</interceptor>
 		</interceptors>
 		<global-results>
@@ -103,226 +354,34 @@
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result name="query">/FunctionBase/user/user_info.jsp</result>
 			<result name="edit">/FunctionBase/user/modify_user.jsp</result>
-			<result name="modifyPersonalInfo">/FunctionBase/user/modify_personal_info.jsp
-			</result>
+			<result name="modifyPersonalInfo">/FunctionBase/user/modify_personal_info.jsp</result>
 		</action>
 		<action name="gotoChangePwd" class="userAction" method="gotoChangePwd">
 			<interceptor-ref name="loginInterceptor"></interceptor-ref>
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result name="goto">/FunctionBase/user/changePassword.jsp</result>
 		</action>
+		<action name="outExcel" class="userAction" method="outExcel">
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="inputName">excelOrWordStream</param>
+				<param name="bufferSize">2048</param>
+			</result>
+		</action>
 	</package>
 	<!-- 用户相关 end -->
-
-	<!-- 功能相关 start -->
-	<package name="func" extends="struts-default" namespace="/web/func">
-		<interceptors>
-			<interceptor name="loginInterceptor"
-				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
-			</interceptor>
-		</interceptors>
-		<global-results>
-			<result name="logout">/logout.jsp</result>
-		</global-results>
-		<action name="goTo" class="functionAction" method="goTo">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="goto">/index.jsp</result>
-		</action>
-	</package>
-	<!-- 功能相关 end -->
-
-	<!-- 公司相关 start -->
-	<package name="company" namespace="/web/company" extends="struts-default">
-		<interceptors>
-			<interceptor name="loginInterceptor"
-				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
-			</interceptor>
-		</interceptors>
-		<global-results>
-			<result name="logout">/logout.jsp</result>
-		</global-results>
-		<action name="goTo" class="companyAction" method="goTo">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="goto">/FunctionBase/company/company_list.jsp</result>
-		</action>
-		<action name="query" class="companyAction" method="query">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success">/FunctionBase/company/company_grid.jsp</result>
-		</action>
-		<action name="gotoAddCompany" class="companyAction" method="goTo">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="goto">/FunctionBase/company/add_company.jsp</result>
-		</action>
-		<action name="queryCompany" class="companyAction" method="queryCompany">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="query">/FunctionBase/company/company_info.jsp</result>
-			<result name="edit">/FunctionBase/company/modify_company.jsp</result>
-		</action>
-	</package>
-	<package name="companyJson" extends="json-default" namespace="/web/company/json">
-		<interceptors>
-			<interceptor name="loginInterceptor"
-				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
-			</interceptor>
-		</interceptors>
-		<global-results>
-			<result name="logout">/logout.jsp</result>
-		</global-results>
-		<action name="companyIsExists" class="companyAction" method="companyIsExists">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="json">
-				<param name="root">flag</param>
-			</result>
-		</action>
-		<action name="addCompany" class="companyAction" method="addCompany">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="json">
-				<param name="root">flag</param>
-			</result>
-		</action>
-		<action name="modifyCompany" class="companyAction" method="modifyCompany">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="json">
-				<param name="root">flag</param>
-			</result>
-		</action>
-		<action name="deleteCompany" class="companyAction" method="deleteCompany">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="json">
-				<param name="root">flag</param>
-			</result>
-		</action>
-		<action name="passCompany" class="companyAction" method="passCompany">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="json">
-				<param name="root">flag</param>
-			</result>
-		</action>
-		<action name="rejectCompany" class="companyAction" method="rejectCompany">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="json">
-				<param name="root">flag</param>
-			</result>
-		</action>
-		<action name="queryNameAndId" class="companyAction" method="queryNameAndId">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="json">
-				<param name="root">companyList</param>
-			</result>
-		</action>
-	</package>
-	<!-- 公司相关 end -->
-	<!-- 组织相关 start -->
-	<package name="organizationJson" extends="json-default"
-		namespace="/web/organization/json">
-		<interceptors>
-			<interceptor name="loginInterceptor"
-				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
-			</interceptor>
-		</interceptors>
-		<global-results>
-			<result name="logout">/logout.jsp</result>
-		</global-results>
-		<action name="queryTreeNodeData" class="organizationAction"
-			method="queryTreeNodeData">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="json">
-				<param name="root">treeList</param>
-			</result>
-		</action>
-		<action name="isExists" class="organizationAction" method="isExists">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="json">
-				<param name="root">flag</param>
-			</result>
-		</action>
-		<action name="add" class="organizationAction" method="add">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="json">
-				<param name="root">flag</param>
-			</result>
-		</action>
-		<action name="modify" class="organizationAction" method="modify">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="json">
-				<param name="root">flag</param>
-			</result>
-		</action>
-		<action name="deleteById" class="organizationAction" method="delete">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="json">
-				<param name="root">flag</param>
-			</result>
-		</action>
-	</package>
-	<package name="organization" extends="struts-default"
-		namespace="/web/organization">
-		<interceptors>
-			<interceptor name="loginInterceptor"
-				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
-			</interceptor>
-		</interceptors>
-		<global-results>
-			<result name="logout">/logout.jsp</result>
-		</global-results>
-		<action name="gotoWithCompanys" class="organizationAction"
-			method="gotoWithCompanys">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success">/FunctionBase/organization/organization_list.jsp
-			</result>
-		</action>
-		<action name="gotoAdd" class="organizationAction" method="goTo">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="goto">/FunctionBase/organization/add_organization.jsp
-			</result>
-		</action>
-		<action name="queryForGrid" class="organizationAction" method="queryForGrid">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success">/FunctionBase/organization/organization_grid.jsp
-			</result>
-		</action>
-		<action name="queryById" class="organizationAction" method="queryById">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="query">/FunctionBase/organization/organization_info.jsp
-			</result>
-			<result name="edit">/FunctionBase/organization/modify_organization.jsp
-			</result>
-		</action>
-	</package>
-	<!-- 组织相关 end -->
 
 	<!-- 角色相关 start -->
 	<package name="role" namespace="/web/role" extends="struts-default,json-default">
 		<interceptors>
-			<interceptor name="loginInterceptor"
-				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			<interceptor name="loginInterceptor" class="com.base.core.ssh.l4interceptor.LoginInterceptor">
 			</interceptor>
 		</interceptors>
 		<global-results>
 			<result name="logout">/logout.jsp</result>
 		</global-results>
-		<action name="gotoRole" class="roleAction" method="goTo">
+		<action name="goTo" class="roleAction" method="goTo">
 			<interceptor-ref name="loginInterceptor"></interceptor-ref>
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result name="goto">/FunctionBase/Role/role.jsp</result>
@@ -341,8 +400,7 @@
 
 	<package name="roleJson" namespace="/web/role/json" extends="json-default">
 		<interceptors>
-			<interceptor name="loginInterceptor"
-				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			<interceptor name="loginInterceptor" class="com.base.core.ssh.l4interceptor.LoginInterceptor">
 			</interceptor>
 		</interceptors>
 		<global-results>
@@ -375,13 +433,6 @@
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result name="success" type="json">
 				<param name="root">functionList</param>
-			</result>
-		</action>
-		<action name="isExistRole" class="roleAction" method="isExistRole">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="json">
-				<param name="root">flag</param>
 			</result>
 		</action>
 		<action name="roleAdd" class="roleAction" method="roleAdd">
@@ -430,5 +481,34 @@
 	</package>
 	<!-- 角色相关 end -->
 
+
+	<!-- 日志相关 start -->
+	<package name="log" namespace="/web/log" extends="struts-default">
+		<interceptors>
+			<interceptor name="loginInterceptor"
+				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			</interceptor>
+		</interceptors>
+		<global-results>
+			<result name="logout">/logout.jsp</result>
+		</global-results>
+		<action name="goTo" class="logAction" method="goTo">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="goto">/FunctionBase/log/log_list.jsp</result>
+		</action>
+			<action name="queryLoginLogForGrid" class="logAction" method="queryLoginLogForGrid">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/FunctionBase/log/loginlog_grid.jsp</result>
+		</action>
+			<action name="queryOperateLogForGrid" class="logAction" method="queryOperateLogForGrid">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/FunctionBase/log/operatelog_grid.jsp</result>
+		</action>
+	</package>
+	<!-- 日志相关 end -->
+	
 	<include file="struts-lock.xml"></include>
 </struts>

@@ -14,19 +14,31 @@
 <table width="90%" cellpadding="0" cellspacing="1" bgcolor="#c1dbfc" style="margin-top:1px;margin-left:20px;">
 			<tr>
 				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
-					登陆代码:
+					所属区域:
+				</td>
+				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">${company.area.areaName }&nbsp;</td>
+			</tr>
+			<tr>
+				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
+					登录代码:
 				</td>
 				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">${company.companyCode }&nbsp;</td>
 			</tr>
 			<tr>
 				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
-					单位名称:
+					公司名称:
 				</td>
-				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">${company.fullName }&nbsp;</td>
+				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">${company.companyName }&nbsp;</td>
+			</tr>
+			<tr style="display: none">
+				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
+					平台类型:
+				</td>
+				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">${company.companyType==1?'平台':'企业' }&nbsp;</td>
 			</tr>
 			<tr>
 				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
-					单位地址:
+					公司地址:
 				</td>
 				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">${company.address }&nbsp;</td>
 			</tr>
@@ -38,42 +50,36 @@
 			</tr>
 			<tr>
 				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
-					单位联系人:
-				</td>
-				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">${company.linkmanName }&nbsp;</td>
-			</tr>
-			<tr>
-				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
-					平台类型:
-				</td>
-				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">${company.companyType==1?'平台':'企业' }&nbsp;</td>
-			</tr>
-			<tr>
-				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
-					单位法人:
+					公司法人:
 				</td>
 				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">${company.corporationName }&nbsp;</td>
 			</tr>
 			<tr>
 				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
-					单位负责人:
+					工商注册号:
 				</td>
-				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">${company.principalName }&nbsp;</td>
+				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">${company.corporationId }&nbsp;</td>
 			</tr>
 			<tr>
+				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
+					所属派出所:
+				</td>
+				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">${company.remarks }&nbsp;</td>
+			</tr>
+			<tr style="display: none">
 				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
 					邮件地址:
 				</td>
 				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">${company.email }&nbsp;</td>
 			</tr>
-			<tr>
+			<tr style="display: none">
 				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
-					单位描述:
+					公司描述:
 				</td>
 				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">${company.describes }</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center" style="padding-top: 15px;" bgcolor="#FFFFFF"><a href="#" id="btnClose" onclick="parent.ClosePop();"><img src="<%=contextPath%>/common/blue/Images/close.gif"/></a>
+				<td colspan="2" align="center" style="padding-top:15px;padding-bottom:5px;" bgcolor="#FFFFFF"><a href="#" id="btnClose" onclick="parent.ClosePop();"><img src="<%=contextPath%>/common/blue/Images/close.gif"/></a>
 				</td>
 			</tr>
 		</table>

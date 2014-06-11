@@ -110,19 +110,22 @@ body,td,th {
 		$("#companyCode").focus();
 		
 		$("#companyCode").keydown(function(event){
-			if(event.keyCode==13) { //回车键 
+			if(event.keyCode==13) 
+			{ //回车键 
 				$("#userName").focus();
 			}
 		});
 		
 		$("#userName").keydown(function(event){
-			if(event.keyCode==13) {
+			if(event.keyCode==13) 
+			{
 				$("#password").focus();
 			}
 		});
 		
 		$("#password").keydown(function(event){
-			if(event.keyCode==13){
+			if(event.keyCode==13)
+			{
 				$("#btnLogin").triggerHandler("click");
 			}
 		 });
@@ -130,33 +133,39 @@ body,td,th {
 		$("#btnLogin").click(function(){
 			//$("#btnLogin").hide();
 			//$("#btnLogin").show();
-			if (!checkText(document.getElementById("companyCode"))){
+			if (!checkText(document.getElementById("companyCode")))
+			{
 				return;
 			}
-			if (!checkText(document.getElementById("userName"))){
+			if (!checkText(document.getElementById("userName")))
+			{
 				return;
 			}
-			if (!checkText(document.getElementById("password"))){
+			if (!checkText(document.getElementById("password")))
+			{
 				$("#btnLogin").show();
 				return;
 			}
 			
 			var companyCode = jQuery.trim($("#companyCode").val());
-			if (companyCode == "") {
+			if (companyCode == "") 
+			{
 				$("#companyCode").focus();
 				alert("密码不能为空！");
 				$("#btnLogin").show();
 				return;
 			}
 			var userName = jQuery.trim($("#userName").val());
-			if (userName == "") {
+			if (userName == "") 
+			{
 				$("#userName").focus();
 				alert("用户名不能为空！");
 				$("#btnLogin").show();
 				return;
 			}
 			var password = jQuery.trim($("#password").val());
-			if (password == "") {
+			if (password == "") 
+			{
 				$("#password").focus();
 				alert("密码不能为空！");
 				$("#btnLogin").show();
@@ -176,7 +185,7 @@ body,td,th {
 					if(data == 0){
 						alert("登录失败");
 					} else if(data == 1) {
-						//登陆成功
+						//登录成功
 						window.location="<%=contextPath%>/web/func/goTo";
 					} else if(data == 2) {
 						alert("暂未分配任何角色");
@@ -239,20 +248,20 @@ body,td,th {
             <tr valign="bottom">
               <td width=88 height=35 align="center" valign="middle">单位代码</td>
                
-              <td width=206><label for="textfield"></label><input name="companyCode" id="companyCode" class="input21" size=22 tabIndex="1">
+              <td width=206><label for="textfield"></label><input name="companyCode" id="companyCode" class="input21" size=22 tabIndex="1" style="vertical-align:middle">
               </td>
             </tr>
             <tr valign="bottom">
               <td width=88 height=35 align="center" valign="middle">用户名：</td>
                
-              <td width=206><label for="textfield"></label><input name="userName" id="userName" class="input21" size=22 tabIndex="2">
+              <td width=206><label for="textfield"></label><input name="userName" id="userName" class="input21" size=22 tabIndex="2" style="vertical-align:middle">
               </td>
             </tr>
             <tr valign="bottom">
               <td width=88 height=35 align="center" valign="middle">密&nbsp;&nbsp;码：</td>
               <td width=206>
               <label for="textfield2"></label>
-                  <input name="password" id="password" type=password class="input21" size=22 tabIndex="3">
+                  <input name="password" id="password" type=password class="input21" size=22 tabIndex="3" style="vertical-align:middle">
               </td>
             </tr>
             <tr align="center" valign="bottom">

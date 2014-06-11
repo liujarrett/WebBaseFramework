@@ -10,7 +10,7 @@ public class Function extends BaseEntity
 	private static final long serialVersionUID=6142242237313513896L;
 
 	// 功能标识
-	private Integer id;
+	private long id;
 
 	// 上级功能
 	private Function parent;
@@ -44,19 +44,19 @@ public class Function extends BaseEntity
 
 	}
 
-	public Function(Integer id,String name)
+	public Function(long id,String name)
 	{
 		super();
 		this.id=id;
 		this.name=name;
 	}
 
-	public Integer getId()
+	public long getId()
 	{
 		return id;
 	}
 
-	public void setId(Integer id)
+	public void setId(long id)
 	{
 		this.id=id;
 	}

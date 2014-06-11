@@ -4,7 +4,7 @@ import com.base.core.ssh.l2service.BaseServiceImp;
 import com.base.web.permission.Resource;
 import com.base.web.permission.ResourceDao;
 
-public class ResourceServiceImp extends BaseServiceImp<Resource,Integer> implements ResourceService
+public class ResourceServiceImp extends BaseServiceImp<Resource,Long> implements ResourceService
 {
 
 	private static final long serialVersionUID=7516280264561735161L;

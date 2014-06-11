@@ -15,11 +15,14 @@
 	<script type="text/javascript" src="<%=contextPath%>/common/js/nfpTreeSource.js"></script>
 	<script type="text/javascript" src="<%=contextPath%>/common/js/popup.js"></script>
 	<script type="text/javascript" src="<%=contextPath%>/common/js/popupclass.js"></script>
+	<script type="text/javascript" src="<%=contextPath%>/common/js/initMonitor.js"></script>
+			
 <script language="javascript" type="text/javascript">
 	    $(function () {
 	    	loadTree(0);
 	    	$("#btnLogout").click(function(){
-	    		if (confirm("确定要退出系统吗？")) {
+	    		if (confirm("确定要退出系统吗？")) 
+	    		{
 	    			window.location="<%=contextPath%>/logout.jsp";
 	    		}
 	    	});
@@ -43,7 +46,8 @@
 		        	var url = node.attr("nodeattr1");
 		        	
 					//加载页面地址
-					if(url && url!= 'null' && url !=""){
+					if(url && url!= 'null' && url !="")
+					{
 						$("#iframeBody").attr("src",'<%=contextPath%>/' + url);
 						$("span.active",$('#treeMenu')).attr("class","text");
 						nodeObj.attr("class","active");

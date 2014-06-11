@@ -1,16 +1,14 @@
 package com.lock.callbill.service;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import com.base.core.page.PageBean;
+import com.base.core.utilities.SJDateUtil;
 import com.lock.callbill.Callbill;
 import com.lock.callbill.CallbillDao;
 
 public class CallbillServiceImp  implements CallbillService {
 
-
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	private CallbillDao callbillDao;
 
@@ -56,7 +54,7 @@ public class CallbillServiceImp  implements CallbillService {
 			}
 
 			strCondition += " hangontm >= to_date('"
-					+ sdf.format(callbill.getHangontime())
+					+ SJDateUtil.DEFAULT_FORMAT.format(callbill.getHangontime())
 					+ "','yyyy-MM-dd hh24:mi:ss')";
 		}
 
@@ -65,7 +63,7 @@ public class CallbillServiceImp  implements CallbillService {
 				strCondition += " and ";
 			}
 			strCondition += " hangofftm <= to_date('"
-					+ sdf.format(callbill.getHangofftime())
+					+ SJDateUtil.DEFAULT_FORMAT.format(callbill.getHangofftime())
 					+ "','yyyy-MM-dd hh24:mi:ss')";
 		}
 

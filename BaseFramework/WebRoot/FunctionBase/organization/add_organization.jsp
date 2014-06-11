@@ -30,6 +30,7 @@
 	    });
 		
 		$("#btnAdd").click(function(){
+			var companyId=${companyId};
 			var organizationName = jQuery.trim($("#organizationName").val());
 			//上级机构id  如果没有上级，则为-1
 			var parentOrganizationId = $("#parentOrganizationId").attr("checkedValue");
@@ -48,46 +49,40 @@
 				return;
 			}
 			$.ajax({
-				url		: "<%=contextPath%>/web/organization/json/isExists",
+				url		: "<%=contextPath%>/web/organization/json/add",
 				type	: "POST",
 				dataType: "json",
-				data	: {"organization.fullName":organizationName,
-					       "organization.parent.id":parentOrganizationId,
-					       "organization.company.id":${companyId}},
+				data	: {   "organization.company.id":companyId,
+							  "organization.organizationName":organizationName,
+					          "organization.parent.id":parentOrganizationId,
+					          "organization.describes":descripe},
 			    success : function(data){
-						if(data == 1){
+						if(data == 0)
+						{
+							alert("机构添加失败");
+							$("#btnAdd").removeAttr("disabled");
+							$("#organizationName").focus();
+						}
+						else if(data == 1)
+						{
 							alert("该公司下的该上级机构已经存在此机构名称");
 							$("#btnAdd").removeAttr("disabled");
 							$("#organizationName").focus();
-						}else{
-							$.ajax({
-								url		: "<%=contextPath%>/web/organization/json/add",
-								type	: "POST",
-								dataType: "json",
-								data	: {   "organization.fullName":organizationName,
-									          "organization.parent.id":parentOrganizationId,
-									          "organization.describes":descripe,
-									          "organization.company.id":${companyId}},
-							    success : function(data){
-										if(data == 0){
-											alert("机构添加失败");
-											$("#btnAdd").removeAttr("disabled");
-											$("#organizationName").focus();
-										}else{
-											alert("机构添加成功");
-											parent.frames[0].loadTree();
-											parent.frames[0].loadData($(parent.frames[0].document.body).find("#txtCurrentPage").val());
-											parent.ClosePop();
-										}
-									},
-							    error : function(){
-										alert("机构添加失败");
-										$("#btnAdd").removeAttr("disabled");
-									}
-								});
 						}
-			    }
-			});
+						else
+						{
+							alert("机构添加成功");
+							parent.frames[0].loadTree();
+							parent.frames[0].loadData($(parent.frames[0].document.body).find("#txtCurrentPage").val());
+							parent.ClosePop();
+						}
+					},
+			    error : function(){
+						alert("机构添加失败");
+						$("#btnAdd").removeAttr("disabled");
+					}
+				});
+
 		});
 	});
 </script>
@@ -96,20 +91,20 @@
 	<form name="form" >
 		<table width="90%" cellpadding="0" cellspacing="1" bgcolor="#c1dbfc" style="margin-top:1px;margin-left:20px;">
 			<tr>
-				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
-					机构名称：
-				</td>
-				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
-					<input id="organizationName" class="editInput" maxlength="50"/><span style='color:red'>*</span>
-				</td>
-			</tr>
-			
-			<tr>
 				<td height="28" align="center" bgcolor="#FFFFFF">
 					上级机构：
 				</td>
 				<td bgcolor="#FFFFFF" style="padding-left:10px;">
 					<input id="parentOrganizationId" class="editInput"/>
+				</td>
+			</tr>
+			
+			<tr>
+				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
+					机构名称：
+				</td>
+				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
+					<input id="organizationName" class="editInput" maxlength="50"/><span style='color:red'>*</span>
 				</td>
 			</tr>
 			

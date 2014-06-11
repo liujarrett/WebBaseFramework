@@ -41,6 +41,7 @@ function showPic(url) {
 	    <th width="70" class="nei_txt_menu">客户姓名</th>
 	    <th width="175" class="nei_txt_menu">客户身份证号码</th>
 	    <th width="150" class="nei_txt_menu">开锁时间</th>
+	    <th width="150" class="nei_txt_menu">开锁地点</th>
 	    <th width="100" class="nei_txt_menu">开锁类型</th>
 	    <th width="100" class="nei_txt_menu">开锁公司</th>
 	    <th width="100" class="nei_txt_menu">服务单</th>
@@ -73,6 +74,10 @@ function showPic(url) {
 	 			</td>
 	 			
 	 			<td class="noWrapTd">
+	 			    <c:out value='${unlock.unlockLocation }'/>
+	 			</td>
+	 			
+	 			<td class="noWrapTd">
 	 			   <c:if test="${unlock.unlockType == 1 }">
 	 			              开民用锁
 	 			   </c:if>
@@ -88,10 +93,13 @@ function showPic(url) {
 	 			   <c:if test="${unlock.unlockType == 5 }">
 	 			              开金库
 	 			   </c:if>
+	 			   	<c:if test="${unlock.unlockType == 100 }">
+	 			              其它
+	 			   </c:if>
 				</td>
 				
 				<td class="noWrapTd">
-	 			    ${unlock.user.company.fullName}
+	 			    ${unlock.user.company.companyName}
 	 			</td>
 				
 	 			<td class="noWrapTd">

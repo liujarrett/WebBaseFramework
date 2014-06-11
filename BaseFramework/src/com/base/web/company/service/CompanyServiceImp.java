@@ -7,7 +7,7 @@ import com.base.core.ssh.l2service.BaseServiceImp;
 import com.base.web.company.Company;
 import com.base.web.company.CompanyDao;
 
-public class CompanyServiceImp extends BaseServiceImp<Company,Integer> implements CompanyService
+public class CompanyServiceImp extends BaseServiceImp<Company,Long> implements CompanyService
 {
 
 	private static final long serialVersionUID=944133844945607686L;
@@ -29,9 +29,9 @@ public class CompanyServiceImp extends BaseServiceImp<Company,Integer> implement
 	public PageBean<Company> query(Company company,PageBean<Company> pageBean)
 	{
 		String where="where id != 1 and isDelete='0'";
-		if(company.getFullName()!=null&&!company.getFullName().equals(""))
+		if(company.getCompanyName()!=null&&!company.getCompanyName().equals(""))
 		{
-			where+=" and fullName like '%"+company.getFullName()+"%'";
+			where+=" and companyName like '%"+company.getCompanyName()+"%'";
 		}
 		if(company.getAddress()!=null&&!company.getAddress().equals(""))
 		{
@@ -45,13 +45,32 @@ public class CompanyServiceImp extends BaseServiceImp<Company,Integer> implement
 	}
 
 	@Override
+	public List<Company> query(Company company)
+	{
+		String where="where id != 1 and isDelete='0'";
+		if(company.getCompanyName()!=null&&!company.getCompanyName().equals(""))
+		{
+			where+=" and companyName like '%"+company.getCompanyName()+"%'";
+		}
+		if(company.getAddress()!=null&&!company.getAddress().equals(""))
+		{
+			where+=" and address like '%"+company.getAddress()+"%'";
+		}
+		if(company.getTelephone()!=null&&!company.getTelephone().equals(""))
+		{
+			where+=" and telephone='"+company.getTelephone()+"'";
+		}
+		return companyDao.select(where);
+	}
+
+	@Override
 	public int checkIsExists(Company company)
 	{
 		if(company.getId()<=0)
 		{ //添加公司时的检查
 			if(company.getCompanyCode()!=null&&!company.getCompanyCode().equals(""))
 			{
-				String where="where companyCode='"+company.getCompanyCode()+"'";
+				String where="where isDelete='0' and companyCode='"+company.getCompanyCode()+"'";
 				List<Company> companys=companyDao.select(where);
 				if(companys!=null&&companys.size()>0)
 				{
@@ -59,28 +78,36 @@ public class CompanyServiceImp extends BaseServiceImp<Company,Integer> implement
 				}
 			}
 
-			if(company.getFullName()!=null&&!company.getFullName().equals(""))
+			if(company.getCompanyName()!=null&&!company.getCompanyName().equals(""))
 			{
-				String where="where fullName='"+company.getFullName()+"'";
+				String where="where isDelete='0' and companyName='"+company.getCompanyName()+"'";
 				List<Company> companys=companyDao.select(where);
-				return companys!=null&&companys.size()>0?2:0;
+				if(companys!=null&&companys.size()>0)
+				{
+					return 2;
+				}
 			}
+
 			return 0;
 		}
 		else
-		{ //修改公司的时候的检查
-			if(company.getFullName()!=null&&!company.getFullName().equals(""))
+		{
+			//修改公司的时候的检查
+			if(company.getCompanyName()!=null&&!company.getCompanyName().equals(""))
 			{
-				String where="where fullName='"+company.getFullName()+"' and id !="+company.getId();
+				String where="where isDelete='0' and companyName='"+company.getCompanyName()+"' and id !="+company.getId();
 				List<Company> companys=companyDao.select(where);
-				return companys!=null&&companys.size()>0?1:0;
+				if(companys!=null&&companys.size()>0)
+				{
+					return 2;
+				}
 			}
 			return 0;
 		}
 	}
 
 	@Override
-	public Company query(int id)
+	public Company query(long id)
 	{
 		Company company=null;
 		try
@@ -95,9 +122,9 @@ public class CompanyServiceImp extends BaseServiceImp<Company,Integer> implement
 	}
 
 	@Override
-	public List<Company> queryNameAndId(int cid)
+	public List<Company> queryIdAndName(long cid)
 	{
-		return companyDao.queryNameAndId(cid);
+		return companyDao.queryIdAndName(cid);
 	}
 
 }

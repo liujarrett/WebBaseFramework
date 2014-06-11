@@ -135,7 +135,7 @@
 			<tr>
 			    <td width="21%" height="28" align="center" bgcolor="#FFFFFF">所属机构：</td>
 				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
-				    <input type="text" id="organizationId" class="editInput" value="${user.organization.fullName }"/>
+				    <input type="text" id="organizationId" class="editInput" value="${user.organization.organizationName }"/>
 				</td>
 			</tr>
 			<tr>

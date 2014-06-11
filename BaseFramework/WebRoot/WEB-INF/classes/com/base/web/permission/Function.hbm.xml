@@ -4,14 +4,12 @@
 <hibernate-mapping>
 	<class name="com.base.web.permission.Function" table="T_BASE_FUNCTION"
 		lazy="true">
-		<id name="id" column="ID" type="java.lang.Integer">
-			<!-- 
-			<generator class="identity"></generator>
-			 -->
+		<id name="id" column="ID" type="java.lang.Long">
 			<generator class="sequence">
                 <param name="sequence">S_BASE_FUNCTION</param>      
             </generator>
 		</id>
+		
 		<!-- 上下级 一对多 双向关联 -->
 		<many-to-one name="parent" column="PARENT_ID"
 			class="com.base.web.permission.Function" />

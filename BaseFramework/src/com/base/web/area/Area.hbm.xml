@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.base.web.area.Area" table="T_BASE_AREA">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="sequence">
+				<param name="sequence">S_BASE_AREA</param>
+			</generator>
+		</id>
+
+		<!-- 区域上下级 一对多 双向关联 -->
+		<many-to-one name="parent" column="PARENT_ID" class="com.base.web.area.Area" />
+		<set name="childList" inverse="true" lazy="true" cascade="all">
+			<key column="PARENT_ID" />
+			<one-to-many class="com.base.web.area.Area" />
+		</set>
+
+		<!-- 区域与公司之间 一对多 双向关联 -->
+		<set name="companyList" inverse="true" lazy="true" cascade="all">
+			<key column="AREA_ID" />
+			<one-to-many class="com.base.web.company.Company" />
+		</set>
+
+		<property name="areaLevel" column="AREA_LEVEL" />
+		<property name="areaCode" column="AREA_CODE" />
+		<property name="areaType" column="AREA_TYPE" />
+		<property name="areaName" column="AREA_NAME" />
+		<property name="remarks" column="REMARKS" />
+		<property name="orderNumber" column="ORDER_NUMBER" />
+		<property name="currentState" column="CURRENT_STATE" />
+		<property name="isDelete" column="IS_DELETE" />
+		<property name="createTime" column="CREATE_TIME" />
+		<property name="updateTime" column="UPDATE_TIME" />
+	</class>
+</hibernate-mapping>

@@ -1,10 +1,9 @@
 package com.base.web.permission.action;
 
 import com.base.core.ssh.l1action.BaseAction;
-import com.base.web.permission.Function;
 import com.base.web.permission.service.FunctionService;
 
-public class FunctionAction extends BaseAction<Function>
+public class FunctionAction extends BaseAction
 {
 	private static final long serialVersionUID=5217656268275826329L;
 

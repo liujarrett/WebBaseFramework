@@ -8,7 +8,7 @@ public class Permission extends BaseEntity
 	private static final long serialVersionUID=8624064333081636887L;
 
 	// 权限标识
-	private int id;
+	private long id;
 
 	// 角色
 	private Role role;
@@ -19,12 +19,12 @@ public class Permission extends BaseEntity
 	// 资源标识（外键关联）
 	private Resource resource;
 
-	public int getId()
+	public long getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(long id)
 	{
 		this.id=id;
 	}

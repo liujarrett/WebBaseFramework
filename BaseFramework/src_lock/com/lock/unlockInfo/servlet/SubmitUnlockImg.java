@@ -119,7 +119,7 @@ public class SubmitUnlockImg extends HttpServlet
 				String newFileUrl=fileList.get(0);
 
 				UnlockInfoService unlockInfoService=(UnlockInfoService)context.getBean("unlockInfoService");
-				UnlockInfo unlockInfo=unlockInfoService.queryByPK(Integer.valueOf(unlockInfoId));
+				UnlockInfo unlockInfo=unlockInfoService.queryByPK(Long.valueOf(unlockInfoId));
 				if(imgType.equals("customerIdImg"))
 				{
 					unlockInfo.setCustomerIdImg(newFileUrl);

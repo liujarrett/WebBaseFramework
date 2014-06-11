@@ -1,14 +1,13 @@
 package com.lock.workorder.service;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import com.base.core.page.PageBean;
+import com.base.core.utilities.SJDateUtil;
 import com.lock.workorder.WorkOrder;
 import com.lock.workorder.WorkOrderDao;
 
 public class WorkOrderServiceImp implements WorkOrderService {
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private WorkOrderDao workorderDao;
 
 	public WorkOrderDao getWorkorderDao() {
@@ -50,7 +49,7 @@ public class WorkOrderServiceImp implements WorkOrderService {
 			}
 
 			strCondition += " accepttime >= to_date('"
-					+ sdf.format(workOrder.getAcceptStartTime())
+					+ SJDateUtil.DEFAULT_FORMAT.format(workOrder.getAcceptStartTime())
 					+ "','yyyy-MM-dd hh24:mi:ss')";
 		}
 
@@ -59,7 +58,7 @@ public class WorkOrderServiceImp implements WorkOrderService {
 				strCondition += " and ";
 			}
 			strCondition += " accepttime <= to_date('"
-					+ sdf.format(workOrder.getAcceptEndTime())
+					+ SJDateUtil.DEFAULT_FORMAT.format(workOrder.getAcceptEndTime())
 					+ "','yyyy-MM-dd hh24:mi:ss')";
 		}
 

@@ -3,17 +3,16 @@ package com.base.web.permission;
 import java.util.List;
 
 import com.base.core.ssh.l0model.BaseEntity;
-import com.base.web.company.Company;
 
 public class Role extends BaseEntity
 {
 	private static final long serialVersionUID=-3442497245627129415L;
 
 	// 角色标识
-	private int id;
+	private long id;
 
 	// 所属的公司
-	private Company company;
+	private long companyId;
 
 	// 角色编号
 	private String roleCode;
@@ -33,24 +32,24 @@ public class Role extends BaseEntity
 	// 所拥有的权限
 	private List<Permission> permissions;
 
-	public int getId()
+	public long getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(long id)
 	{
 		this.id=id;
 	}
 
-	public Company getCompany()
+	public long getCompanyId()
 	{
-		return company;
+		return companyId;
 	}
 
-	public void setCompany(Company company)
+	public void setCompanyId(long companyId)
 	{
-		this.company=company;
+		this.companyId=companyId;
 	}
 
 	public String getRoleCode()

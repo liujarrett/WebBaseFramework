@@ -1,49 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
-	
+
+	<!-- 功能service -->
+	<bean id="functionService" class="com.base.web.permission.service.FunctionServiceImp">
+		<property name="functionDao" ref="functionDao" />
+	</bean>
+
+	<!-- 资源service -->
+	<bean id="resourceService" class="com.base.web.permission.service.ResourceServiceImp">
+		<property name="resourceDao" ref="resourceDao" />
+	</bean>
+
+	<!-- 区域service -->
+	<bean id="areaService" class="com.base.web.area.service.AreaServiceImp">
+		<property name="areaDao" ref="areaDao" />
+		<property name="companyDao" ref="companyDao" />
+	</bean>
+
+	<!-- 公司service -->
+	<bean id="companyService" class="com.base.web.company.service.CompanyServiceImp">
+		<property name="companyDao" ref="companyDao" />
+	</bean>
+
+	<!-- 组织service -->
+	<bean id="organizationService" class="com.base.web.organization.service.OrganizationServiceImp">
+		<property name="organizationDao" ref="organizationDao" />
+	</bean>
+
 	<!-- 角色service -->
 	<bean id="roleService" class="com.base.web.permission.service.RoleServiceImp">
 		<property name="roleDao" ref="roleDao" />
 		<property name="userDao" ref="userDao" />
 	</bean>
-	
-	<!-- 功能service -->
-	<bean id="functionService" class="com.base.web.permission.service.FunctionServiceImp">
-		<property name="functionDao" ref="functionDao" />
-	</bean>
-	
-	<!-- 资源service -->
-	<bean id="resourceService" class="com.base.web.permission.service.ResourceServiceImp">
-		<property name="resourceDao" ref="resourceDao" />
-	</bean>
-	
+
+	<!-- 日志相关 start -->
+
 	<!-- 权限service -->
 	<bean id="permissionService" class="com.base.web.permission.service.PermissionServiceImp">
 		<property name="permissionDao" ref="permissionDao" />
 		<property name="functionDao" ref="functionDao" />
 	</bean>
-	
-	<!-- 公司service -->
-	<bean id="companyService" class="com.base.web.company.service.CompanyServiceImp">
-		<property name="companyDao" ref="companyDao" />
-	</bean>
-	
-	<!-- 组织service -->
-	<bean id="organizationService" class="com.base.web.organization.service.OrganizationServiceImp">
-		<property name="organizationDao" ref="organizationDao" />
-	</bean>
-	
+
 	<!-- 用户service -->
 	<bean id="userService" class="com.base.web.user.service.UserServiceImp">
 		<property name="userDao" ref="userDao" />
 	</bean>
+
+	<!-- 日志相关 start -->
+	<bean id="loginLogService" class="com.base.web.log.service.LoginLogServiceImp">
+		<property name="loginLogDao" ref="loginLogDao" />
+	</bean>
+	<bean id="operateLogService" class="com.base.web.log.service.OperateLogServiceImp">
+		<property name="operateLogDao" ref="operateLogDao" />
+	</bean>
 	
-	<!-- 组织service -->
+	<!-- 手机service -->
 	<bean id="mobileVersionService" class="com.base.mobile.version.service.MobileVersionServiceImp">
 		<property name="mobileVersionDao" ref="mobileVersionDao" />
 	</bean>

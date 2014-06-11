@@ -98,21 +98,42 @@ public class UserServiceImp extends BaseServiceImp<User,Long> implements UserSer
 	}
 
 	@Override
+	public List<User> query(User user)
+	{
+		String where=" where isDelete = '0'";
+		if(user!=null)
+		{
+			if(user.getCompany()!=null&&user.getCompany().getId()>0)
+			{
+				where+=" and company.id="+user.getCompany().getId();
+			}
+			if(user.getUserName()!=null&&!user.getUserName().equals(""))
+			{
+				where+=" and userName like '%"+user.getUserName()+"%'";
+			}
+			if(user.getCurrentState()!=null&&(user.getCurrentState().equals("0")||user.getCurrentState().equals("1")))
+			{
+				where+=" and currentState='"+user.getCurrentState()+"'";
+			}
+		}
+		return userDao.select(where);
+	}
+	
+	@Override
 	public boolean isUserNameExist(User user)
 	{
 		User u=null;
 		try
 		{
 			String where="where isDelete='0' and userName='"+user.getUserName()+"'";
-			if(user.getCompany()!=null)
+			if(user!=null&&user.getCompany()!=null)
 			{
 				where+=" and company.id="+user.getCompany().getId();
 			}
-			if(user.getOrganization()!=null)
+			if(user!=null&&user.getOrganization()!=null)
 			{
 				where+=" and organization.id="+user.getOrganization().getId();
 			}
-
 			if(user!=null&&user.getId()>0)
 			{
 				where+=" and id!="+user.getId();
@@ -135,20 +156,31 @@ public class UserServiceImp extends BaseServiceImp<User,Long> implements UserSer
 		}
 		return u!=null;
 	}
+
 	@Override
-	public boolean isPhoneExist(User user) {
-		if(user == null) {
+	public boolean isPhoneExist(User user)
+	{
+		if(user==null)
+		{
 			return true;
 		}
 		User u=null;
 		try
 		{
 			String where="where isDelete='0'";
-			if(user.getMobilePhone() != null && !user.getMobilePhone().equals("")) {
-				where += " and mobilePhone='"+user.getMobilePhone()+"'";
+			if(user!=null&&user.getMobilePhone()!=null)
+			{
+				where+=" and mobilePhone='"+user.getMobilePhone()+"'";
 			}
-
-			if(user!=null && user.getId()>0)
+			if(user!=null&&user.getCompany()!=null)
+			{
+				where+=" and company.id="+user.getCompany().getId();
+			}
+			if(user!=null&&user.getOrganization()!=null)
+			{
+				where+=" and organization.id="+user.getOrganization().getId();
+			}
+			if(user!=null&&user.getId()>0)
 			{
 				where+=" and id!="+user.getId();
 			}
@@ -170,6 +202,7 @@ public class UserServiceImp extends BaseServiceImp<User,Long> implements UserSer
 		}
 		return u!=null;
 	}
+
 	@Override
 	public boolean batchUpdate(List<User> users)
 	{

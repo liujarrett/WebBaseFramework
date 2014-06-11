@@ -20,9 +20,6 @@
 	li {color: #000000;list-style-type: none;}
 	.roleActive {cursor: pointer;font-weight:bold;color:#3399FE;}
 </style> 
-	
-	
-</style> 
 
 <script type="text/javascript" src="<%=contextPath%>/common/js/nfp.core.util.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/common/js/jquery.js"></script>
@@ -34,7 +31,8 @@
 
 <script type="text/javascript">
 	
-	//当前角色标识(DEBUG时默认值为1)
+	//当前所选公司和角色(DEBUG时默认值为1)
+	var currentCompanyId = '';
 	var currentRoleId = '';
 
 	//
@@ -72,17 +70,20 @@
 				dataType	:"json",
 				success		:function(companylist)
 				{
-					if(null != companylist){
+					if(null != companylist)
+					{
 						var tempStr = '';
 						var firstcompanyId = '';//用于暂存第一个角色标识.
 						//tempStr += formatSelect("1","请选择");//选择角色时默认选择
 						for(var i=0;i<companylist.length;i++)
 						{
-							tempStr += formatSelect(companylist[i].id,companylist[i].fullName);
+							tempStr += formatSelect(companylist[i].id,companylist[i].companyName);
 						}
 						$('#companyId').html(tempStr);
 
-					}else{//边界值情况:数据为空
+					}
+					else
+					{//边界值情况:数据为空
 						$('#companyId').html("");
 					}
 				},
@@ -115,13 +116,14 @@
 			//当浏览器为IE7以下版本时，建议把以下代码注释打开，以防止闪屏事件发生
 		    $("div[class^='layout-button-left']:first").hide();
 		    
-			var currentCompanyId=${sessionScope.companyId};
-		    
+			var currentUserCompanyId=${sessionScope.companyId};
+			currentCompanyId=currentUserCompanyId;
+			
 			$.ajax({
 				url			:"<%=contextPath%>/web/role/json/roleList",
 				type		:"POST",
 				dataType	:"json",
-				data        :{"company.id":currentCompanyId},
+				data        :{"company.id":currentUserCompanyId},
 				success		:function(roleList)
 				{
 					hideGridLoading();//隐藏ajax层
@@ -162,14 +164,15 @@
 	function initRoleListForRefresh()
 	{
 		//展示背景
-		 showGridLoading();
+		showGridLoading();
 		
-		var companyIdForRefresh=$("#companyId").val();
+		currentCompanyId=$("#companyId").val();
+		
 		$.ajax({
 				url			:"<%=contextPath%>/web/role/json/roleList",
 				type		:"POST",
 				dataType	:"json",
-				data        :{"company.id":companyIdForRefresh},
+				data        :{"company.id":currentCompanyId},
 				success		:function(roleList)
 				{
 					//隐藏ajax层
@@ -362,9 +365,10 @@
 	 */
     function fRoleEdit()
     {
-		if(null != currentRoleId && '' != currentRoleId)
+
+		if(null != currentCompanyId && '' != currentCompanyId &&null != currentRoleId && '' != currentRoleId)
 		{
-	    	parent.ShowIframe('编辑-角色信息','<%=contextPath%>/web/role/gotoEdit?role.id='+currentRoleId,400,200);			
+	    	parent.ShowIframe('编辑-角色信息','<%=contextPath%>/web/role/gotoEdit?role.companyId='+currentCompanyId+'&role.id='+currentRoleId,400,200);			
 		}
 		else
 		{
@@ -416,8 +420,6 @@
 											initRoleListForRefresh();
 											//重置当前角色标识为空
 											currentRoleId = '';
-											//清楚所有选中的checkBox
-											clearAllCheckBox();
 											//提示删除成功
 											alert("删除成功！");
 										}
@@ -546,48 +548,48 @@
 </head>
 <body class="easyui-layout">
 	 <div region="north" border="false" style="height:60px;background:#B3DFDA;">
-	 <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
-	 <tr>
-		 <td>
-			 <%-- 导入页面标题栏 --%>
-			<%@ include file="../../common/pagehead.jsp"%>
-		 </td>
-	 </tr>
-     <tr>
-       <td>
-       	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-			<tr>
-				<td style="padding-left:10px;height:34px;" class="tit2_background">
-					<c:if test="${fn:contains(sessionScope.resourceIds,2)}">
-					   <div class="tool_td tool_add" style="height:24px;margin-top:5px;">
-					       <a href="javascript:void(0);" onClick="fRoleAdd();">添加角色</a>
-					   </div>            
-	                </c:if>
-	                <c:if test="${fn:contains(sessionScope.resourceIds,3)}">
-					   <div class="tool_td tool_edit" style="height:24px;margin-top:5px;">
-					       <a href="javascript:void(0);" onClick="fRoleEdit();">编辑角色</a>
-					   </div>           
-	                </c:if>
-					<c:if test="${fn:contains(sessionScope.resourceIds,4)}">
-					   <div class="tool_td tool_del" style="height:24px;margin-top:5px;">
-					       <a href="javascript:void(0);" onClick="fRoleDelete();">删除角色</a>
-					   </div>
-	                </c:if>	
-	                <c:if test="${fn:contains(sessionScope.resourceIds,9)}">
-	                   <div class="tool_td" style="width:135px;height:24px;margin-top:5px;"></div>
-					   <div class="tool_td tool_update" style="height:24px;margin-top:5px;">
-					        <a href="javascript:void(0);" onClick="fSelectAll();" >全选</a>
-					   </div>
-					   <div class="tool_td tool_edit" style="height:24px;margin-top:5px;">
-					      <a href="javascript:void(0);" onClick="fSaveAll();" >保存权限设置</a>
-					   </div>
-	                </c:if>	
-		  		</td>
-		  	</tr>
-		 </table>
-        </td>
-      </tr>
-    </table>
+		 <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+		 <tr>
+			 <td>
+				 <%-- 导入页面标题栏 --%>
+				<%@ include file="../../common/pagehead.jsp"%>
+			 </td>
+		 </tr>
+	     <tr>
+	       <td>
+	       	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td style="padding-left:10px;height:34px;" class="tit2_background">
+						<c:if test="${fn:contains(sessionScope.resourceIds,2)}">
+						   <div class="tool_td tool_add" style="height:24px;margin-top:5px;">
+						       <a href="javascript:void(0);" onClick="fRoleAdd();">添加角色</a>
+						   </div>            
+		                </c:if>
+		                <c:if test="${fn:contains(sessionScope.resourceIds,3)}">
+						   <div class="tool_td tool_edit" style="height:24px;margin-top:5px;">
+						       <a href="javascript:void(0);" onClick="fRoleEdit();">编辑角色</a>
+						   </div>           
+		                </c:if>
+						<c:if test="${fn:contains(sessionScope.resourceIds,4)}">
+						   <div class="tool_td tool_del" style="height:24px;margin-top:5px;">
+						       <a href="javascript:void(0);" onClick="fRoleDelete();">删除角色</a>
+						   </div>
+		                </c:if>	
+		                <c:if test="${fn:contains(sessionScope.resourceIds,9)}">
+		                   <div class="tool_td" style="width:135px;height:24px;margin-top:5px;"></div>
+						   <div class="tool_td tool_update" style="height:24px;margin-top:5px;">
+						        <a href="javascript:void(0);" onClick="fSelectAll();" >全选</a>
+						   </div>
+						   <div class="tool_td tool_edit" style="height:24px;margin-top:5px;">
+						      <a href="javascript:void(0);" onClick="fSaveAll();" >保存权限设置</a>
+						   </div>
+		                </c:if>	
+			  		</td>
+			  	</tr>
+			 </table>
+	        </td>
+	      </tr>
+	    </table>
 	</div>
 	
 	<!-- 当浏览器为IE7以下版本时，建议把 split属性值改为false，以防止闪屏事件发生 -->
@@ -599,6 +601,8 @@
 		<!-- 角色列表 -->
 		<ul id="ulRoleList"></ul>
 	</div>
+	
+	<!--  -->
 	<div region="center" id="pnMain">
 		<ul id="treeObjId" class="ztree" ></ul>
 	</div>

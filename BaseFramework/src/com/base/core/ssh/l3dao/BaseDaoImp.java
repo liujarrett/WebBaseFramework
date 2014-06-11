@@ -1,10 +1,12 @@
 package com.base.core.ssh.l3dao;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import com.base.core.page.PageBean;
 import com.base.core.ssh.l0model.BaseEntity;
+import com.base.core.utilities.SJDateUtil;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -108,12 +110,14 @@ public class BaseDaoImp<T extends BaseEntity,PK extends Serializable> extends Hi
 	@Override
 	public Serializable insert(T entity) throws DataAccessException
 	{
+		entity.setCreateTime(SJDateUtil.DEFAULT_FORMAT.format(new Date()));
 		return getHibernateTemplate().save(entity);
 	}
 
 	@Override
 	public void update(T entity) throws DataAccessException
 	{
+		entity.setUpdateTime(SJDateUtil.DEFAULT_FORMAT.format(new Date()));
 		getHibernateTemplate().update(entity);
 	}
 
@@ -128,7 +132,7 @@ public class BaseDaoImp<T extends BaseEntity,PK extends Serializable> extends Hi
 	{
 		getHibernateTemplate().delete(entity);
 	}
-	
+
 	@Override
 	public int delete(String where) throws DataAccessException
 	{
@@ -139,29 +143,26 @@ public class BaseDaoImp<T extends BaseEntity,PK extends Serializable> extends Hi
 		}
 		return getHibernateTemplate().bulkUpdate(hql);
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public void deleteForLogic(PK id) throws DataAccessException
 	{
-		Session session=getHibernateTemplate().getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		T obj=(T)session.get(clazz,id);
-		obj.setIsDelete("1");
-		session.getTransaction().commit();
+		T obj=select(id);
+		deleteForLogic(obj);
 	}
 
 	@Override
 	public void deleteForLogic(T entity) throws DataAccessException
 	{
 		entity.setIsDelete("1");
+		entity.setUpdateTime(SJDateUtil.DEFAULT_FORMAT.format(new Date()));
 		getHibernateTemplate().update(entity);
 	}
-	
+
 	@Override
 	public int deleteForLogic(String where) throws DataAccessException
 	{
-		String hql="UPDATE "+clazz.getName()+" SET isDelete='1'";
+		String hql="UPDATE "+clazz.getName()+" SET isDelete='1' , updateTime = '"+SJDateUtil.DEFAULT_FORMAT.format(new Date())+"'";
 		if(where!=null&&!where.equals(""))
 		{
 			hql+=" "+where;

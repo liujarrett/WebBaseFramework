@@ -3,23 +3,21 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="com.base.web.user.User" table="T_BASE_USER">
-		<id name="id" column="ID">
-			<!-- 
-			<generator class="identity"></generator>
-			 -->
+		<id name="id" column="ID" type="java.lang.Long">
 			<generator class="sequence">
-                <param name="sequence">S_BASE_USER</param>      
-            </generator>
+				<param name="sequence">S_BASE_USER</param>
+			</generator>
 		</id>
+
 		<!-- 用户与公司之间 一对多 双向关联 -->
 		<many-to-one name="company" column="COMPANY_ID" not-null="true" />
-		
+
 		<!-- 用户与组织之间 一对多 双向关联 -->
 		<many-to-one name="organization" column="ORGANIZATION_ID" />
-		
+
 		<!-- 用户与角色之间 多对一 单向关联 -->
 		<many-to-one name="role" column="ROLE_ID" />
-		
+
 		<property name="userCode" column="USER_CODE" />
 		<property name="userType" column="USER_TYPE" />
 		<property name="userName" column="USER_NAME" />
@@ -51,7 +49,7 @@
 		<property name="orderNumber" column="ORDER_NUMBER" />
 		<property name="currentState" column="CURRENT_STATE" />
 		<property name="isDelete" column="IS_DELETE" />
-	    <property name="createTime" column="CREATE_TIME" />
+		<property name="createTime" column="CREATE_TIME" />
 		<property name="updateTime" column="UPDATE_TIME" />
 	</class>
 </hibernate-mapping>

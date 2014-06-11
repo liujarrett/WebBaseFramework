@@ -10,7 +10,7 @@ public class UnlockInfo extends BaseEntity
 	private static final long serialVersionUID=-6349382833888266788L;
 
 	// 标识
-	private int id;
+	private long id;
 	/* 开锁人员 */
 	private User user; // 查询
 	/* 国际移动设备识别码，手机串号，*#06# */
@@ -56,12 +56,12 @@ public class UnlockInfo extends BaseEntity
 	{
 	}
 
-	public int getId()
+	public long getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(long id)
 	{
 		this.id=id;
 	}

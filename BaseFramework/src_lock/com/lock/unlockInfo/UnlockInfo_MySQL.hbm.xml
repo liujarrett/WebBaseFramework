@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.lock.unlockInfo.UnlockInfo" table="T_LOCK_UNLOCK_INFO">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="identity"></generator>
+		</id>
+		<property name="remarks" column="REMARKS" />
+		<property name="orderNumber" column="ORDER_NUMBER" />
+		<property name="currentState" column="CURRENT_STATE" />
+		<property name="isDelete" column="IS_DELETE" />
+		<property name="createTime" column="CREATE_TIME" />
+		<property name="updateTime" column="UPDATE_TIME" />
+		<!-- 开锁信息与用户之间 多对一 双向关联 -->
+		<many-to-one name="user" column="USER_ID" not-null="true" />
+
+		<property name="userImei" column="USER_IMEI" />
+		<property name="userImsi" column="USER_IMSI" />
+		<property name="userMobilePhone" column="USER_MOBILE_PHONE" />
+		<property name="userDeviceBrand" column="USER_DEVICE_BRAND" />
+		<property name="userDeviceModel" column="USER_DEVICE_MODEL" />
+		<property name="userDeviceVersion" column="USER_DEVICE_VERSION" />
+		<property name="userDeviceOs" column="USER_DEVICE_OS" />
+		<property name="userDeviceOsVersion" column="USER_DEVICE_OS_VERSION" />
+		<property name="unlockType" column="UNLOCK_TYPE" />
+		<property name="unlockTime" column="UNLOCK_TIME" />
+		<property name="unlockLocation" column="UNLOCK_LOCATION" />
+		<property name="unlockWorkOrderImg" column="UNLOCK_WORK_ORDER_IMG" />
+		<property name="customerName" column="CUSTOMER_NAME" />
+		<property name="customerIdNo" column="CUSTOMER_ID_NO" />
+		<property name="customerIdImg" column="CUSTOMER_ID_IMG" />
+		<property name="customerDrivingLicenseImg" column="DRIVING_LICENSE_IMG" />
+		<property name="customerVehicleLicenseImg" column="VEHICLE_LICENSE_IMG" />
+		<property name="customerBusinessLicenseImg" column="BUSINESS_LICENSE_IMG" />
+		<property name="customerIntroductionLetterImg" column="INTRODUCTION_LETTER_IMG" />
+
+	</class>
+</hibernate-mapping>
+
+
+
+
+

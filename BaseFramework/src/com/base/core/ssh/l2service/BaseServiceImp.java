@@ -2,10 +2,10 @@ package com.base.core.ssh.l2service;
 
 import java.io.Serializable;
 
-import org.springframework.dao.DataAccessException;
-
 import com.base.core.ssh.l0model.BaseEntity;
 import com.base.core.ssh.l3dao.BaseDao;
+
+import org.springframework.dao.DataAccessException;
 
 public class BaseServiceImp<T extends BaseEntity,PK extends Serializable> implements BaseService<T,PK>
 {

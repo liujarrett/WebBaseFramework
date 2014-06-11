@@ -1,13 +1,1 @@
-/.DS_Store
-/applicationContext-action.xml
-/applicationContext-dao.xml
-/applicationContext-lock-action.xml
-/applicationContext-lock-dao.xml
-/applicationContext-lock-service.xml
-/applicationContext-service.xml
-/applicationContext.xml
 /com
-/jdbc_mysql.properties
-/jdbc_oracle.properties
-/struts-lock.xml
-/struts.xml

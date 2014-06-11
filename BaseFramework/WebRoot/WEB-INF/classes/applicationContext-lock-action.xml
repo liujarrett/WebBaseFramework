@@ -10,6 +10,8 @@
 	<bean id="unlockInfoAction" class="com.lock.unlockInfo.action.UnlockInfoAction"
 		scope="prototype">
 		<property name="unlockInfoService" ref="unlockInfoService" />
+		<property name="areaService" ref="areaService" />
+		<property name="companyService" ref="companyService" />
 	</bean>
 	<!-- 通话单action -->
 	<bean id="callbillAction" class="com.lock.callbill.action.CallBillAction"

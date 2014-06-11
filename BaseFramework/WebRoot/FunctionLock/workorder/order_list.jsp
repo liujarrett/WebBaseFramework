@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
     String contextPath = request.getContextPath();
 %>
@@ -80,16 +82,19 @@
 	</script>
 </head>
 <body >
-    <%-- 导入页面标题栏 --%>
-    <%@ include file="../../common/pagehead.jsp"%>
-    
-	<table width="99%" border="0" cellspacing="0" cellpadding="0" class="nei_box" align="center">
-	  <!-- 顶部查询部分 -->
-	  <tr>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="nei_box" align="center">
+	<!-- 导入页面标题栏 -->
+	<tr>
+		<td>
+			<%@ include file="../../common/pagehead.jsp"%>
+		</td>
+	</tr>
+	<!-- 顶部查询部分 -->
+	<tr>
 	    <td height="54" >
 	    <form name="form">
 	    <!-- SeachPanel Begin -->
-	    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="nei_tit tit_background">
+	    <table width="99%" border="0" align="center" cellpadding="0" cellspacing="0" class="nei_tit tit_background">
 	      <tr>
 	            <td width="3%" height="46">&nbsp;</td>
 	            <td width="8%" class="nei_searchTd">主叫号码:</td>
@@ -128,30 +133,33 @@
 	    <!-- SeachPanel End -->
 	    </form>
 	    </td>
-	  </tr>
+	</tr>
 	  
-	  <!-- 操作部分 -->
-	  <tr>
+	<!-- 操作部分 -->
+	<tr>
 	    <td height="34" class="tit2_background">
 	    <!-- ButtonTools Begin -->
-	     <table width="99%" border="0" cellspacing="0" cellpadding="0">
+	     <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	          <tr>
 	            <td style="padding-left:10px;" >
-			 		<div class="tool_td tool_word" style="display: none;"><a href="#" id="btnOutWord">Word导出</a></div>
-			 		<div class="tool_td tool_excel" style="display: none;"><a href="#" id="btnOutExcel">Excel导出</a></div>
+					<c:if test="${fn:contains(sessionScope.resourceIds,246)}">
+						<div class="tool_td tool_excel">
+							<a href="#" id="btnOutExcel">Excel导出</a>
+						</div>
+					</c:if>
 	            </td>
 	            </tr>
 	        </table>
 	      <!-- SeachPanel End -->
 	      </td>
-	  </tr>
+	</tr>
 	  
-	  <!-- 数据展示部分 -->
-	  <tr>
+	<!-- 数据展示部分 -->
+	<tr>
 	     <td>
 	        <div id="divGrid"></div>
 	     </td>
-	  </tr>
-	</table> 
+	</tr>
+</table> 
 </body>
 </html>

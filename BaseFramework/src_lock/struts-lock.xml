@@ -5,10 +5,9 @@
 <struts>
 
 	<!-- 开锁相关 start -->
-	<package name="unlock" extends="struts-default" namespace="/web/unlock">
+	<package name="unlock" namespace="/web/unlock" extends="struts-default">
 		<interceptors>
-			<interceptor name="loginInterceptor"
-				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			<interceptor name="loginInterceptor" class="com.base.core.ssh.l4interceptor.LoginInterceptor">
 			</interceptor>
 		</interceptors>
 		<global-results>
@@ -24,14 +23,36 @@
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result name="success">/FunctionLock/unlock/unlock_grid.jsp</result>
 		</action>
+		<action name="outExcel" class="unlockInfoAction" method="outExcel">
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="inputName">excelOrWordStream</param>
+				<param name="bufferSize">2048</param>
+			</result>
+		</action>
+	</package>
+	<package name="unlockJson" namespace="/web/unlock/json" extends="json-default">
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.base.core.ssh.l4interceptor.LoginInterceptor"></interceptor>
+		</interceptors>
+		<global-results>
+			<result name="logout">/logout.jsp</result>
+		</global-results>
+		<action name="queryTreeOfAreaAndCompany" class="unlockInfoAction" method="queryTreeOfAreaAndCompany">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="json">
+				<param name="root">treeList</param>
+			</result>
+		</action>
 	</package>
 	<!-- 开锁相关 end -->
 
 	<!-- 业务单相关 start -->
 	<package name="workorder" extends="struts-default" namespace="/web/workorder">
 		<interceptors>
-			<interceptor name="loginInterceptor"
-				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			<interceptor name="loginInterceptor" class="com.base.core.ssh.l4interceptor.LoginInterceptor">
 			</interceptor>
 		</interceptors>
 		<global-results>
@@ -53,8 +74,7 @@
 	<!-- 通话单相关 start -->
 	<package name="callbill" extends="struts-default" namespace="/web/callbill">
 		<interceptors>
-			<interceptor name="loginInterceptor"
-				class="com.base.core.ssh.l4interceptor.LoginInterceptor">
+			<interceptor name="loginInterceptor" class="com.base.core.ssh.l4interceptor.LoginInterceptor">
 			</interceptor>
 		</interceptors>
 		<global-results>

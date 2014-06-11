@@ -1,7 +1,6 @@
 package com.base.web.permission.action;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import com.base.core.model.ZTreeNode;
 import com.base.core.ssh.l1action.BaseAction;
+import com.base.core.utilities.SJDateUtil;
 import com.base.web.company.Company;
 import com.base.web.company.service.CompanyService;
 import com.base.web.permission.Function;
@@ -24,29 +24,27 @@ import com.base.web.user.User;
 
 import org.apache.struts2.ServletActionContext;
 
-public class RoleAction extends BaseAction<Role>
+public class RoleAction extends BaseAction
 {
 	private static final long serialVersionUID=6951466777786876950L;
 	//
-	private final SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	//
-	private CompanyService companyService;
-	private List<Company> companyList;
-	private Company company;
 	private RoleService roleService;
 	private List<Role> roleList;
 	private Role role;
+	private CompanyService companyService;
+	private List<Company> companyList;
+	private Company company;
 	private FunctionService functionService;
 	private ResourceService resourceService;
 	private PermissionService permissionService;
 	private List<Permission> permissionList;
 	private List<Function> functionList;
-	private int functionId;
 	private List<Object[]> funcList;
-	private int funcParentId;
+	private long functionId;
+	private long funcParentId;
+	private long currentUserRoleId;
+	private long currentRoleId;
 	private int flag;
-	private int currentUserRoleId;
-	private int currentRoleId;
 	private List<ZTreeNode> permissionTree;
 	private String updateSource;
 
@@ -80,26 +78,6 @@ public class RoleAction extends BaseAction<Role>
 		this.role=role;
 	}
 
-	public FunctionService getFunctionService()
-	{
-		return functionService;
-	}
-
-	public void setFunctionService(FunctionService functionService)
-	{
-		this.functionService=functionService;
-	}
-
-	public ResourceService getResourceService()
-	{
-		return resourceService;
-	}
-
-	public void setResourceService(ResourceService resourceService)
-	{
-		this.resourceService=resourceService;
-	}
-
 	public CompanyService getCompanyService()
 	{
 		return companyService;
@@ -128,6 +106,26 @@ public class RoleAction extends BaseAction<Role>
 	public void setCompany(Company company)
 	{
 		this.company=company;
+	}
+
+	public FunctionService getFunctionService()
+	{
+		return functionService;
+	}
+
+	public void setFunctionService(FunctionService functionService)
+	{
+		this.functionService=functionService;
+	}
+
+	public ResourceService getResourceService()
+	{
+		return resourceService;
+	}
+
+	public void setResourceService(ResourceService resourceService)
+	{
+		this.resourceService=resourceService;
 	}
 
 	public PermissionService getPermissionService()
@@ -160,16 +158,6 @@ public class RoleAction extends BaseAction<Role>
 		this.functionList=functionList;
 	}
 
-	public int getFunctionId()
-	{
-		return functionId;
-	}
-
-	public void setFunctionId(int functionId)
-	{
-		this.functionId=functionId;
-	}
-
 	public List<Object[]> getFuncList()
 	{
 		return funcList;
@@ -180,14 +168,44 @@ public class RoleAction extends BaseAction<Role>
 		this.funcList=funcList;
 	}
 
-	public int getFuncParentId()
+	public long getFunctionId()
+	{
+		return functionId;
+	}
+
+	public void setFunctionId(long functionId)
+	{
+		this.functionId=functionId;
+	}
+
+	public long getFuncParentId()
 	{
 		return funcParentId;
 	}
 
-	public void setFuncParentId(int funcParentId)
+	public void setFuncParentId(long funcParentId)
 	{
 		this.funcParentId=funcParentId;
+	}
+
+	public long getCurrentUserRoleId()
+	{
+		return currentUserRoleId;
+	}
+
+	public void setCurrentUserRoleId(long currentUserRoleId)
+	{
+		this.currentUserRoleId=currentUserRoleId;
+	}
+
+	public long getCurrentRoleId()
+	{
+		return currentRoleId;
+	}
+
+	public void setCurrentRoleId(long currentRoleId)
+	{
+		this.currentRoleId=currentRoleId;
 	}
 
 	public int getFlag()
@@ -198,26 +216,6 @@ public class RoleAction extends BaseAction<Role>
 	public void setFlag(int flag)
 	{
 		this.flag=flag;
-	}
-
-	public int getCurrentUserRoleId()
-	{
-		return currentUserRoleId;
-	}
-
-	public void setCurrentUserRoleId(int currentUserRoleId)
-	{
-		this.currentUserRoleId=currentUserRoleId;
-	}
-
-	public int getCurrentRoleId()
-	{
-		return currentRoleId;
-	}
-
-	public void setCurrentRoleId(int currentRoleId)
-	{
-		this.currentRoleId=currentRoleId;
 	}
 
 	public List<ZTreeNode> getPermissionTree()
@@ -238,6 +236,26 @@ public class RoleAction extends BaseAction<Role>
 	public void setUpdateSource(String updateSource)
 	{
 		this.updateSource=updateSource;
+	}
+
+	public String getFunctionIds()
+	{
+		return functionIds;
+	}
+
+	public void setFunctionIds(String functionIds)
+	{
+		this.functionIds=functionIds;
+	}
+
+	public String getResourceIds()
+	{
+		return resourceIds;
+	}
+
+	public void setResourceIds(String resourceIds)
+	{
+		this.resourceIds=resourceIds;
 	}
 
 	/* ################################################################################################## */
@@ -264,7 +282,7 @@ public class RoleAction extends BaseAction<Role>
 	public String queryMenu()
 	{
 		HttpSession session=ServletActionContext.getRequest().getSession();
-		Integer roleId=(Integer)session.getAttribute("roleId");
+		Long roleId=(Long)session.getAttribute("roleId");
 		if(roleId==null||roleId<=0)
 		{
 			return LOGOUT;
@@ -310,7 +328,8 @@ public class RoleAction extends BaseAction<Role>
 	 * */
 	public String permissionList()
 	{
-		permissionList=permissionService.queryPermissionListByRoleId(role.getId());
+		Long roleId=role.getId();
+		permissionList=permissionService.queryPermissionListByRoleId(roleId==null?0:roleId);
 		return SUCCESS;
 	}
 
@@ -320,14 +339,14 @@ public class RoleAction extends BaseAction<Role>
 	public String companyList()
 	{
 		HttpSession session=ServletActionContext.getRequest().getSession();
-		int cid=(Integer)session.getAttribute("companyId");
-		if(cid==1)
+		Long cid=(Long)session.getAttribute("companyId");
+		if(cid==null||cid<=1)
 		{
-			companyList=companyService.queryNameAndId(-1);
+			companyList=companyService.queryIdAndName(-1);
 		}
 		else
 		{
-			companyList=companyService.queryNameAndId(cid);
+			companyList=companyService.queryIdAndName(cid);
 		}
 		return SUCCESS;
 	}
@@ -338,7 +357,7 @@ public class RoleAction extends BaseAction<Role>
 	public String roleList()
 	{
 		HttpSession session=ServletActionContext.getRequest().getSession();
-		int rid=(Integer)session.getAttribute("roleId");
+		long rid=(Long)session.getAttribute("roleId");
 		roleList=new ArrayList<Role>();
 		List<Role> list=roleService.queryRoleList(company.getId());
 		for(Role role:list)
@@ -360,35 +379,8 @@ public class RoleAction extends BaseAction<Role>
 	 * */
 	public String functionList()
 	{
-		functionList=permissionService.queryFunctionListByParentId(functionId,role.getId());
-		return SUCCESS;
-	}
-
-	/***
-	 * 是否存在同名角色
-	 * */
-	public String isExistRole()
-	{
-		int companyId=-1;
-		if(company!=null)
-		{
-			companyId=company.getId();
-		}
-		int roleId=-1;
-		if(role!=null)
-		{
-			roleId=role.getId();
-		}
-		String roleName="";
-		if(role!=null&&role.getName()!=null)
-		{
-			roleName=role.getName().trim();
-		}
-		boolean isSuccess=roleService.isExistRole(companyId,roleId,roleName);
-		if(isSuccess)
-			flag=1;
-		else
-			flag=0;
+		Long roleId=role.getId();
+		functionList=permissionService.queryFunctionListByParentId(functionId,roleId==null?0:roleId);
 		return SUCCESS;
 	}
 
@@ -397,10 +389,16 @@ public class RoleAction extends BaseAction<Role>
 	 * */
 	public String roleAdd()
 	{
+		//是否存在同名角色
+		if(roleService.isExistRole(role.getCompanyId(),role.getId(),role.getName()))
+		{
+			flag=2;
+			return SUCCESS;
+		}
 		//
 		role.setCurrentState("0");
 		role.setIsDelete("0");
-		String currentTime=sdf.format(new Date());
+		String currentTime=SJDateUtil.DEFAULT_FORMAT.format(new Date());
 		role.setCreateTime(currentTime);
 		role.setUpdateTime(currentTime);
 		//
@@ -426,6 +424,13 @@ public class RoleAction extends BaseAction<Role>
 	 * */
 	public String roleEdit()
 	{
+		//是否存在同名角色
+		if(roleService.isExistRole(role.getCompanyId(),role.getId(),role.getName()))
+		{
+			flag=2;
+			return SUCCESS;
+		}
+		
 		boolean isSuccess=roleService.update(role);
 		if(isSuccess)
 			flag=1;
@@ -439,7 +444,8 @@ public class RoleAction extends BaseAction<Role>
 	 * */
 	public String isRoleBindingUsers()
 	{
-		List<User> userList=roleService.queryUserList(role.getId());
+		Long roleId=role.getId();
+		List<User> userList=roleService.queryUserList(roleId==null?0:roleId);
 		if(userList!=null&&userList.size()>0)
 			flag=1;
 		else
@@ -452,9 +458,7 @@ public class RoleAction extends BaseAction<Role>
 	 * */
 	public String roleDelete()
 	{
-		role.setIsDelete("1");
-		role.setUpdateTime(sdf.format(new Date()));
-		boolean isSuccess=roleService.update(role);
+		boolean isSuccess=roleService.deleteForLogic(role.getId());
 		if(isSuccess)
 			flag=1;
 		else
@@ -474,14 +478,14 @@ public class RoleAction extends BaseAction<Role>
 		List<Function> oldFunctionlist=permissionService.queryFunctionListByRoleId(currentRoleId);
 		for(Function function:oldFunctionlist)
 		{
-			functionIds+="#"+function.getId();
+			functionIds+="["+function.getId()+"]";
 		}
 		//
 		resourceIds="";
 		List<Resource> oldResourcelist=permissionService.queryResourceListByRoleId(currentRoleId);
 		for(Resource resource:oldResourcelist)
 		{
-			resourceIds+="#"+resource.getId();
+			resourceIds+="["+resource.getId()+"]";
 		}
 		/**/
 		permissionTree=new ArrayList<ZTreeNode>();
@@ -493,7 +497,7 @@ public class RoleAction extends BaseAction<Role>
 			zTreeNode.setpId(0);
 			zTreeNode.setName(function.getName());
 			zTreeNode.setOpen(true);
-			if(functionIds.indexOf("#"+String.valueOf(function.getId()))!=-1)
+			if(functionIds.indexOf("["+String.valueOf(function.getId())+"]")!=-1)
 			{
 				zTreeNode.setChecked(true);
 			}
@@ -507,7 +511,7 @@ public class RoleAction extends BaseAction<Role>
 		return SUCCESS;
 	}
 
-	private void rolePermissionTree(int functionParentId,int roleId)
+	private void rolePermissionTree(long functionParentId,long roleId)
 	{
 		List<Function> list=permissionService.queryFunctionListByParentId(functionParentId,roleId);
 		if(list==null||list.size()==0)
@@ -520,7 +524,7 @@ public class RoleAction extends BaseAction<Role>
 				zTreeNode.setpId(functionParentId);
 				zTreeNode.setName(resource.getName());
 				zTreeNode.setOpen(true);
-				if(resourceIds.indexOf("#"+String.valueOf(resource.getId()))!=-1)
+				if(resourceIds.indexOf("["+String.valueOf(resource.getId())+"]")!=-1)
 				{
 					zTreeNode.setChecked(true);
 				}
@@ -540,7 +544,7 @@ public class RoleAction extends BaseAction<Role>
 				zTreeNode.setpId(functionParentId);
 				zTreeNode.setName(function.getName());
 				zTreeNode.setOpen(true);
-				if(functionIds.indexOf("#"+String.valueOf(function.getId()))!=-1)
+				if(functionIds.indexOf("["+String.valueOf(function.getId())+"]")!=-1)
 				{
 					zTreeNode.setChecked(true);
 				}
@@ -568,7 +572,7 @@ public class RoleAction extends BaseAction<Role>
 			Function function;
 			Resource resource;
 			//
-			int id=Integer.valueOf(ids[i]);
+			long id=Long.valueOf(ids[i]);
 			if(id<10000)
 			{
 				function=functionService.queryByPK(id);
@@ -588,7 +592,7 @@ public class RoleAction extends BaseAction<Role>
 			//
 			permission.setCurrentState("0");
 			permission.setIsDelete("0");
-			permission.setCreateTime(sdf.format(new Date()));
+			permission.setCreateTime(SJDateUtil.DEFAULT_FORMAT.format(new Date()));
 			newPermissionList.add(permission);
 		}
 		permissionService.savePermission(currentRoleId,newPermissionList);

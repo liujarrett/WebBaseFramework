@@ -6,17 +6,17 @@ import com.base.core.page.PageBean;
 import com.base.core.ssh.l2service.BaseService;
 import com.base.web.organization.Organization;
 
-public interface OrganizationService extends BaseService<Organization,Integer>
+public interface OrganizationService extends BaseService<Organization,Long>
 {
 
-	List<Organization> query(int organizationParentId,int companyId);
+	List<Organization> query(long companyId,long organizationParentId);
+	
+	int queryCountByCompanyId(long companyId,boolean isDirect);
+	
+	PageBean<Organization> query(long companyId,Organization organization,PageBean<Organization> pageBean);
 
-	int queryCountByCompanyId(boolean isDirect,int companyId);
+	boolean isExists(long companyId,Organization organization);
 
-	PageBean<Organization> query(Organization organization,int companyId,PageBean<Organization> pageBean);
-
-	boolean isExists(Organization organization);
-
-	void batchUpdate(Organization org,Organization...others);
+	boolean batchUpdate(Organization org,Organization...others);
 
 }

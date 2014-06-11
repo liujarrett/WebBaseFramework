@@ -52,12 +52,12 @@
            </td>
 	       <td width="22">
 	           <img src="<%=localPath %>/common/Images/lh.gif" />
-	       </td>							
+	       </td>
         </c:otherwise>
      </c:choose>
      <td width="70px">当前显示:</td>
      <td width="90px">
-        <input type="text" id="txtCurrentPage" size="2" value="${pageBean.currentPage}"/>/${pageBean.totalPage }页
+        <input type="text" id="txtCurrentPage"  size="5" value="${pageBean.currentPage}" style="text-align:center" />&nbsp;/&nbsp;${pageBean.totalPage }页
      </td>
      
      <c:choose>

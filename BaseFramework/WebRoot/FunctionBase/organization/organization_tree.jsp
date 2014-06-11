@@ -6,7 +6,7 @@ String contextPath = request.getContextPath();
 %>
 <html>
 <head>
-<title>Insert title here</title>
+<title>组织机构树</title>
 <link rel="stylesheet" href="<%=contextPath%>/common/main.css" type="text/css"></link>
 <script language="javascript">
 	$(function(){
@@ -102,10 +102,12 @@ String contextPath = request.getContextPath();
 		    <td style="display: none;">${department.departmentId }</td>
  			<td class="noWrapTd" align="center">${(pageBean.currentPage-1) * pageBean.pageSize + v.count}</td>
  			<td class="noWrapTd"><c:out value='${department.departmentName }'/></td>
- 			<td class="noWrapTd"><c:choose>
-	 									<c:when test="${department.parentName ==''}"><c:out value="${parentName}"/></c:when>
-	 									<c:otherwise><c:out value="${department.parentName }"/></c:otherwise>
- 									</c:choose></td>
+ 			<td class="noWrapTd">
+ 				<c:choose>
+	 				<c:when test="${department.parentName ==''}"><c:out value="${parentName}"/></c:when>
+	 				<c:otherwise><c:out value="${department.parentName }"/></c:otherwise>
+ 				</c:choose>
+ 			</td>
 			<td class="noWrapTd"><c:out value='${department.remarks }'/></td>
  			<td align="center">
  			<a href="#" class="btnSearch">查看</a>

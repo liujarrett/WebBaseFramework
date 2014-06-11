@@ -9,7 +9,7 @@ import com.base.web.permission.Permission;
 import com.base.web.permission.PermissionDao;
 import com.base.web.permission.Resource;
 
-public class PermissionServiceImp extends BaseServiceImp<Permission,Integer> implements PermissionService
+public class PermissionServiceImp extends BaseServiceImp<Permission,Long> implements PermissionService
 {
 
 	private static final long serialVersionUID=-3482050884146579720L;
@@ -50,7 +50,7 @@ public class PermissionServiceImp extends BaseServiceImp<Permission,Integer> imp
 	 * 根据角色ID，查询所有权限
 	 * */
 	@Override
-	public List<Permission> queryPermissionListByRoleId(int roleId)
+	public List<Permission> queryPermissionListByRoleId(long roleId)
 	{
 		String hql="where role.id = "+roleId+" and isDelete='0'";
 		return permissionDao.select(hql);
@@ -60,7 +60,7 @@ public class PermissionServiceImp extends BaseServiceImp<Permission,Integer> imp
 	 * 根据角色ID，查询所有功能
 	 * */
 	@Override
-	public List<Function> queryFunctionListByRoleId(int roleId)
+	public List<Function> queryFunctionListByRoleId(long roleId)
 	{
 		String where  = " where isDelete='0' and id in(select distinct per.function.id from Permission as per where per.role.id="+ roleId +")";
 		return functionDao.select(where);
@@ -70,7 +70,7 @@ public class PermissionServiceImp extends BaseServiceImp<Permission,Integer> imp
 	 * 根据角色ID，查询所有资源
 	 * */
 	@Override
-	public List<Resource> queryResourceListByRoleId(int roleId)
+	public List<Resource> queryResourceListByRoleId(long roleId)
 	{
 		String hql="select p.resource from Permission as p where p.role.id = "+roleId+" and p.resource.isDelete='0'";
 		return permissionDao.queryResource(hql);
@@ -80,7 +80,7 @@ public class PermissionServiceImp extends BaseServiceImp<Permission,Integer> imp
 	 * 根据功能父ID和角色ID，查询子功能列表；
 	 * */
 	@Override
-	public List<Function> queryFunctionListByParentId(int funcParentId,int roleId)
+	public List<Function> queryFunctionListByParentId(long funcParentId,long roleId)
 	{
 		String hql=null;
 		if(funcParentId<=0)
@@ -100,7 +100,7 @@ public class PermissionServiceImp extends BaseServiceImp<Permission,Integer> imp
 	 * 根据功能ID和角色ID，查询资源列表；
 	 * */
 	@Override
-	public List<Resource> queryResourceListByFunctionId(int functionId,int roleId)
+	public List<Resource> queryResourceListByFunctionId(long functionId,long roleId)
 	{
 		String hql="select p.resource from Permission as p where p.function.id = "+functionId+" and p.role.id = "+roleId+" and p.resource.isDelete='0'";
 		return permissionDao.queryResource(hql);
@@ -110,7 +110,7 @@ public class PermissionServiceImp extends BaseServiceImp<Permission,Integer> imp
 	 * 删除指定角色的权限
 	 * */
 	@Override
-	public int deleteRolePermission(int currentRoleId)
+	public int deleteRolePermission(long currentRoleId)
 	{
 		return permissionDao.delete("where role.id="+currentRoleId);
 	}
@@ -119,7 +119,7 @@ public class PermissionServiceImp extends BaseServiceImp<Permission,Integer> imp
 	 * 保存权限
 	 * */
 	@Override
-	public boolean savePermission(int currentRoleId,List<Permission> newPermissionList)
+	public boolean savePermission(long currentRoleId,List<Permission> newPermissionList)
 	{
 		try
 		{

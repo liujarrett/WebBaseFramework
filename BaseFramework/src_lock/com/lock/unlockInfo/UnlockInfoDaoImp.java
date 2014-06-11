@@ -2,7 +2,7 @@ package com.lock.unlockInfo;
 
 import com.base.core.ssh.l3dao.BaseDaoImp;
 
-public class UnlockInfoDaoImp extends BaseDaoImp<UnlockInfo,Integer> implements UnlockInfoDao
+public class UnlockInfoDaoImp extends BaseDaoImp<UnlockInfo,Long> implements UnlockInfoDao
 {
 
 	public UnlockInfoDaoImp()

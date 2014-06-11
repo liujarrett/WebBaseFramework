@@ -27,12 +27,12 @@
 				<td width="79%" height="22"  style="padding-left:10px;">${user.mobilePhone }</td>
 			</tr>
 			<tr>
-				<td width="21%" height="22" align="center" >公&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司：</td>
-				<td width="79%" height="22"  style="padding-left:10px;">${user.company.fullName }</td>
+				<td width="21%" height="22" align="center" >公司名称：</td>
+				<td width="79%" height="22"  style="padding-left:10px;">${user.company.companyName }</td>
 			</tr>
 			<tr>
 			    <td width="21%" height="22" align="center" >所属机构：</td>
-				<td width="79%" height="22"  style="padding-left:10px;">${user.organization.fullName}</td>
+				<td width="79%" height="22"  style="padding-left:10px;">${user.organization.organizationName}</td>
 			</tr>
 			<tr>
 			    <td width="21%" height="22" align="center" >用户角色：</td>
@@ -63,7 +63,7 @@
 				<td width="79%" height="22"  style="padding-left:10px;">${user.currentState==1?'已审核':'未审核' }</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center" style="padding-top: 20px;" >
+				<td colspan="2" align="center" style="padding-top:15px;padding-bottom:5px;" >
 					<a href="#" id="btnClose" onClick="javascript:parent.ClosePop();"><img src="<%=contextPath%>/common/blue/Images/close.gif"/></a>
 				</td>
 			</tr>

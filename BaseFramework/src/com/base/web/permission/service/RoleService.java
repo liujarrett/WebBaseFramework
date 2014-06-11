@@ -6,21 +6,21 @@ import com.base.core.ssh.l2service.BaseService;
 import com.base.web.permission.Role;
 import com.base.web.user.User;
 
-public interface RoleService extends BaseService<Role,Integer>
+public interface RoleService extends BaseService<Role,Long>
 {
 	/***
 	 * 根据公司ID，查询所有角色；
 	 * */
-	public List<Role> queryRoleList(int companyId);
+	public List<Role> queryRoleList(long companyId);
 
 	/***
 	 * 根据角色ID，查询所有用户；
 	 * */
-	public List<User> queryUserList(int roleId);
+	public List<User> queryUserList(long roleId);
 
 	/***
 	 * 是否存在一个名为RoleName的角色
 	 * */
-	public boolean isExistRole(int companyId,int roleId,String roleName);
+	public boolean isExistRole(long companyId,long roleId,String roleName);
 
 }

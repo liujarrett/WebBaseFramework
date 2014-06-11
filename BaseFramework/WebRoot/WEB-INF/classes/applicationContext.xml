@@ -39,17 +39,38 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="mappingResources">
 			<list>
+				<!-- mysql 
+				<value>com/base/web/permission/Function_MySQL.hbm.xml</value>
+				<value>com/base/web/permission/Resource_MySQL.hbm.xml</value>
+				<value>com/base/web/permission/Role_MySQL.hbm.xml</value>
+				<value>com/base/web/permission/Permission_MySQL.hbm.xml</value>
+				<value>com/base/web/area/Area_MySQL.hbm.xml</value>
+				<value>com/base/web/company/Company_MySQL.hbm.xml</value>
+				<value>com/base/web/organization/Organization_MySQL.hbm.xml</value>
+				<value>com/base/web/user/User_MySQL.hbm.xml</value>
+				<value>com/base/web/log/LoginLog_MySQL.hbm.xml</value>
+				<value>com/base/web/log/OperateLog_MySQL.hbm.xml</value>
+				<value>com/base/mobile/version/MobileVersion_MySQL.hbm.xml</value>
+				<value>com/lock/unlockInfo/UnlockInfo_MySQL.hbm.xml</value>
+				<value>com/lock/callbill/Callbill_MySQL.hbm.xml</value>
+				<value>com/lock/workorder/WorkOrder_MySQL.hbm.xml</value>
+				-->
+				<!-- oracle  -->
 				<value>com/base/web/permission/Function.hbm.xml</value>
 				<value>com/base/web/permission/Resource.hbm.xml</value>
 				<value>com/base/web/permission/Role.hbm.xml</value>
 				<value>com/base/web/permission/Permission.hbm.xml</value>
+				<value>com/base/web/area/Area.hbm.xml</value>
 				<value>com/base/web/company/Company.hbm.xml</value>
 				<value>com/base/web/organization/Organization.hbm.xml</value>
 				<value>com/base/web/user/User.hbm.xml</value>
+				<value>com/base/web/log/LoginLog.hbm.xml</value>
+				<value>com/base/web/log/OperateLog.hbm.xml</value>
 				<value>com/base/mobile/version/MobileVersion.hbm.xml</value>
 				<value>com/lock/unlockInfo/UnlockInfo.hbm.xml</value>
 				<value>com/lock/callbill/Callbill.hbm.xml</value>
 				<value>com/lock/workorder/WorkOrder.hbm.xml</value>
+				
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -80,10 +101,16 @@
 	<aop:config>
 		<aop:pointcut id="txPointcut"
 			expression="execution(* com.base.core.ssh.l2service.BaseServiceImp.*(..)) 
+					 or execution(* com.base.web.area.service.AreaServiceImp.*(..)) 
 			         or execution(* com.base.web.company.service.CompanyServiceImp.*(..)) 
 			         or execution(* com.base.web.organization.service.OrganizationServiceImp.*(..)) 
-			         or execution(* com.base.web.permission.service.*ServiceImp.*(..)) 
+			         or execution(* com.base.web.permission.service.FunctionServiceImp.*(..)) 
+			         or execution(* com.base.web.permission.service.ResourceServiceImp.*(..)) 
+			         or execution(* com.base.web.permission.service.RoleServiceImp.*(..)) 
+			         or execution(* com.base.web.permission.service.PermissionServiceImp.*(..)) 
 			         or execution(* com.base.web.user.service.UserServiceImp.*(..))  
+			         or execution(* com.base.web.log.service.LoginLogServiceImp.*(..))  
+			         or execution(* com.base.web.log.service.OperateLogServiceImp.*(..))  
 			         or execution(* com.base.mobile.version.service.MobileVersionServiceImp.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
 	</aop:config>

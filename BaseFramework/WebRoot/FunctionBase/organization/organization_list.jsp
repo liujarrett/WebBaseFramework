@@ -24,7 +24,6 @@
 	$(function(){
 	    $("div[class^='layout-button-left']:first").hide();
 	    
-		var gridAction="<%=contextPath%>/web/department/queryForList.action";
 		initGridLoading("<%=contextPath%>/common/blue/Images/gridloading.gif"); //初始化ajax层，loading图片
 		//加载树
 		loadTree();
@@ -114,7 +113,7 @@
 		$("#divGrid").load(gridAction,{
 			"companyId":currentTreeCompanyId,
 			"organization.id":currentOrganizationId,
-			"organization.fullName":search_name,
+			"organization.organizationName":search_name,
 			"pageBean.currentPage":pageIndex
 		    },
 			function(){
@@ -143,10 +142,10 @@
 						        公司名称：<select name="companyId" id="companyId">
 						              <c:forEach items="${companyList}" var="company">
 						                 <c:if test="${sessionScope.companyId == company.id}">
-						                    <option value="${company.id}" selected="selected">${company.fullName}</option>
+						                    <option value="${company.id}" selected="selected">${company.companyName}</option>
 						                 </c:if>
 						                 <c:if test="${sessionScope.companyId != company.id}">
-						                   <option value="${company.id}">${company.fullName}</option>
+						                   <option value="${company.id}">${company.companyName}</option>
 						                 </c:if>
 						              </c:forEach>
 						           </select>
@@ -169,10 +168,9 @@
 			     <table width="100%" border="0" cellspacing="0" cellpadding="0">
 			          <tr>
 			            <td style="padding-left:10px;" >
-			                <c:if test="${fn:contains(sessionScope.resourceIds,22)}">
+			                <c:if test="${fn:contains(sessionScope.resourceIds,32)}">
 		                        <div class="tool_td tool_add"><a href="#" id="btnAdd">添加机构</a></div>
                             </c:if>
-					 		<div class="tool_td tool_word" style="display: none;"><a href="#" id="btnOutWord">Word导出</a></div>
 					 		<div class="tool_td tool_excel" style="display: none;"><a href="#" id="btnOutExcel">Excel导出</a></div>
 			            </td>
 			          </tr>

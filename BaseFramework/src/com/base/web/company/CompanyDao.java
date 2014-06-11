@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.base.core.ssh.l3dao.BaseDao;
 
-public interface CompanyDao extends BaseDao<Company,Integer>
+public interface CompanyDao extends BaseDao<Company,Long>
 {
 
-	List<Company> queryNameAndId(int cid);
+	public List<Company> queryIdAndName(long cid);
 
 }

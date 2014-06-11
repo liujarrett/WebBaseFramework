@@ -7,7 +7,7 @@ public class Resource extends BaseEntity
 	private static final long serialVersionUID=-6704890747858915827L;
 
 	// 资源标识
-	private int id;
+	private long id;
 
 	// 功能标识
 	private Function function;
@@ -24,12 +24,13 @@ public class Resource extends BaseEntity
 	// 资源
 	private String url;
 
-	public int getId()
+
+	public long getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(long id)
 	{
 		this.id=id;
 	}

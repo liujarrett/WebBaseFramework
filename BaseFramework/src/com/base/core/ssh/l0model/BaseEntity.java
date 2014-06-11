@@ -11,6 +11,7 @@ public abstract class BaseEntity implements Serializable
 {
 
 	private static final long serialVersionUID=-6890651634163617142L;
+
 	// 备注
 	protected String remarks;
 

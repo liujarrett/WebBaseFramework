@@ -2,8 +2,8 @@ package com.base.core.model;
 
 public class ZTreeNode
 {
-	private int id;
-	private int pId;
+	private long id;
+	private long pId;
 	private String name;
 	private boolean checked;
 	private boolean open;
@@ -12,22 +12,22 @@ public class ZTreeNode
 	{
 	}
 
-	public int getId()
+	public long getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(long id)
 	{
 		this.id=id;
 	}
 
-	public int getpId()
+	public long getpId()
 	{
 		return pId;
 	}
 
-	public void setpId(int pId)
+	public void setpId(long pId)
 	{
 		this.pId=pId;
 	}

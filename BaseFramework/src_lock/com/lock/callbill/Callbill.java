@@ -60,11 +60,9 @@ import com.base.core.ssh.l0model.BaseEntity;
  -- Create/Recreate primary, unique and foreign key constraints 
  alter table CALLBILL add constraint PK2_1 primary key (ID)
  */
-public class Callbill extends BaseEntity {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6934363841120520378L;
+public class Callbill extends BaseEntity
+{
+	private static final long serialVersionUID=-6934363841120520378L;
 	private String id;
 	private String callerid;
 	private String calleeid;
@@ -94,228 +92,284 @@ public class Callbill extends BaseEntity {
 	private int dialstatus;
 	private String billid;
 
-	public String getId() {
+	public String getId()
+	{
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setId(String id)
+	{
+		this.id=id;
 	}
 
-	public String getCallerid() {
+	public String getCallerid()
+	{
 		return callerid;
 	}
 
-	public void setCallerid(String callerid) {
-		this.callerid = callerid;
+	public void setCallerid(String callerid)
+	{
+		this.callerid=callerid;
 	}
 
-	public String getCalleeid() {
+	public String getCalleeid()
+	{
 		return calleeid;
 	}
 
-	public void setCalleeid(String calleeid) {
-		this.calleeid = calleeid;
+	public void setCalleeid(String calleeid)
+	{
+		this.calleeid=calleeid;
 	}
 
-	public String getCvtid() {
+	public String getCvtid()
+	{
 		return cvtid;
 	}
 
-	public void setCvtid(String cvtid) {
-		this.cvtid = cvtid;
+	public void setCvtid(String cvtid)
+	{
+		this.cvtid=cvtid;
 	}
 
-	public int getTalktyp() {
+	public int getTalktyp()
+	{
 		return talktyp;
 	}
 
-	public void setTalktyp(int talktyp) {
-		this.talktyp = talktyp;
+	public void setTalktyp(int talktyp)
+	{
+		this.talktyp=talktyp;
 	}
 
-	public int getSwitchtype() {
+	public int getSwitchtype()
+	{
 		return switchtype;
 	}
 
-	public void setSwitchtype(int switchtype) {
-		this.switchtype = switchtype;
+	public void setSwitchtype(int switchtype)
+	{
+		this.switchtype=switchtype;
 	}
 
-	public int getStopon() {
+	public int getStopon()
+	{
 		return stopon;
 	}
 
-	public void setStopon(int stopon) {
-		this.stopon = stopon;
+	public void setStopon(int stopon)
+	{
+		this.stopon=stopon;
 	}
 
-	public String getRecordpath() {
+	public String getRecordpath()
+	{
 		return recordpath;
 	}
 
-	public void setRecordpath(String recordpath) {
-		this.recordpath = recordpath;
+	public void setRecordpath(String recordpath)
+	{
+		this.recordpath=recordpath;
 	}
 
-	public Date getHangofftm() {
+	public Date getHangofftm()
+	{
 		return hangofftm;
 	}
 
-	public void setHangofftm(Date hangofftm) {
-		this.hangofftm = hangofftm;
+	public void setHangofftm(Date hangofftm)
+	{
+		this.hangofftm=hangofftm;
 	}
 
-	public Date getWaittalktm() {
+	public Date getWaittalktm()
+	{
 		return waittalktm;
 	}
 
-	public void setWaittalktm(Date waittalktm) {
-		this.waittalktm = waittalktm;
+	public void setWaittalktm(Date waittalktm)
+	{
+		this.waittalktm=waittalktm;
 	}
 
-	public Date getStarttalktm() {
+	public Date getStarttalktm()
+	{
 		return starttalktm;
 	}
 
-	public void setStarttalktm(Date starttalktm) {
-		this.starttalktm = starttalktm;
+	public void setStarttalktm(Date starttalktm)
+	{
+		this.starttalktm=starttalktm;
 	}
 
-	public Date getEndtalktm() {
+	public Date getEndtalktm()
+	{
 		return endtalktm;
 	}
 
-	public void setEndtalktm(Date endtalktm) {
-		this.endtalktm = endtalktm;
+	public void setEndtalktm(Date endtalktm)
+	{
+		this.endtalktm=endtalktm;
 	}
 
-	public Date getHangontm() {
+	public Date getHangontm()
+	{
 		return hangontm;
 	}
 
-	public void setHangontm(Date hangontm) {
-		this.hangontm = hangontm;
+	public void setHangontm(Date hangontm)
+	{
+		this.hangontm=hangontm;
 	}
 
-	public String getStaffid() {
+	public String getStaffid()
+	{
 		return staffid;
 	}
 
-	public void setStaffid(String staffid) {
-		this.staffid = staffid;
+	public void setStaffid(String staffid)
+	{
+		this.staffid=staffid;
 	}
 
-	public String getDtmf() {
+	public String getDtmf()
+	{
 		return dtmf;
 	}
 
-	public void setDtmf(String dtmf) {
-		this.dtmf = dtmf;
+	public void setDtmf(String dtmf)
+	{
+		this.dtmf=dtmf;
 	}
 
-	public String getWorkoderid() {
+	public String getWorkoderid()
+	{
 		return workoderid;
 	}
 
-	public void setWorkoderid(String workoderid) {
-		this.workoderid = workoderid;
+	public void setWorkoderid(String workoderid)
+	{
+		this.workoderid=workoderid;
 	}
 
-	public int getFeecount() {
+	public int getFeecount()
+	{
 		return feecount;
 	}
 
-	public void setFeecount(int feecount) {
-		this.feecount = feecount;
+	public void setFeecount(int feecount)
+	{
+		this.feecount=feecount;
 	}
 
-	public String getOpenlockid() {
+	public String getOpenlockid()
+	{
 		return openlockid;
 	}
 
-	public void setOpenlockid(String openlockid) {
-		this.openlockid = openlockid;
+	public void setOpenlockid(String openlockid)
+	{
+		this.openlockid=openlockid;
 	}
 
-	public String getOpenlockname() {
+	public String getOpenlockname()
+	{
 		return openlockname;
 	}
 
-	public void setOpenlockname(String openlockname) {
-		this.openlockname = openlockname;
+	public void setOpenlockname(String openlockname)
+	{
+		this.openlockname=openlockname;
 	}
 
-	public int getTalkingsecond() {
+	public int getTalkingsecond()
+	{
 		return talkingsecond;
 	}
 
-	public void setTalkingsecond(int talkingsecond) {
-		this.talkingsecond = talkingsecond;
+	public void setTalkingsecond(int talkingsecond)
+	{
+		this.talkingsecond=talkingsecond;
 	}
 
-	public int getCalllong() {
+	public int getCalllong()
+	{
 		return calllong;
 	}
 
-	public void setCalllong(int calllong) {
-		this.calllong = calllong;
+	public void setCalllong(int calllong)
+	{
+		this.calllong=calllong;
 	}
 
-	public int getBusinesstype() {
+	public int getBusinesstype()
+	{
 		return businesstype;
 	}
 
-	public void setBusinesstype(int businesstype) {
-		this.businesstype = businesstype;
+	public void setBusinesstype(int businesstype)
+	{
+		this.businesstype=businesstype;
 	}
 
-	public int getPendingreason() {
+	public int getPendingreason()
+	{
 		return pendingreason;
 	}
 
-	public void setPendingreason(int pendingreason) {
-		this.pendingreason = pendingreason;
+	public void setPendingreason(int pendingreason)
+	{
+		this.pendingreason=pendingreason;
 	}
 
-	public int getReleasereason() {
+	public int getReleasereason()
+	{
 		return releasereason;
 	}
 
-	public void setReleasereason(int releasereason) {
-		this.releasereason = releasereason;
+	public void setReleasereason(int releasereason)
+	{
+		this.releasereason=releasereason;
 	}
 
-	public int getAutodialfailurereason() {
+	public int getAutodialfailurereason()
+	{
 		return autodialfailurereason;
 	}
 
-	public void setAutodialfailurereason(int autodialfailurereason) {
-		this.autodialfailurereason = autodialfailurereason;
+	public void setAutodialfailurereason(int autodialfailurereason)
+	{
+		this.autodialfailurereason=autodialfailurereason;
 	}
 
-	public int getTalkinggroup() {
+	public int getTalkinggroup()
+	{
 		return talkinggroup;
 	}
 
-	public void setTalkinggroup(int talkinggroup) {
-		this.talkinggroup = talkinggroup;
+	public void setTalkinggroup(int talkinggroup)
+	{
+		this.talkinggroup=talkinggroup;
 	}
 
-	public int getDialstatus() {
+	public int getDialstatus()
+	{
 		return dialstatus;
 	}
 
-	public void setDialstatus(int dialstatus) {
-		this.dialstatus = dialstatus;
+	public void setDialstatus(int dialstatus)
+	{
+		this.dialstatus=dialstatus;
 	}
 
-	public String getBillid() {
+	public String getBillid()
+	{
 		return billid;
 	}
 
-	public void setBillid(String billid) {
-		this.billid = billid;
+	public void setBillid(String billid)
+	{
+		this.billid=billid;
 	}
 
 	/*
@@ -325,49 +379,41 @@ public class Callbill extends BaseEntity {
 	private Date hangontime;
 	private Date hangofftime;
 
-	public String getOpenlocktel() {
+	public String getOpenlocktel()
+	{
 		return openlocktel;
 	}
 
-	public void setOpenlocktel(String openlocktel) {
-		this.openlocktel = openlocktel;
+	public void setOpenlocktel(String openlocktel)
+	{
+		this.openlocktel=openlocktel;
 	}
 
-	public Date getHangontime() {
+	public Date getHangontime()
+	{
 		return hangontime;
 	}
 
-	public void setHangontime(Date hangontime) {
-		this.hangontime = hangontime;
+	public void setHangontime(Date hangontime)
+	{
+		this.hangontime=hangontime;
 	}
 
-	public Date getHangofftime() {
+	public Date getHangofftime()
+	{
 		return hangofftime;
 	}
 
-	public void setHangofftime(Date hangofftime) {
-		this.hangofftime = hangofftime;
+	public void setHangofftime(Date hangofftime)
+	{
+		this.hangofftime=hangofftime;
 	}
 
 	@Override
-	public String toString() {
-		return "Callbill [id=" + id + ", callerid=" + callerid + ", calleeid="
-				+ calleeid + ", cvtid=" + cvtid + ", talktyp=" + talktyp
-				+ ", switchtype=" + switchtype + ", stopon=" + stopon
-				+ ", recordpath=" + recordpath + ", hangofftm=" + hangofftm
-				+ ", waittalktm=" + waittalktm + ", starttalktm=" + starttalktm
-				+ ", endtalktm=" + endtalktm + ", hangontm=" + hangontm
-				+ ", staffid=" + staffid + ", dtmf=" + dtmf + ", workoderid="
-				+ workoderid + ", feecount=" + feecount + ", openlockid="
-				+ openlockid + ", openlockname=" + openlockname
-				+ ", talkingsecond=" + talkingsecond + ", calllong=" + calllong
-				+ ", businesstype=" + businesstype + ", pendingreason="
-				+ pendingreason + ", releasereason=" + releasereason
-				+ ", autodialfailurereason=" + autodialfailurereason
-				+ ", talkinggroup=" + talkinggroup + ", dialstatus="
-				+ dialstatus + ", billid=" + billid + ", openlocktel="
-				+ openlocktel + ", hangontime=" + hangontime + ", hangofftime="
-				+ hangofftime + "]";
+	public String toString()
+	{
+		return "Callbill [id="+id+", callerid="+callerid+", calleeid="+calleeid+", cvtid="+cvtid+", talktyp="+talktyp+", switchtype="+switchtype+", stopon="+stopon+", recordpath="+recordpath+", hangofftm="+hangofftm+", waittalktm="+waittalktm+", starttalktm="+starttalktm+", endtalktm="+endtalktm+", hangontm="+hangontm+", staffid="+staffid+", dtmf="+dtmf+", workoderid="+workoderid+", feecount="+feecount+", openlockid="+openlockid+", openlockname="+openlockname+", talkingsecond="+talkingsecond+", calllong="+calllong+", businesstype="+businesstype+", pendingreason="+pendingreason+", releasereason="+releasereason+", autodialfailurereason="+autodialfailurereason+", talkinggroup="+talkinggroup+", dialstatus="+dialstatus+", billid="+billid+", openlocktel="+openlocktel+", hangontime="+hangontime
+				+", hangofftime="+hangofftime+"]";
 	}
 
 }

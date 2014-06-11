@@ -3,10 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="com.lock.unlockInfo.UnlockInfo" table="T_LOCK_UNLOCK_INFO">
-		<id name="id" column="ID">
-			<!-- 
-			<generator class="identity"></generator>
-			 -->
+		<id name="id" column="ID" type="java.lang.Long">
 			<generator class="sequence">
                 <param name="sequence">S_LOCK_UNLOCK_INFO</param>      
             </generator>

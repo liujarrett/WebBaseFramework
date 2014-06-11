@@ -120,9 +120,15 @@
 					</td>
 				</tr>
 				<tr>
+				    <td width="25%" height="28" align="center" bgcolor="#FFFFFF">公司名称：</td>
+					<td width="75%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
+					    <input type="text" id="organizationName" class="editInput" value="${user.company.companyName }" disabled="disabled"/>
+					</td>
+				</tr>
+				<tr>
 				    <td width="25%" height="28" align="center" bgcolor="#FFFFFF">所属机构：</td>
 					<td width="75%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
-					    <input type="text" id="organizationName" class="editInput" value="${user.organization.fullName }" disabled="disabled"/>
+					    <input type="text" id="organizationName" class="editInput" value="${user.organization.organizationName }" disabled="disabled"/>
 					</td>
 				</tr>
 				<tr >

@@ -3,39 +3,24 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="com.base.web.company.Company" table="T_BASE_COMPANY">
-		<id name="id" column="ID">
-			<!-- 
-			<generator class="identity"></generator>
-			 -->
+		<id name="id" column="ID" type="java.lang.Long">
 			<generator class="sequence">
                 <param name="sequence">S_BASE_COMPANY</param>      
             </generator>
 		</id>
 
-		<!-- 公司 组织之间的一对多 双向关联 -->
-		<set name="organizations" inverse="true" lazy="true" cascade="all">
-			<key column="COMPANY_ID" />
-			<one-to-many class="com.base.web.organization.Organization" />
-		</set>
-		<!-- 用户 公司之间 一对多 双向关联 -->
+		<!-- 公司与区域之间 多对一 双向关联 -->
+		<many-to-one name="area" column="AREA_ID" class="com.base.web.area.Area" />
+
+		<!-- 公司与用户之间 一对多 双向关联 -->
 		<set name="users" inverse="true" lazy="true" cascade="all">
 			<key column="COMPANY_ID" />
 			<one-to-many class="com.base.web.user.User" />
 		</set>
-		<!-- 角色 公司之间 一对多 双向关联 -->
-		<set name="roles" inverse="true" lazy="true" cascade="all">
-			<key column="COMPANY_ID" />
-			<one-to-many class="com.base.web.permission.Role" />
-		</set>
 
 		<property name="companyCode" column="COMPANY_CODE" />
 		<property name="companyType" column="COMPANY_TYPE" />
-		<property name="fullName" column="FULL_NAME" />
-		<property name="shortName" column="SHORT_NAME" />
-		<property name="fullSpelling" column="FULL_SPELLING" />
-		<property name="shortSpelling" column="SHORT_SPELLING" />
-		<property name="fullEnglish" column="FULL_ENGLISH" />
-		<property name="shortEnglish" column="SHORT_ENGLISH" />
+		<property name="companyName" column="COMPANY_NAME" />
 		<property name="describes" column="DESCRIBES" />
 		<property name="corporationId" column="CORPORATION_ID" />
 		<property name="corporationName" column="CORPORATION_NAME" />
@@ -47,6 +32,7 @@
 		<property name="email" column="E_MAIL" />
 		<property name="province" column="PROVINCE" />
 		<property name="city" column="CITY" />
+		<property name="district" column="DISTRICT" />
 		<property name="address" column="ADDRESS" />
 		<property name="postCode" column="POST_CODE" />
 		<property name="remarks" column="REMARKS" />

@@ -3,8 +3,10 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="com.base.mobile.version.MobileVersion" table="T_BASE_MOBILE_VERSION">
-		<id name="id" column="ID">
-			<generator class="identity"></generator>
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="sequence">
+                <param name="sequence">S_BASE_MOBILE_VERSION</param>      
+            </generator>
 		</id>
 		<property name="mobile" column="MOBILE" />
 		<property name="versionName" column="VERSION_NAME" />

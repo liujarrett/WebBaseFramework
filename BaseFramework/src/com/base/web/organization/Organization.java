@@ -11,7 +11,7 @@ public class Organization extends BaseEntity
 	private static final long serialVersionUID=1L;
 
 	// 组织机构标识
-	private int id;
+	private long id;
 
 	// 上级组织机构
 	private Organization parent;
@@ -27,7 +27,7 @@ public class Organization extends BaseEntity
 
 	// 当前组织机构层级
 	private int organizationLevel;
-	
+
 	// 组织机构编号
 	private String organizationCode;
 
@@ -35,22 +35,7 @@ public class Organization extends BaseEntity
 	private String organizationType;
 
 	// 名称
-	private String fullName;
-
-	// 昵称
-	private String shortName;
-
-	// 全拼
-	private String fullSpelling;
-
-	// 简拼
-	private String shortSpelling;
-
-	// 完整英文名
-	private String fullEnglish;
-
-	// 简写英文名
-	private String shortEnglish;
+	private String organizationName;//json
 
 	// 简介，描述
 	private String describes;
@@ -73,11 +58,24 @@ public class Organization extends BaseEntity
 	// 市
 	private String city;
 
+	// 区
+	private String district;
+
 	// 地址
 	private String address;
 
 	// 邮编
 	private String postCode;
+
+	public long getId()
+	{
+		return id;
+	}
+
+	public void setId(long id)
+	{
+		this.id=id;
+	}
 
 	public Organization getParent()
 	{
@@ -107,16 +105,6 @@ public class Organization extends BaseEntity
 	public void setUsers(Set<User> users)
 	{
 		this.users=users;
-	}
-
-	public int getId()
-	{
-		return id;
-	}
-
-	public void setId(int id)
-	{
-		this.id=id;
 	}
 
 	public Company getCompany()
@@ -159,64 +147,14 @@ public class Organization extends BaseEntity
 		this.organizationType=organizationType;
 	}
 
-	public String getFullName()
+	public String getOrganizationName()
 	{
-		return fullName;
+		return organizationName;
 	}
 
-	public void setFullName(String fullName)
+	public void setOrganizationName(String organizationName)
 	{
-		this.fullName=fullName;
-	}
-
-	public String getShortName()
-	{
-		return shortName;
-	}
-
-	public void setShortName(String shortName)
-	{
-		this.shortName=shortName;
-	}
-
-	public String getFullSpelling()
-	{
-		return fullSpelling;
-	}
-
-	public void setFullSpelling(String fullSpelling)
-	{
-		this.fullSpelling=fullSpelling;
-	}
-
-	public String getShortSpelling()
-	{
-		return shortSpelling;
-	}
-
-	public void setShortSpelling(String shortSpelling)
-	{
-		this.shortSpelling=shortSpelling;
-	}
-
-	public String getFullEnglish()
-	{
-		return fullEnglish;
-	}
-
-	public void setFullEnglish(String fullEnglish)
-	{
-		this.fullEnglish=fullEnglish;
-	}
-
-	public String getShortEnglish()
-	{
-		return shortEnglish;
-	}
-
-	public void setShortEnglish(String shortEnglish)
-	{
-		this.shortEnglish=shortEnglish;
+		this.organizationName=organizationName;
 	}
 
 	public String getDescribes()
@@ -289,6 +227,16 @@ public class Organization extends BaseEntity
 		this.city=city;
 	}
 
+	public String getDistrict()
+	{
+		return district;
+	}
+
+	public void setDistrict(String district)
+	{
+		this.district=district;
+	}
+
 	public String getAddress()
 	{
 		return address;
@@ -308,4 +256,5 @@ public class Organization extends BaseEntity
 	{
 		this.postCode=postCode;
 	}
+
 }

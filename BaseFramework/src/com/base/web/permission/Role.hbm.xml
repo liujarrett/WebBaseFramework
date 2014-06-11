@@ -3,17 +3,14 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="com.base.web.permission.Role" table="T_BASE_ROLE">
-		<id name="id" column="ID">
-			<!-- 
-			<generator class="identity"></generator>
-			 -->
+		<id name="id" column="ID" type="java.lang.Long">
 			<generator class="sequence">
                 <param name="sequence">S_BASE_ROLE</param>      
             </generator>
 		</id>
 		
-		<!-- 角色 公司之间 一对多 双向关联 -->
-		<many-to-one name="company" column="COMPANY_ID"></many-to-one>
+		<!-- 角色 公司之间 不关联 -->
+		<property name="companyId" column="COMPANY_ID" />
 		
 		<property name="roleCode" column="ROLE_CODE" />
 		<property name="roleType" column="ROLE_TYPE" />

@@ -20,20 +20,27 @@
 			<table width="90%" cellpadding="0" cellspacing="1" bgcolor="#c1dbfc" style="margin-top:1px;margin-left:20px;">
 				<tr>
 					<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
-						机构名称：
-					</td>
-					<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
-						<c:out value="${organization.fullName }"/>&nbsp;
-					</td>
-				</tr>
-				<tr>
-					<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
 						上级机构：
 					</td>
 					<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
-						<c:out value="${organization.parent.fullName}"/>
+						<c:if test="${organization.parent==null}">
+							<c:out value="${organization.company.companyName}"/>
+						</c:if>
+						<c:if test="${organization.parent!=null}">
+							<c:out value="${organization.parent.organizationName}"/>
+						</c:if>
 					</td>
 				</tr>
+				
+				<tr>
+					<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
+						机构名称：
+					</td>
+					<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
+						<c:out value="${organization.organizationName }"/>&nbsp;
+					</td>
+				</tr>
+
 				<tr>
 					<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
 						机构描述：

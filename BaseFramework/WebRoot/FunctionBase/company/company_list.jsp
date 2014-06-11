@@ -14,6 +14,8 @@
 	<script type="text/javascript" src="<%=contextPath%>/common/js/inputCheck.js"></script>
 	<script type="text/javascript" src="<%=contextPath%>/common/js/nfpTree.js"></script>
 	<script type="text/javascript" src="<%=contextPath%>/common/js/ajaxPager.js"></script>
+	<script type="text/javascript" src="<%=contextPath%>/common/js/convertChinese.js"></script>
+	
 <script type="text/javascript">
 	$(function(){
 		initGridLoading("<%=contextPath%>/common/blue/Images/gridloading.gif");
@@ -21,19 +23,34 @@
 		
 		$("#btnSearch").click(function(){
 			loadData(1);
-		})
+		});
 		
 		$("#btnReset").click(function(){
+			//
 			$("#search_company_name").val("");
 			$("#search_company_address").val("");
 			$("#search_company_phone").val("");
+			// outExcel
+			$("#outExcelCompanyName").val("");
+			$("#outExcelCompanyAddress").val("");
+			$("#outExcelCompanyPhone").val("");
+			
 			loadData(1);
-		})
-	})
+		});
+		
+		
+		$("#btnOutExcel").click(function(){
+
+			$("#submitExcel").submit();
+			
+		});
+		
+	});
 	
 	//删除公司信息
  	function deleteCompany(companyID,page){
-		if(companyID != null &&　companyID != "") {
+		if(companyID) 
+		{
 			if(confirm("警告:公司删除之后，该公司相关数据都将被删除，确定删除?")){
 				$.ajax({
 						url	:"<%=contextPath%>/web/company/json/deleteCompany",
@@ -54,7 +71,7 @@
 				});
 			}
 		}else{
-			alert("请选择您要删除的单位!");
+			alert("请选择您要删除的公司!");
 		}
     }
 	
@@ -69,10 +86,17 @@
 			var search_name = jQuery.trim($("#search_company_name").val());
 			var search_address = jQuery.trim($("#search_company_address").val());
 			var search_phone = jQuery.trim($("#search_company_phone").val());
+			
+			// outExcel
+			$("#outExcelCompanyName").val(search_name);
+			$("#outExcelCompanyAddress").val(search_address);
+			$("#outExcelCompanyPhone").val(search_phone);
+			
+			
 			//执行查询
 			$("#divGrid").load(gridAction,{
 				"pageBean.currentPage":pageIndex,
-				"company.fullName": search_name ? search_name : "",
+				"company.companyName": search_name ? search_name : "",
 				"company.address": search_address ? search_address : "",
 				"company.telephone": search_phone ? search_phone : ""
 	            },
@@ -102,11 +126,11 @@ table {
 					<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0" class="nei_tit tit_background">
 						<tr>
 							<td width="3%" height="54">&nbsp;</td>
-							<td width="8%" class="nei_searchTd">单位名称</td>
+							<td width="8%" class="nei_searchTd">公司名称</td>
 							<td width="15%">
 							    <input id="search_company_name" name="search_company_name" maxlength="50" style='width:150px;' />
 							</td>
-							<td width="8%" class="nei_searchTd">单位地址</td>
+							<td width="8%" class="nei_searchTd">公司地址</td>
 							<td width="15%">
 							    <input id="search_company_address" name="search_company_address" maxlength="50" style='width:150px;' "/>
 							</td>
@@ -125,36 +149,46 @@ table {
 			    <!-- SeachPanel End -->
 		   </td>
 		</tr>
+		<!-- ButtonTools Begin -->
 		<tr>
 			<td>
-				<!-- ButtonTools Begin -->
 				<table width="100%" height="34" border="0" cellspacing="0" cellpadding="0" class="tit2_background" align="center">
 					<tr>
 						<td style="padding-left:10px;">
-						    <c:if test="${fn:contains(sessionScope.resourceIds,12)}">
+						    <c:if test="${fn:contains(sessionScope.resourceIds,22)}">
 			                   <div class="tool_td tool_add">
-								   <a href="#" onclick="parent.ShowIframe('添加-单位信息','<%=contextPath%>/web/company/gotoAddCompany',480,430);">添加单位</a>
+								   <a href="#" onclick="parent.ShowIframe('添加-公司信息','<%=contextPath%>/web/company/gotoAddCompany',480,320);">添加公司</a>
 							   </div>
 	                        </c:if>
-                            <c:if test="${fn:contains(sessionScope.resourceIds,17)}">
+                            <c:if test="${fn:contains(sessionScope.resourceIds,27)}">
 								<div class="tool_td tool_sh">
 									<a href="#" onClick="javascript:passAll();">审核</a>
 								</div>
 						    </c:if>
-						    <c:if test="${fn:contains(sessionScope.resourceIds,18)}">
+						    <c:if test="${fn:contains(sessionScope.resourceIds,28)}">
 								<div class="tool_td tool_del">
 									<a href="#" onClick="javascript:rejectAll();">驳回</a>
 								</div>
 							</c:if>
+							<c:if test="${fn:contains(sessionScope.resourceIds,26)}">
+				 				<div class="tool_td tool_excel">
+				 					<a href="#" id="btnOutExcel">Excel导出</a>
+								</div>
+                        	</c:if>
 						</td>
 					</tr>
-				</table> 
-				<!-- SeachPanel End -->
+				</table>
 			</td>
 		</tr>
+		<!-- SeachPanel End -->
 		<tr>
 			<td align="center">
 				<div id="divGrid"></div>
+				<form action="<%=contextPath%>/web/company/outExcel" method="post" id="submitExcel">
+		 		<input type="hidden" id="outExcelCompanyName" name="outExcelCompanyName" />
+			 	<input type="hidden" id="outExcelCompanyAddress" name="outExcelCompanyAddress" />
+			 	<input type="hidden" id="outExcelCompanyPhone" name="outExcelCompanyPhone" />
+		 	 </form>
 			</td>
 		</tr>
 	</table>

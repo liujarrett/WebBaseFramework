@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.base.core.ssh.l3dao.BaseDaoImp;
 
-public class PermissionDaoImp extends BaseDaoImp<Permission,Integer> implements PermissionDao
+public class PermissionDaoImp extends BaseDaoImp<Permission,Long> implements PermissionDao
 {
 
 	public PermissionDaoImp()

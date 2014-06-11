@@ -18,62 +18,53 @@
 	$(function(){
 	initCompanyList();
 		$("#btnSubmit").click(function(){
+			
+			var companyId =jQuery.trim($("#companyId").val());
 			var roleName = jQuery.trim($("#roleName").val());
 			var remarks	= jQuery.trim($("#remarks").val());
-			var companyId =jQuery.trim($("#companyId").val());
-			if(null==roleName|| "" == roleName){
+			
+			
+			if(null==roleName|| "" == roleName)
+			{
 				alert("角色名称不能为空！");
 				$("#roleName").focus();
 				return;
 			}
+			
 			if(!checkForm(document.form))
 				return;
 			
 			$.ajax({
-				url			:"<%=contextPath%>/web/role/json/isExistRole",
+				url			:"<%=contextPath%>/web/role/json/roleAdd",
 				type		:"POST",
 				dataType	:"json",
-				data		:{"role.id":-1,"role.name":roleName,"company.id":companyId},
+				data		:{	"role.id":-1,
+								"role.name":roleName,
+								"role.remarks":remarks,
+								"role.companyId":companyId},
 				success		:function(data){
-
-						if(data==1)
-						{
-							alert('角色名称重复，请重新输入！');
-							$("#roleName").focus();
-							return;
-						}
-						else
-						{
-							$.ajax({
-								url			:"<%=contextPath%>/web/role/json/roleAdd",
-								type		:"POST",
-								dataType	:"json",
-								data		:{"role.id":-1,"role.name":roleName,"role.remarks":remarks,"role.company.id":companyId},
-								success		:function(data){
-									if(data == 1)
-									{
-										alert("保存成功！");
-										//初始化角色列表
-										parent.frames[0].initRoleListForRefresh();
-										parent.ClosePop();
-									}
-									else
-									{
-										alert("保存失败！");
-									}
-
-								},
-								error		:function(){
-									alert("保存失败！");
-								}
-							});
-						}
+					if(data == 1)
+					{
+						alert("保存成功！");
+						//初始化角色列表
+						parent.frames[0].initRoleListForRefresh();
+						parent.ClosePop();
+					}
+					else if(data==2)
+					{
+						alert('角色名称重复，请重新输入！');
+						$("#roleName").focus();
+						return;
+					}
+					else
+					{
+						alert("保存失败！");
+					}
 				},
 				error		:function(){
 					alert("保存失败！");
 				}
 			});
-			
 		});
 	});
 	
@@ -93,7 +84,7 @@
 					var firstCompanyId = '';//用于暂存第一个角色标识.
 					for(var i=0;i<companyList.length;i++)
 					{
-						tempStr += formatSelect(companyList[i].id,companyList[i].fullName);
+						tempStr += formatSelect(companyList[i].id,companyList[i].companyName);
 					}
 					$('#companyId').html(tempStr);
 					
@@ -130,18 +121,21 @@
 
 <form name="form" >
   <table width="90%" cellpadding="0" cellspacing="1" bgcolor="#c1dbfc" style="margin-top:1px;margin-left:20px;">
+    
+     <tr>
+      <td width="21%" height="28" align="center" bgcolor="#FFFFFF">所属单位名称</td>
+      <td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
+      		<select id="companyId"></select><span style='color:red'>*</span>
+      </td>
+    </tr>
+    
     <tr>
       <td width="21%" height="28" align="center" bgcolor="#FFFFFF">角色名称</td>
       <td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
       		<input type="text" id="roleName" maxlength="50" class="editInput"><span style='color:red'>*</span>
       </td>
     </tr>
-    <tr>
-      <td width="21%" height="28" align="center" bgcolor="#FFFFFF">所属单位名称</td>
-      <td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
-      		<select id="companyId"></select><span style='color:red'>*</span>
-      </td>
-    </tr>
+
     <tr>
       <td width="21%" height="28" align="center" bgcolor="#FFFFFF">备&nbsp;&nbsp;&nbsp;&nbsp;注</td>
       <td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">

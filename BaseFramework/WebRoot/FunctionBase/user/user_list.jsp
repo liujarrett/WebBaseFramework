@@ -31,49 +31,73 @@
 </style> 
 
 <script language="javascript">
+
     var currentCompanyId = -1;
+    
 	$(function(){
+		
 		initGridLoading("<%=contextPath%>/common/blue/Images/gridloading.gif");
 		
 		loadData(1);
 		
 		$("#btnReset").click(function(){
+			//
 			$("#search_userName").val("")
 			$("#pleaseChooseState").attr("selected","selected");
+			// outExcel
+			$("#outExcelCompanyId").val("");
+			$("#outExcelUserName").val("");
+			$("#outExcelCurrentState").val("");
+
+			//
 			loadData(1);
 		});
 		
 		$("#btnSearch").click(function(){
 			loadData(1);
 		});
-		$("#btnOutWord").click(function(){});
-		$("#btnOutExcel").click(function(){});
-		
+
 		$("#btnAddUser").click(function(){
 			parent.ShowIframe("添加-用户信息","<%=contextPath%>/web/user/goToAddUser?company.id=" + currentCompanyId,400,400);
 		});
+		
+		$("#btnOutExcel").click(function(){
+
+			$("#submitExcel").submit();
+			
+		});
+		
 	});
 	
 	function loadData(pageIndex){
+
 			var gridAction="<%=contextPath%>/web/user/query";
 			
-			if(!checkText(document.getElementById("search_userName"))) {
+ 			if(!checkText(document.getElementById("search_userName"))) 
+			{
 				return;
-			}
-			if(!pageIndex) {
+			} 
+			
+			if(!pageIndex) 
+			{
 				pageIndex = 1;
 			}
 			
 			//读取数据
-			showGridLoading();
-			var search_companyId = jQuery.trim($("#search_companyId").val());
+			currentCompanyId = jQuery.trim($("#search_companyId").val());
 			var search_userName = jQuery.trim($("#search_userName").val());
 			var search_userState = jQuery.trim($("#search_userState").val());
 			
-			currentCompanyId = search_companyId;
+			// outExcel
+ 			$("#outExcelCompanyId").val(currentCompanyId);
+			$("#outExcelUserName").val(search_userName);
+			$("#outExcelCurrentState").val(search_userState); 
+			
+			//
+			showGridLoading();
 			
 			$("#divGrid").load(gridAction,{
-				"user.company.id":search_companyId,
+				"user.company.id":currentCompanyId,
 				"user.userName":search_userName,
 				"user.currentState":search_userState,
 				"pageBean.currentPage":pageIndex
@@ -104,17 +128,17 @@
 				    <select name="search_companyId" id="search_companyId"  style="width:150px;">
 						   <c:forEach items="${companyList}" var="company">
 						          <c:if test="${sessionScope.companyId == company.id}">
-						              <option value="${company.id}" selected="selected" id="selectOption${company.id}">${company.fullName}</option>
+						              <option value="${company.id}" selected="selected" id="selectOption${company.id}">${company.companyName}</option>
 						          </c:if>
 						          <c:if test="${sessionScope.companyId != company.id}">
-						              <option value="${company.id}" id="selectOption${company.id}">${company.fullName}</option>
+						              <option value="${company.id}" id="selectOption${company.id}">${company.companyName}</option>
 						          </c:if>
 						   </c:forEach>
 					</select>
 			    </td>
 	            <td width="9%" class="nei_searchTd">用户名称：</td>
 	            <td width="15%">
-	                 <input id="search_userName" type="text" class="SEARCH_INPUT"  style="width:150px;"/>
+	                 <input id="search_userName" name="search_userName" type="text" class="SEARCH_INPUT"  style="width:150px;"/>
 	            </td>
 	            <td width="42%" style='padding-left: 20px;'>
 	                <input name="button" type="button" class="searchButton" id="btnSearch" />
@@ -142,29 +166,24 @@
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td style="padding-left:10px;" >
-					    <c:if test="${fn:contains(sessionScope.resourceIds,32)}">
+					    <c:if test="${fn:contains(sessionScope.resourceIds,42)}">
 						    <div class="tool_td tool_add">
 								<a href="#" id="btnAddUser" >添加用户</a>
 							</div>
                         </c:if>
-						<c:if test="${fn:contains(sessionScope.resourceIds,37)}">
+						<c:if test="${fn:contains(sessionScope.resourceIds,47)}">
 							<div class="tool_td tool_sh">
 								<a href="#" onClick="javascript:checkStatusAll();" >批量审核</a>
 							</div>
 						</c:if>
-						<c:if test="${fn:contains(sessionScope.resourceIds,38)}">
+						<c:if test="${fn:contains(sessionScope.resourceIds,48)}">
 							<div class="tool_td tool_del">
 								<a href="#" onClick="javascript:delAll();" >批量删除</a>
 							</div>
 						</c:if>
-						<!-- 
-						<div class="tool_td tool_word">
-							<a href="#" id="btnOutWord">Word导出</a>
-						</div>
-		 				<div class="tool_td tool_excel">
-		 					<a href="#" id="btnOutExcel">Excel导出</a>
-		 				</div>
-		 				 -->
+						<c:if test="${fn:contains(sessionScope.resourceIds,46)}">
+				 			<div class="tool_td tool_excel"><a href="#" id="btnOutExcel">Excel导出</a></div>
+                        </c:if>
 					</td>
 				</tr>
 			</table>
@@ -173,6 +192,11 @@
 	  <tr>
 		  <td>
 		     <div class="s" id="divGrid"></div>
+		     <form action="<%=contextPath%>/web/user/outExcel" method="post" id="submitExcel">
+		 		<input type="hidden" id="outExcelCompanyId" name="outExcelCompanyId" />
+			 	<input type="hidden" id="outExcelUserName" name="outExcelUserName" />
+			 	<input type="hidden" id="outExcelCurrentState" name="outExcelCurrentState" />
+		 	 </form>
 		  </td>
 	  </tr>
 	</table>

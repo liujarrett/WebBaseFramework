@@ -33,14 +33,16 @@
 				$(this).attr("disabled","disabled");
 				
 				var userName = jQuery.trim($("#userName").val());
-				if (!userName) {
+				if (!userName) 
+				{
 					$("#userName").focus();
 					$(this).removeAttr("disabled");
 					alert("用户名不能为空！");
 					return;
 				}
 				var mobilePhone = jQuery.trim($("#mobilePhone").val());
-				if (!mobilePhone) {
+				if (!mobilePhone) 
+				{
 					$("#mobilePhone").focus();
 					$(this).removeAttr("disabled");
 					alert("手机号不能为空！");
@@ -69,7 +71,7 @@
 						"user.officePhone" : officePhone,
 						"user.mobilePhone" : mobilePhone,
 						"user.email" : email,
-						"user.address" : address,
+						"user.homeAddress" : address,
 						"user.currentState" : status,
 						"user.isDelete" : "0"
 					},
@@ -105,7 +107,7 @@
 </head>
 <body class="popDiv">
 	<form name="form">
-	<input type="hidden" id="companyId" value="${company.id }"/> 
+	<input type="hidden" id="companyId" value="${company.id }"/>
 	<table width="90%" cellpadding="0" cellspacing="1" bgcolor="#c1dbfc" style="margin-top:1px;margin-left:20px;">
 			<tr>
 				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">用户名称：</td>

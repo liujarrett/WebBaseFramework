@@ -63,7 +63,7 @@
 		$("a[isSelect]").click(function(){
 			var userId=$(this).attr('code');
 			parent.ShowIframe("查看-用户信息",
-					"<%=contextPath%>/web/user/queryById?manuType=query&user.id="+userId,350,520);
+					"<%=contextPath%>/web/user/queryById?manuType=query&user.id="+userId,400,500);
 		});
 		//编辑
 		$("a[isUpdate]").click(function(){
@@ -209,25 +209,25 @@
 						 	<td class="noWrapTd" align="center">${(pageBean.currentPage-1) * pageBean.pageSize + v.count}</td>
 						 	<td class="noWrapTd">${user.userName }</td>
 						 	<td class="noWrapTd">${user.mobilePhone }</td>
-						 	<td class="noWrapTd">${user.company.fullName}</td>
-						 	<td class="noWrapTd">${user.organization.fullName}</td>
+						 	<td class="noWrapTd">${user.company.companyName}</td>
+						 	<td class="noWrapTd">${user.organization.organizationName}</td>
 						 	<td class="noWrapTd">${user.role.name }</td>
 						 	<td class="noWrapTd">${user.currentState==1?'已审核':'未审核' }</td>
 						 	<td align="center">
-						 	    <c:if test="${fn:contains(sessionScope.resourceIds,31)}">
+						 	    <c:if test="${fn:contains(sessionScope.resourceIds,41)}">
 						 		   <a href="#" isSelect="true" code='${user.id}'>查看</a>
 						 		    &nbsp;|&nbsp;
 						 		</c:if>
 						 		<c:if test="${user.id != 1 }">
-						 		    <c:if test="${fn:contains(sessionScope.resourceIds,33)}">
+						 		    <c:if test="${fn:contains(sessionScope.resourceIds,43)}">
 						 		       <a href="#" isUpdate="true" code='${user.id}'>编辑</a>
 						 		        &nbsp;|&nbsp;
 						 		    </c:if>
-						 		    <c:if test="${fn:contains(sessionScope.resourceIds,34)}">
+						 		    <c:if test="${fn:contains(sessionScope.resourceIds,44)}">
 						 		       <a href="#" isDelete="true" code='${user.id}'>删除</a>
 						 		       &nbsp;|&nbsp;
 						 		    </c:if>
-						 		    <c:if test="${fn:contains(sessionScope.resourceIds,39)}">
+						 		    <c:if test="${fn:contains(sessionScope.resourceIds,49)}">
 							 		   <a href="#" isResetPass="true" code='${user.id}'>密码重置</a>
 						 		    </c:if>
 						 		</c:if>

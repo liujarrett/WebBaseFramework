@@ -58,8 +58,8 @@
 <table width="100%" border="0" cellpadding="0" cellspacing="1" class="tableNoWrap gridtable">
   <tr> 
   	<th   width="40" class="nei_txt_menu">序号</th>
+  	<th   width="20%" class="nei_txt_menu">上级机构</th>
     <th   width="20%" class="nei_txt_menu">机构名称</th>
-	<th   width="20%" class="nei_txt_menu">上级机构</th>
 	<th   width="35%" class="nei_txt_menu">机构描述</th>
     <th   width="160" class="nei_txt_menu" style="border-right: none;">操 作</th>
   </tr>
@@ -69,19 +69,26 @@
  		<tr id="trWithCB" <c:if test="${v.count%2==0}">class="trBg"</c:if> class="treeList">
 		    <td style="display: none;">${organization.id }</td>
  			<td class="noWrapTd" align="center">${(pageBean.currentPage-1) * pageBean.pageSize + v.count}</td>
- 			<td class="noWrapTd"><c:out value="${organization.fullName }"/></td>
- 			<td class="noWrapTd"><c:out value="${organization.parent.fullName }"/></td>
+ 			<td class="noWrapTd">
+ 				<c:if test="${organization.parent==null}">
+					<c:out value="${organization.company.companyName}"/>
+				</c:if>
+				<c:if test="${organization.parent!=null}">
+					<c:out value="${organization.parent.organizationName}"/>
+				</c:if>
+ 			</td>
+ 			<td class="noWrapTd"><c:out value="${organization.organizationName }"/></td>
 			<td class="noWrapTd"><c:out value="${organization.describes }"/></td>
  			<td align="center">
-	 			<c:if test="${fn:contains(sessionScope.resourceIds,21)}">
+	 			<c:if test="${fn:contains(sessionScope.resourceIds,31)}">
 			       <a href="javascript:void(0);" class="btnSearch" onclick="query(${organization.id});">查看</a>
 			       &nbsp;&nbsp;|&nbsp;&nbsp;
 	            </c:if>
-	 			<c:if test="${fn:contains(sessionScope.resourceIds,23)}">
+	 			<c:if test="${fn:contains(sessionScope.resourceIds,33)}">
 	 			   <a href="javascript:void(0);" class="btnEdit" onclick="modify(${organization.id});">编辑</a>
 	 			   &nbsp;&nbsp;|&nbsp;&nbsp;
 	 			</c:if>
-	 			<c:if test="${fn:contains(sessionScope.resourceIds,24)}">
+	 			<c:if test="${fn:contains(sessionScope.resourceIds,34)}">
 	 			   <a href="javascript:void(0);" class="btnDelete" onclick="delOrganization(${organization.id});">删除</a>
 	 			</c:if>
  			</td>

@@ -3,15 +3,12 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="com.base.web.organization.Organization" table="T_BASE_ORGANIZATION">
-		<id name="id" column="ID">
-			<!-- 
-			<generator class="identity"></generator>
-			 -->
+		<id name="id" column="ID" type="java.lang.Long">
 			<generator class="sequence">
-                <param name="sequence">S_BASE_ORGANIZATION</param>      
-            </generator>
+				<param name="sequence">S_BASE_ORGANIZATION</param>
+			</generator>
 		</id>
-		
+
 		<!-- 组织上下级 一对多 双向关联 -->
 		<many-to-one name="parent" column="PARENT_ID"
 			class="com.base.web.organization.Organization" />
@@ -21,8 +18,6 @@
 			<one-to-many class="com.base.web.organization.Organization" />
 		</set>
 
-		<!-- 公司 组织之间的一对多 双向关联 -->
-		<many-to-one name="company" column="COMPANY_ID" not-null="true" />
 
 		<!-- 用户 组织之间 一对多 双向关联 -->
 		<set name="users" inverse="true" lazy="true" cascade="all">
@@ -30,15 +25,13 @@
 			<one-to-many class="com.base.web.user.User" />
 		</set>
 		
+		<!-- 机构与公司之间 多对一 双向关联 -->
+		<many-to-one name="company" column="COMPANY_ID" />
+		
 		<property name="organizationLevel" column="ORGANIZATION_LEVEL" />
 		<property name="organizationCode" column="ORGANIZATION_CODE" />
 		<property name="organizationType" column="ORGANIZATION_TYPE" />
-		<property name="fullName" column="FULL_NAME" />
-		<property name="shortName" column="SHORT_NAME" />
-		<property name="fullSpelling" column="FULL_SPELLING" />
-		<property name="shortSpelling" column="SHORT_SPELLING" />
-		<property name="fullEnglish" column="FULL_ENGLISH" />
-		<property name="shortEnglish" column="SHORT_ENGLISH" />
+		<property name="organizationName" column="ORGANIZATION_NAME" />
 		<property name="describes" column="DESCRIBES" />
 		<property name="managerId" column="MANAGER_ID" />
 		<property name="managerName" column="MANAGER_NAME" />
@@ -46,6 +39,7 @@
 		<property name="email" column="E_MAIL" />
 		<property name="province" column="PROVINCE" />
 		<property name="city" column="CITY" />
+		<property name="district" column="DISTRICT" />
 		<property name="address" column="ADDRESS" />
 		<property name="postCode" column="POST_CODE" />
 		<property name="remarks" column="REMARKS" />

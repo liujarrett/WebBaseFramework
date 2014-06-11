@@ -3,10 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="com.base.web.permission.Permission" table="T_BASE_PERMISSION">
-		<id name="id" column="ID">
-			<!-- 
-			<generator class="identity"></generator>
-			 -->
+		<id name="id" column="ID" type="java.lang.Long">
 			<generator class="sequence">
                 <param name="sequence">S_BASE_PERMISSION</param>      
             </generator>

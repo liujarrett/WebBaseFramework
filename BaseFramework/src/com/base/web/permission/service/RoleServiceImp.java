@@ -8,7 +8,7 @@ import com.base.web.permission.RoleDao;
 import com.base.web.user.User;
 import com.base.web.user.UserDao;
 
-public class RoleServiceImp extends BaseServiceImp<Role,Integer> implements RoleService
+public class RoleServiceImp extends BaseServiceImp<Role,Long> implements RoleService
 {
 
 	private static final long serialVersionUID=-4896990688134496123L;
@@ -48,9 +48,9 @@ public class RoleServiceImp extends BaseServiceImp<Role,Integer> implements Role
 	 * 根据公司ID，查询所有角色；
 	 * */
 	@Override
-	public List<Role> queryRoleList(int companyId)
+	public List<Role> queryRoleList(long companyId)
 	{
-		String where="where id!=1 and isDelete='0' and company.id="+companyId;
+		String where="where isDelete='0' and id!=1 and companyId="+companyId;
 		return roleDao.select(where);
 	}
 
@@ -58,7 +58,7 @@ public class RoleServiceImp extends BaseServiceImp<Role,Integer> implements Role
 	 * 根据角色ID，查询所有用户；
 	 * */
 	@Override
-	public List<User> queryUserList(int roleId)
+	public List<User> queryUserList(long roleId)
 	{
 		String where="where isDelete='0' and role.id="+roleId;
 		return userDao.select(where);
@@ -68,9 +68,9 @@ public class RoleServiceImp extends BaseServiceImp<Role,Integer> implements Role
 	 * 是否存在一个名为RoleName的角色
 	 * */
 	@Override
-	public boolean isExistRole(int companyId,int roleId,String roleName)
+	public boolean isExistRole(long companyId,long roleId,String roleName)
 	{
-		String where="where isDelete='0' and company.id="+companyId+" and name='"+roleName+"'";
+		String where="where isDelete='0' and companyId="+companyId+" and name='"+roleName+"'";
 		List<Role> roleList=roleDao.select(where);
 		for(Role role:roleList)
 		{

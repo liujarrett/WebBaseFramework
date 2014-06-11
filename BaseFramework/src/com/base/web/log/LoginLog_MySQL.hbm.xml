@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.base.web.log.LoginLog" table="T_BASE_LOG_LOGIN">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="identity"></generator>
+		</id>
+
+		<!-- 日志与用户之间 多对一 单向关联 -->
+		<many-to-one name="user" column="USER_ID" class="com.base.web.user.User" />
+
+		<property name="loginType" column="LOGIN_TYPE" />
+		<property name="loginTime" column="LOGIN_TIME" />
+		<property name="logoutTime" column="LOGOUT_TIME" />
+		<property name="loginIP" column="LOGIN_IP" />
+		<property name="result" column="RESULT" />
+		<property name="userIMEI" column="USER_IMEI" />
+		<property name="userIMSI" column="USER_IMSI" />
+		<property name="userMobilePhone" column="USER_MOBILE_PHONE" />
+		<property name="userDeviceBrand" column="USER_DEVICE_BRAND" />
+		<property name="userDeviceModel" column="USER_DEVICE_MODEL" />
+		<property name="userDeviceVersion" column="USER_DEVICE_VERSION" />
+		<property name="userDeviceOS" column="USER_DEVICE_OS" />
+		<property name="userDeviceOSVersion" column="USER_DEVICE_OS_VERSION" />
+	</class>
+</hibernate-mapping>
+
+
+
+	
+	

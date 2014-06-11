@@ -11,10 +11,14 @@ import java.util.List;
 
 public class SJDateUtil
 {
-	public static final String DEFAULT_FORMAT="yyyy-MM-dd HH:mm:ss";
-	public static final String DEFAULT_DATE_FORMAT="yyyy-MM-dd";
-	public static final String DEFAULT_TIME_FORMAT="HH:mm:ss";
+	public static final String DEFAULT_FORMAT_STRING="yyyy-MM-dd HH:mm:ss";
+	public static final SimpleDateFormat DEFAULT_FORMAT=new SimpleDateFormat(DEFAULT_FORMAT_STRING);
+	public static final String DEFAULT_DATE_FORMAT_STRING="yyyy-MM-dd";
+	public static final SimpleDateFormat DEFAULT_DATE_FORMAT=new SimpleDateFormat(DEFAULT_DATE_FORMAT_STRING);
+	public static final String DEFAULT_TIME_FORMAT_STRING="HH:mm:ss";
+	public static final SimpleDateFormat DEFAULT_TIME_FORMAT=new SimpleDateFormat(DEFAULT_TIME_FORMAT_STRING);
 
+	
 	/**
 	 * 获取当前时间字符串
 	 */
@@ -22,7 +26,7 @@ public class SJDateUtil
 	{
 		if(mask==null||mask.length()==0)
 		{
-			mask=DEFAULT_FORMAT;
+			mask=DEFAULT_FORMAT_STRING;
 		}
 		SimpleDateFormat format=new SimpleDateFormat(mask);
 		return format.format(new java.util.Date());
@@ -57,7 +61,7 @@ public class SJDateUtil
 		{
 			if(mask==null||mask.length()==0)
 			{
-				mask=DEFAULT_FORMAT;
+				mask=DEFAULT_FORMAT_STRING;
 			}
 			SimpleDateFormat df=new SimpleDateFormat(mask);
 			return new Date((df.parse(str)).getTime());
@@ -75,7 +79,7 @@ public class SJDateUtil
 	{
 		if(mask==null||mask.length()==0)
 		{
-			mask=DEFAULT_FORMAT;
+			mask=DEFAULT_FORMAT_STRING;
 		}
 		SimpleDateFormat df=new SimpleDateFormat(mask);
 		return df.format(date);
@@ -98,7 +102,7 @@ public class SJDateUtil
 	{
 		if(mask==null||mask.length()==0)
 		{
-			mask=DEFAULT_FORMAT;
+			mask=DEFAULT_FORMAT_STRING;
 		}
 		SimpleDateFormat df=new SimpleDateFormat(mask);
 		return df.format(ts);

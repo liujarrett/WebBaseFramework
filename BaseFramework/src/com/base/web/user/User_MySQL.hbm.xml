@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.base.web.user.User" table="T_BASE_USER">
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="identity"></generator>
+		</id>
+
+		<!-- 用户与公司之间 一对多 双向关联 -->
+		<many-to-one name="company" column="COMPANY_ID" not-null="true" />
+
+		<!-- 用户与组织之间 一对多 双向关联 -->
+		<many-to-one name="organization" column="ORGANIZATION_ID" />
+
+		<!-- 用户与角色之间 多对一 单向关联 -->
+		<many-to-one name="role" column="ROLE_ID" />
+
+		<property name="userCode" column="USER_CODE" />
+		<property name="userType" column="USER_TYPE" />
+		<property name="userName" column="USER_NAME" />
+		<property name="password" column="PASSWORD" />
+		<property name="fullName" column="FULL_NAME" />
+		<property name="shortName" column="SHORT_NAME" />
+		<property name="fullSpelling" column="FULL_SPELLING" />
+		<property name="shortSpelling" column="SHORT_SPELLING" />
+		<property name="fullEnglish" column="FULL_ENGLISH" />
+		<property name="shortEnglish" column="SHORT_ENGLISH" />
+		<property name="describes" column="DESCRIBES" />
+		<property name="mobilePhone" column="MOBILE_PHONE" />
+		<property name="officePhone" column="OFFICE_PHONE" />
+		<property name="email" column="E_MAIL" />
+		<property name="idCard" column="ID_CARD" />
+		<property name="sex" column="SEX" />
+		<property name="jobTitle" column="JOB_TITLE" />
+		<property name="jobDuty" column="JOB_DUTY" />
+		<property name="degree" column="DEGREE" />
+		<property name="height" column="HEIGHT" />
+		<property name="weight" column="WEIGHT" />
+		<property name="bloodType" column="BLOOD_TYPE" />
+		<property name="birthday" column="BIRTHDAY" />
+		<property name="birthPlace" column="BIRTH_PLACE" />
+		<property name="homePhone" column="HOME_PHONE" />
+		<property name="homeAddress" column="HOME_ADDRESS" />
+		<property name="homePostCode" column="HOME_POST_CODE" />
+		<property name="remarks" column="REMARKS" />
+		<property name="orderNumber" column="ORDER_NUMBER" />
+		<property name="currentState" column="CURRENT_STATE" />
+		<property name="isDelete" column="IS_DELETE" />
+		<property name="createTime" column="CREATE_TIME" />
+		<property name="updateTime" column="UPDATE_TIME" />
+	</class>
+</hibernate-mapping>
+
+

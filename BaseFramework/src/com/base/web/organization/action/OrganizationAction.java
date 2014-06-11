@@ -1,7 +1,6 @@
 package com.base.web.organization.action;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.base.core.page.PageBean;
 import com.base.core.ssh.l1action.BaseAction;
+import com.base.core.utilities.SJDateUtil;
 import com.base.web.company.Company;
 import com.base.web.company.service.CompanyService;
 import com.base.web.organization.Organization;
@@ -18,11 +18,10 @@ import com.base.web.organization.service.OrganizationService;
 
 import org.apache.struts2.ServletActionContext;
 
-public class OrganizationAction extends BaseAction<Organization>
+public class OrganizationAction extends BaseAction
 {
-
 	private static final long serialVersionUID=-991670450548264687L;
-	private final SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 	private OrganizationService organizationService;
 	private CompanyService companyService;
 	private List<Company> companyList;
@@ -34,24 +33,44 @@ public class OrganizationAction extends BaseAction<Organization>
 	private int flag;
 	private String manuType;
 
-	public String getManuType()
+	public OrganizationService getOrganizationService()
 	{
-		return manuType;
+		return organizationService;
 	}
 
-	public void setManuType(String manuType)
+	public void setOrganizationService(OrganizationService organizationService)
 	{
-		this.manuType=manuType;
+		this.organizationService=organizationService;
 	}
 
-	public int getFlag()
+	public CompanyService getCompanyService()
 	{
-		return flag;
+		return companyService;
 	}
 
-	public void setFlag(int flag)
+	public void setCompanyService(CompanyService companyService)
 	{
-		this.flag=flag;
+		this.companyService=companyService;
+	}
+
+	public List<Company> getCompanyList()
+	{
+		return companyList;
+	}
+
+	public void setCompanyList(List<Company> companyList)
+	{
+		this.companyList=companyList;
+	}
+
+	public List<Object[]> getTreeList()
+	{
+		return treeList;
+	}
+
+	public void setTreeList(List<Object[]> treeList)
+	{
+		this.treeList=treeList;
 	}
 
 	public PageBean<Organization> getPageBean()
@@ -74,16 +93,6 @@ public class OrganizationAction extends BaseAction<Organization>
 		this.companyId=companyId;
 	}
 
-	public int getOrganizationParentId()
-	{
-		return organizationParentId;
-	}
-
-	public void setOrganizationParentId(int organizationParentId)
-	{
-		this.organizationParentId=organizationParentId;
-	}
-
 	public Organization getOrganization()
 	{
 		return organization;
@@ -94,57 +103,51 @@ public class OrganizationAction extends BaseAction<Organization>
 		this.organization=organization;
 	}
 
-	public List<Object[]> getTreeList()
+	public int getOrganizationParentId()
 	{
-		return treeList;
+		return organizationParentId;
 	}
 
-	public void setTreeList(List<Object[]> treeList)
+	public void setOrganizationParentId(int organizationParentId)
 	{
-		this.treeList=treeList;
+		this.organizationParentId=organizationParentId;
 	}
 
-	public List<Company> getCompanyList()
+	public int getFlag()
 	{
-		return companyList;
+		return flag;
 	}
 
-	public void setCompanyList(List<Company> companyList)
+	public void setFlag(int flag)
 	{
-		this.companyList=companyList;
+		this.flag=flag;
 	}
 
-	public CompanyService getCompanyService()
+	public String getManuType()
 	{
-		return companyService;
+		return manuType;
 	}
 
-	public void setCompanyService(CompanyService companyService)
+	public void setManuType(String manuType)
 	{
-		this.companyService=companyService;
+		this.manuType=manuType;
 	}
 
-	public OrganizationService getOrganizationService()
-	{
-		return organizationService;
-	}
-
-	public void setOrganizationService(OrganizationService organizationService)
-	{
-		this.organizationService=organizationService;
-	}
+	/* ################################################################################################## */
+	/* 这 是 一 条 和 谐 的 分 割 线 */
+	/* ################################################################################################## */
 
 	public String gotoWithCompanys()
 	{
 		HttpSession session=ServletActionContext.getRequest().getSession();
-		int cid=(Integer)session.getAttribute("companyId");
-		if(cid==1)
+		long cid=(long)session.getAttribute("companyId");
+		if(cid<=1)
 		{
-			companyList=companyService.queryNameAndId(-1);
+			companyList=companyService.queryIdAndName(-1);
 		}
 		else
 		{
-			companyList=companyService.queryNameAndId(cid);
+			companyList=companyService.queryIdAndName(cid);
 		}
 		return SUCCESS;
 	}
@@ -154,21 +157,21 @@ public class OrganizationAction extends BaseAction<Organization>
 	{
 		if(organizationParentId==0)
 		{ // 查询公司
-			Company company=companyService.queryNameAndId(companyId).get(0);
+			Company company=companyService.queryIdAndName(companyId).get(0);
 			if(treeList==null)
 			{
 				treeList=new ArrayList<Object[]>();
 			}
 			Object[] obj=new Object[3];
 			obj[0]=-1;
-			obj[1]=company.getFullName();
-			int directOrganizationCount=organizationService.queryCountByCompanyId(true,companyId);
+			obj[1]=company.getCompanyName();
+			int directOrganizationCount=organizationService.queryCountByCompanyId(companyId,true);
 			obj[2]=directOrganizationCount;
 			treeList.add(obj);
 		}
 		else
 		{
-			List<Organization> organizations=organizationService.query(organizationParentId,companyId);
+			List<Organization> organizations=organizationService.query(companyId,organizationParentId);
 			for(Organization organization:organizations)
 			{
 				if(treeList==null)
@@ -177,7 +180,7 @@ public class OrganizationAction extends BaseAction<Organization>
 				}
 				Object[] obj=new Object[3];
 				obj[0]=organization.getId(); // id
-				obj[1]=organization.getFullName(); // 名称
+				obj[1]=organization.getOrganizationName(); // 名称
 				if(organization.getChildList()!=null)
 				{
 					obj[2]=organization.getChildList().size(); // 下级机构个数
@@ -194,26 +197,19 @@ public class OrganizationAction extends BaseAction<Organization>
 
 	public String queryForGrid()
 	{
-		pageBean=organizationService.query(organization,companyId,pageBean);
-		return SUCCESS;
-	}
-
-	public String isExists()
-	{
-		boolean isExists=organizationService.isExists(organization);
-		if(isExists)
-		{
-			flag=1;
-		}
-		else
-		{
-			flag=0;
-		}
+		pageBean=organizationService.query(companyId,organization,pageBean);
 		return SUCCESS;
 	}
 
 	public String add()
 	{
+		boolean isExists=organizationService.isExists(companyId,organization);
+		if(isExists)
+		{
+			flag=1;
+			return SUCCESS;
+		}
+
 		if(organization.getParent()==null||organization.getParent().getId()<0)
 		{
 			organization.setParent(null);
@@ -221,7 +217,7 @@ public class OrganizationAction extends BaseAction<Organization>
 		//
 		organization.setCurrentState("0");
 		organization.setIsDelete("0");
-		String currentTime=sdf.format(new Date());
+		String currentTime=SJDateUtil.DEFAULT_FORMAT.format(new Date());
 		organization.setCreateTime(currentTime);
 		organization.setUpdateTime(currentTime);
 		//
@@ -232,7 +228,7 @@ public class OrganizationAction extends BaseAction<Organization>
 		}
 		else
 		{
-			flag=1;
+			flag=100;
 		}
 		return SUCCESS;
 	}
@@ -246,31 +242,51 @@ public class OrganizationAction extends BaseAction<Organization>
 	public String modify()
 	{
 		Organization org=organizationService.queryByPK(organization.getId());
-		org.setFullName(organization.getFullName());
+		org.setOrganizationName(organization.getOrganizationName());
 		org.setDescribes(organization.getDescribes());
+		//
 		if(organization.getParent()==null||organization.getParent().getId()<=0)
 		{ //修改后上级机构为空
 			org.setParent(null);
 		}
 		else
 		{
-			Set<Organization> children=org.getChildList();
-			for(Organization child:children)
+			if(ischild(organization.getParent().getId(),org))
 			{
-				if(child.getId()==organization.getParent().getId())
-				{ //修改后的上级机构之前是自己的下级机构
-					child.setParent(org.getParent());
-					org.setParent(child);
-					organizationService.batchUpdate(org,child);
-					return SUCCESS;
-				}
+				flag=1;
+				return SUCCESS;
 			}
-			org.setParent(organization.getParent()); //修改后上级机构为其他
+			org.setParent(organization.getParent());
+		}
+		//
+		if(organizationService.update(org))
+		{
+			flag=100;
+		}
+		else
+		{
+			flag=0;
 		}
 
-		organizationService.batchUpdate(org);
-		//		organizationService.update(org);  用这个方法竟然不好使
 		return SUCCESS;
+	}
+
+	//新ID是否为子ID
+	private boolean ischild(long newParentId,Organization organization)
+	{
+		Set<Organization> childList=organization.getChildList();
+		for(Organization child:childList)
+		{
+			if(newParentId==child.getId())
+			{
+				return true;
+			}
+			else if(ischild(newParentId,child))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public String delete()

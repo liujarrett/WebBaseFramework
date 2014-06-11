@@ -109,13 +109,16 @@
  	<tr>
  	        <th width="30" class="nei_txt_menu"><input type="checkbox" value="checkbox" id="checkAll" /></th>
 		  	<th width="40" class="nei_txt_menu">序号</th>
+		  	<th width="150" class="nei_txt_menu">所属区域</th>
 		  	<th width="150" class="nei_txt_menu">登录代码</th>
 		    <th width="150" class="nei_txt_menu">公司名称</th>
-		    <th width="150" class="nei_txt_menu">公司地址</th>
-		   
-		    <th width="150" class="nei_txt_menu">联系电话</th>
-		    <th width="150" class="nei_txt_menu">单位联系人</th>
-		    <th width="80" class="nei_txt_menu">平台类型</th>
+			<!-- 
+			<th width="150" class="nei_txt_menu">公司地址</th>	    
+			<th width="150" class="nei_txt_menu">联系电话</th>
+		    <th width="150" class="nei_txt_menu">公司法人</th>
+		    <th width="150" class="nei_txt_menu">工商注册号</th>
+		    <th width="150" class="nei_txt_menu">所属派出所</th>
+		     -->
 		    <th width="80" class="nei_txt_menu">状态</th>
 		    <th class="nei_txt_menu" width="180" style="border-right: none;">操 作</th>
 	</tr>
@@ -123,25 +126,29 @@
 		 	<tr tag="source" id="trWithCB" <c:if test="${v.count%2==0}">class="trBg"</c:if> >
 		 		<td class="noWrapTd" align="center"><input type="checkbox" value="${company.id }" class="CHECKBOX" /></td>
 	    		<td class="noWrapTd">${(pageBean.currentPage-1) * pageBean.pageSize + v.count}</td>
+	    		<td class="noWrapTd">${company.area.areaName }&nbsp;</td>
 	    		<td class="noWrapTd">${company.companyCode }</td>
-	    		<td class="noWrapTd">${company.fullName }</td>
-			    <td class="noWrapTd">${company.address }&nbsp;</td>
+	    		<td class="noWrapTd">${company.companyName }</td>
+				<%-- 
+				<td class="noWrapTd">${company.address }&nbsp;</td>
 			    <td class="noWrapTd">${company.telephone }&nbsp;</td>
-			    <td class="noWrapTd">${company.linkmanName }&nbsp;</td>
-			    <td class="noWrapTd">${company.companyType==1?'平台':'企业' }&nbsp;</td>
+			    <td class="noWrapTd">${company.corporationName }&nbsp;</td>
+			    <td class="noWrapTd">${company.corporationId }&nbsp;</td>
+			    <td class="noWrapTd">${company.remarks }&nbsp;</td> 
+			    --%>
 			    <td class="noWrapTd">${company.currentState==0?'未审核':company.currentState==1?'已审核':'驳回' }&nbsp;</td>
 			    <td align="center">
-			    <c:if test="${fn:contains(sessionScope.resourceIds,11)}">
+			    <c:if test="${fn:contains(sessionScope.resourceIds,21)}">
 			       <a href="#" 
-			          onClick="parent.ShowIframe('查看-单位信息','<%=contextPath%>/web/company/queryCompany?company.id=${company.id}&pageBean.currentPage=${pageBean.currentPage}&manuType=query',480,400);">查看</a>
+			          onClick="parent.ShowIframe('查看-公司信息','<%=contextPath%>/web/company/queryCompany?company.id=${company.id}&pageBean.currentPage=${pageBean.currentPage}&manuType=query',480,400);">查看</a>
 			          &nbsp;&nbsp;|&nbsp;&nbsp;
                 </c:if>
-			    <c:if test="${fn:contains(sessionScope.resourceIds,13)}">
+			    <c:if test="${fn:contains(sessionScope.resourceIds,23)}">
 				   <a href="#" 
-				      onClick="parent.ShowIframe('编辑-单位信息','<%=contextPath%>/web/company/queryCompany?company.id=${company.id}&pageBean.currentPage=${pageBean.currentPage}&manuType=edit',480,430);">编辑</a>
+				      onClick="parent.ShowIframe('编辑-公司信息','<%=contextPath%>/web/company/queryCompany?company.id=${company.id}&pageBean.currentPage=${pageBean.currentPage}&manuType=edit',480,400);">编辑</a>
 				      &nbsp;&nbsp;
 				</c:if>
-				<c:if test="${fn:contains(sessionScope.resourceIds,14)}">
+				<c:if test="${fn:contains(sessionScope.resourceIds,24)}">
 				   <c:if test="${company.isDelete!=1 }">
 				      |&nbsp;&nbsp;
 				      <a href="javascript:void(0);" onClick="deleteCompany(${company.id},${pageBean.currentPage});">删除</a>
