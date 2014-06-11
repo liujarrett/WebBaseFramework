@@ -39,7 +39,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="mappingResources">
 			<list>
-				<!-- mysql 
+				<!-- mysql
 				<value>com/base/web/permission/Function_MySQL.hbm.xml</value>
 				<value>com/base/web/permission/Resource_MySQL.hbm.xml</value>
 				<value>com/base/web/permission/Role_MySQL.hbm.xml</value>
@@ -54,8 +54,8 @@
 				<value>com/lock/unlockInfo/UnlockInfo_MySQL.hbm.xml</value>
 				<value>com/lock/callbill/Callbill_MySQL.hbm.xml</value>
 				<value>com/lock/workorder/WorkOrder_MySQL.hbm.xml</value>
-				-->
-				<!-- oracle  -->
+				 -->
+				<!-- oracle --> 
 				<value>com/base/web/permission/Function.hbm.xml</value>
 				<value>com/base/web/permission/Resource.hbm.xml</value>
 				<value>com/base/web/permission/Role.hbm.xml</value>

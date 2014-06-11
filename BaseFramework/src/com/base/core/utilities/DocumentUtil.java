@@ -116,7 +116,7 @@ public class DocumentUtil  {
 					4, null, 18, 0, Element.ALIGN_LEFT, Element.ALIGN_MIDDLE,
 					Rectangle.BOTTOM, bgcolor));
 
-			table.addCell(createCell("\t\t因你（单位）涉嫌xxxxx一案，本机关需对你（单位）下列物品抽样取证。",
+			table.addCell(createCell("\t\t因你（公司）涉嫌xxxxx一案，本机关需对你（公司）下列物品抽样取证。",
 					null, createFont(fontFlagContext), 5, null, 18, 0,
 					Element.ALIGN_LEFT, Element.ALIGN_MIDDLE,
 					Rectangle.NO_BORDER, bgcolor));

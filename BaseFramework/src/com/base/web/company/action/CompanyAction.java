@@ -1,12 +1,10 @@
 package com.base.web.company.action;
 
 import java.io.InputStream;
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import com.base.core.page.PageBean;
 import com.base.core.ssh.l1action.BaseAction;
@@ -14,7 +12,6 @@ import com.base.core.utilities.OutExcel;
 import com.base.core.utilities.SJDateUtil;
 import com.base.web.company.Company;
 import com.base.web.company.service.CompanyService;
-import com.base.web.user.User;
 import com.base.web.user.service.UserService;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -205,14 +202,20 @@ public class CompanyAction extends BaseAction
 		company.setCreateTime(currentTime);
 		company.setUpdateTime(currentTime);
 		//
-		Serializable serializable=companyService.insert(company);
-		if(serializable==null)
-		{
-			flag=0;
-		}
-		else
+		flag=0;
+		if(companyService.addCompany(company))
 		{
 			flag=100;
+		}
+		return SUCCESS;
+	}
+
+	public String deleteCompany()
+	{
+		flag=0;
+		if(companyService.deleteCompany(company.getId()))
+		{
+			flag=1;
 		}
 		return SUCCESS;
 	}
@@ -226,22 +229,6 @@ public class CompanyAction extends BaseAction
 	public String modifyCompany()
 	{
 		flag=companyService.update(company)?1:0;
-		return SUCCESS;
-	}
-
-	public String deleteCompany()
-	{
-		company=companyService.query(company.getId());
-		companyService.deleteForLogic(company);
-		Set<User> userList=company.getUsers();
-		if(userList!=null)
-		{
-			for(User user:userList)
-			{
-				userService.deleteForLogic(user);
-			}
-		}
-		flag=1;
 		return SUCCESS;
 	}
 

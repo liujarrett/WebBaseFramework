@@ -220,7 +220,7 @@
 			</tr>
 			<tr style="display: none">
 				<td width="21%" height="28" align="center" bgcolor="#FFFFFF">
-					单位描述:
+					公司描述:
 				</td>
 				<td width="79%" height="28" bgcolor="#FFFFFF" style="padding-left:10px;">
 				   <textarea id="companyDesc" cols="47" rows="4" class="editInput">${company.describes }</textarea>

@@ -56,7 +56,7 @@
         </c:otherwise>
      </c:choose>
      <td width="70px">当前显示:</td>
-     <td width="90px">
+     <td width="120px">
         <input type="text" id="txtCurrentPage"  size="5" value="${pageBean.currentPage}" style="text-align:center" />&nbsp;/&nbsp;${pageBean.totalPage }页
      </td>
      

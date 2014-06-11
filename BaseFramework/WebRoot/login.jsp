@@ -246,7 +246,7 @@ body,td,th {
               <td>&nbsp;</td>
             </tr>
             <tr valign="bottom">
-              <td width=88 height=35 align="center" valign="middle">单位代码</td>
+              <td width=88 height=35 align="center" valign="middle">公司代码</td>
                
               <td width=206><label for="textfield"></label><input name="companyCode" id="companyCode" class="input21" size=22 tabIndex="1" style="vertical-align:middle">
               </td>
@@ -282,7 +282,7 @@ body,td,th {
                 </tr>
                 <tr>
                   <td width="37%" height="31">&nbsp;</td>
-                  <td width="63%"><span class="copyright"> 2014 v2.0</span></td>
+                  <td width="63%"><span class="copyright"> 2014 v1.0.2</span></td>
                 </tr>
               </table></td>
           </tr>

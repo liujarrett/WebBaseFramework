@@ -7,7 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>查看-单位信息</title>
+<title>查看-公司信息</title>
 <link rel="stylesheet"  href="<%=contextPath%>/common/blue/main.css" type="text/css"></link>
 <link href="<%=contextPath%>/common/site.css" rel="stylesheet" type="text/css" />
 <script language="javascript">
@@ -55,7 +55,7 @@
 						$("#checkAll").removeAttr("checked");
 					}
 				} else {
-					alert("请先选择单位！");
+					alert("请先选择公司！");
 				}
 			
 	}
@@ -92,7 +92,7 @@
 					$("#checkAll").removeAttr("checked");
 				}
 			} else {
-				alert("请先选择单位！");
+				alert("请先选择公司！");
 			}
 		
 	}

@@ -1,6 +1,6 @@
 
 /*公司表*/
-INSERT INTO `t_base_company` VALUES ('1',null,'001',null,'96110', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1', '0', '2000-01-01 00:00:00','2000-01-01 00:00:00');
+INSERT INTO `t_base_company` VALUES ('1',null,'96110',null,'96110', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1', '0', '2000-01-01 00:00:00','2000-01-01 00:00:00');
 
 
 /*角色表*/

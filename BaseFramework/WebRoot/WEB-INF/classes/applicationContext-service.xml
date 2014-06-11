@@ -22,6 +22,8 @@
 	<!-- 公司service -->
 	<bean id="companyService" class="com.base.web.company.service.CompanyServiceImp">
 		<property name="companyDao" ref="companyDao" />
+		<property name="userDao" ref="userDao" />
+		<property name="roleDao" ref="roleDao" />
 	</bean>
 
 	<!-- 组织service -->

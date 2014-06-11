@@ -1,6 +1,6 @@
 
 /*公司表*/
-INSERT INTO "T_BASE_COMPANY" VALUES (S_BASE_COMPANY.NEXTVAL,null,'001',null,'96110', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1', '0', '2000-01-01 00:00:00','2000-01-01 00:00:00');
+INSERT INTO "T_BASE_COMPANY" VALUES (S_BASE_COMPANY.NEXTVAL,null,'96110',null,'96110', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1', '0', '2000-01-01 00:00:00','2000-01-01 00:00:00');
 
 
 /*角色表*/

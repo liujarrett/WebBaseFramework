@@ -60,7 +60,7 @@
 
 	    
 	/**
-	 * @description:初始化单位下拉框列表
+	 * @description:初始化公司下拉框列表
 	 */
 	function initCompanyList()
 	{
@@ -93,9 +93,9 @@
 			});
 	}
 	/**
-	 * @description:根据输入的单位标识和单位名称，格式化Select并返回
-	 * @param:companyId 单位标识
-	 * @param:companyName 单位名称
+	 * @description:根据输入的公司标识和公司名称，格式化Select并返回
+	 * @param:companyId 公司标识
+	 * @param:companyName 公司名称
 	 * @return:格式化后的Select标签
 	 */
 	function formatSelect(companyId,companyName)
